@@ -2,15 +2,15 @@ import type { Anime } from '@/models/animeModel';
 import type { PaginatedType } from '@/models/paginationModel';
 
 import { API_CONFIG } from './apiConfig';
-import { BaseApiService, type QueryParameters } from './baseApi';
+import { BaseApiService, type Endpoint, type QueryParameters } from './baseApi';
 
 type AnimeListQueryParams = Omit<QueryParameters, 'limit' | 'sfw'>;
 
 export class AnimeApi<T> extends BaseApiService {
-  private baseAnimeListQuery = {
-    sfw: true,
-    limit: 20,
-  };
+  constructor(endpoint: Endpoint, baseAnimeListQuery: QueryParameters) {
+    super(endpoint);
+    this.baseAnimeListQuery = baseAnimeListQuery;
+  }
 
   public getAnimeList(queryParameters: AnimeListQueryParams) {
     return this.fetch<PaginatedType<T>>({

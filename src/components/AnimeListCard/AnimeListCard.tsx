@@ -25,7 +25,7 @@ class AnimeListCard extends Component<AnimeListCardProps> {
 
     const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
     const animeTitle = title_english || title;
-    const scoredBy = scored_by || MESSAGES.NO_RATING;
+    const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
     return (
       <article className={styles.card}>
@@ -42,7 +42,7 @@ class AnimeListCard extends Component<AnimeListCardProps> {
 
           <p className={styles.score}>
             {score}
-            <span>{` (${scoredBy} votes)`}</span>
+            <span> {scoredBy}</span>
           </p>
 
           <div className={styles.genresWrapper}>
