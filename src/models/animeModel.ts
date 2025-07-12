@@ -18,22 +18,22 @@ export interface Anime {
   title_synonyms: string[];
   type: AnimeType;
   source: string;
-  episodes: number;
+  episodes: number | null;
   status: AnimeStatus;
   airing: true;
   aired: AnimeAired;
   duration: string;
   rating: AnimeRating;
-  score: number;
-  scored_by: number;
-  rank: number;
-  popularity: number;
-  members: number;
-  favorites: number;
+  score: number | null;
+  scored_by: number | null;
+  rank: number | null;
+  popularity: number | null;
+  members: number | null;
+  favorites: number | null;
   synopsis: string;
   background: string;
   season?: AnimeSeason;
-  year: number;
+  year: number | null;
   broadcast: AnimeBroadcast;
   producers: ApiResource[];
   licensors: ApiResource[];
@@ -71,14 +71,14 @@ interface AnimeAired {
   to: string;
   prop: {
     from: {
-      day: number;
-      month: number;
-      year: number;
+      day: number | null;
+      month: number | null;
+      year: number | null;
     };
     to: {
-      day: number;
-      month: number;
-      year: number;
+      day: number | null;
+      month: number | null;
+      year: number | null;
     };
     string: string;
   };

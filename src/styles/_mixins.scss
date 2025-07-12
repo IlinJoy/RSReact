@@ -1,0 +1,40 @@
+@mixin flex(
+  $flex-direction: row,
+  $gap: var(--spacing-1),
+  $justify: start,
+  $align: start
+) {
+  display: flex;
+  flex-flow: $flex-direction wrap;
+  gap: $gap;
+
+  @if $justify {
+    justify-content: $justify;
+  }
+
+  @if $align {
+    align-items: $align;
+  }
+}
+
+@mixin transition($time: 0.35s, $property: all) {
+  transition: $time ease-out;
+  transition-property: $property;
+}
+
+@mixin card-border($color: var(--color-background-light)) {
+  border: 1px solid $color;
+  border-radius: var(--border-radius-1);
+}
+
+@mixin mobile() {
+  @media (width <= 600px) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (width <= 768px) {
+    @content;
+  }
+}
