@@ -5,7 +5,7 @@ import { API_CONFIG } from './apiConfig';
 
 export type QueryParameters = Partial<ApiSearchParams>;
 
-type Endpoint =
+export type Endpoint =
   (typeof API_CONFIG.ENDPOINTS)[keyof typeof API_CONFIG.ENDPOINTS];
 
 type FetchParams = {
@@ -37,13 +37,11 @@ export class BaseApiService {
 
   private generateQueryString(queryParameters?: QueryParameters) {
     return queryParameters
-      ? `?${Object.entries(queryParameters)
-          .map(([key, value]) => {
-            if (value) {
-              return typeof value === 'boolean' ? key : `${key}=${value}`;
-            }
-          })
-          .join('&')}`
+      ? `?${new URLSearchParams(
+          Object.entries(queryParameters)
+            .filter(([, value]) => value)
+            .map(([key, value]) => [key, value.toString()])
+        )}`
       : '';
   }
 }
