@@ -2,10 +2,11 @@
   $flex-direction: row,
   $gap: var(--spacing-1),
   $justify: start,
-  $align: start
+  $align: start,
+  $wrap: wrap
 ) {
   display: flex;
-  flex-flow: $flex-direction wrap;
+  flex-flow: $flex-direction $wrap;
   gap: $gap;
 
   @if $justify {

@@ -1,30 +1,24 @@
 import { Component } from 'react';
 
-import AnimeSection from '@/components/AnimeSection/AnimeSection';
+import AnimeList from '@/components/AnimeList/AnimeList';
+import { storage } from '@/services/localStorage';
 
-type HomePageState = {
+export type HomePageState = {
   searchTerm: string;
-  isLoading: boolean;
 };
 
 class HomePage extends Component {
   state: HomePageState = {
-    isLoading: false,
-    searchTerm: '',
+    searchTerm: storage.getData() || '',
   };
 
-  handleLoading = (state: boolean) => {
-    this.setState({ isLoading: state });
+  handleUpdate = (searchTerm: string) => {
+    storage.setData(searchTerm);
+    this.setState({ searchTerm });
   };
 
   render() {
-    return (
-      <AnimeSection
-        setLoading={this.handleLoading}
-        isLoading={this.state.isLoading}
-        searchTerm={this.state.searchTerm}
-      />
-    );
+    return <AnimeList {...this.state} />;
   }
 }
 
