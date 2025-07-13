@@ -2,4 +2,6 @@
 
 .section {
   @include flex(row, var(--spacing-2), $justify: center);
+
+  min-height: 80vh;
 }

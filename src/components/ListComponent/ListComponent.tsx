@@ -1,5 +1,7 @@
 import { Component, type ReactNode } from 'react';
 
+import Spinner from '../Spinner/Spinner';
+
 type ListComponentProps<T> = {
   isLoading?: boolean;
   data: T[];
@@ -11,7 +13,7 @@ class ListComponent<T> extends Component<ListComponentProps<T>> {
     const { isLoading, data, renderItem } = this.props;
 
     if (isLoading) {
-      return <div>Loading</div>;
+      return <Spinner />;
     }
 
     if (!data.length) {
