@@ -23,7 +23,7 @@ class HomePage extends Component {
     return (
       <>
         <SearchBar onSearch={this.handleUpdate} {...this.state} />
-        <AnimeList {...this.state} />
+        <AnimeList {...this.state} onError={this.handleUpdate} />
         <ErrorButton />
       </>
     );

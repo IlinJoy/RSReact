@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
-export type FallbackProps = { error: Error; resetError: () => void };
+import type { FallbackProps } from '../FallbackUi/FallbackUi';
 
 type ErrorBoundaryProps = {
   children: ReactNode;

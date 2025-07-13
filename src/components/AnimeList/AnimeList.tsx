@@ -7,11 +7,13 @@ import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateRespons
 import { getError } from '@/utils/handleErrorMessage';
 
 import AnimeListCard from '../AnimeListCard/AnimeListCard';
+import FallbackUi from '../FallbackUi/FallbackUi';
 import ListComponent from '../ListComponent/ListComponent';
 import styles from './AnimeList.module.scss';
 
 type AnimeListProps = {
   searchTerm: string;
+  onError: (term: string) => void;
 };
 
 type AnimeListState = {
@@ -54,13 +56,22 @@ class AnimeList extends Component<AnimeListProps> {
     }
   };
 
+  handleFetchError = () => {
+    this.props.onError('');
+    window.location.reload();
+  };
+
   render() {
     const { data, isLoading, error } = this.state;
 
     return (
       <section className={styles.section}>
         {error ? (
-          <div>{error.message}</div>
+          <FallbackUi
+            error={error}
+            resetError={this.handleFetchError}
+            buttonMessage="Back To List"
+          />
         ) : (
           <ListComponent
             isLoading={isLoading}
