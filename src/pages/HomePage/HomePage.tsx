@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
 import AnimeList from '@/components/AnimeList/AnimeList';
+import ErrorButton from '@/components/ErrorButton/ErrorButton';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { storage } from '@/services/localStorage';
 
@@ -23,6 +24,7 @@ class HomePage extends Component {
       <>
         <SearchBar onSearch={this.handleUpdate} {...this.state} />
         <AnimeList {...this.state} />
+        <ErrorButton />
       </>
     );
   }

@@ -1,0 +1,33 @@
+@use '../../styles/placeholders' as *;
+@use '../../styles/mixins' as *;
+
+.error-section {
+  @include flex($align: center, $justify: center);
+
+  height: 100vh;
+  padding: var(--spacing-2);
+}
+
+.wrapper {
+  @include card-border;
+
+  width: 100%;
+  max-width: 500px;
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius-2);
+
+  text-align: center;
+
+  & h1,
+  p {
+    margin-bottom: var(--spacing-3);
+  }
+}
+
+.button {
+  @extend %button;
+  @extend %button-main;
+
+  padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+  font-size: 1em;
+}
