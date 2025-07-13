@@ -1,3 +1,5 @@
+@use './mixins' as *;
+
 :root {
   --spacing-0: 4px;
   --spacing-1: 8px;
@@ -14,19 +16,21 @@
   --border-radius-1: 4px;
   --border-radius-2: 8px;
   --border-radius-3: 16px;
+  --container-m: 50rem;
   --font-primary: 'Funnel Display', sans-serif;
   --font-secondary: 'Montserrat', sans-serif;
   --color-background: #0e0f11;
   --color-background-light: #1f2635;
   --color-background-dark: #060707;
-  --color-accent: #c0e70f;
+  --color-accent: #b8db18;
+  --color-accent-light: #d7f553;
   --color-accent-dark: #338602;
   --color-typography: #f3f5ed;
   --color-typography-dark: #c6d4c8;
   --color-typography-grey: #6a7386;
   --color-grey-dark: #3c4557;
-  --color-error: #df4b11;
-  --color-error-dark: #642106;
+  --color-error: #df3011;
+  --color-error-dark: #c91700;
 }
 
 body {

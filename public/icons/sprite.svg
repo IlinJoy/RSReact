@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"> 
+
+<symbol id="chevron" viewBox="0 0 24 24" fill="none">
+<path d="M7.69922 9.84961L12 14.1504L16.3008 9.84961" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="search" viewBox="0 0 24 24" fill="none">
+<path d="M18.4088 18.4093L15.3184 15.3188" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M11.2884 16.9846C14.4346 16.9846 16.9851 14.4341 16.9851 11.2879C16.9851 8.14178 14.4346 5.59131 11.2884 5.59131C8.14226 5.59131 5.5918 8.14178 5.5918 11.2879C5.5918 14.4341 8.14226 16.9846 11.2884 16.9846Z" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="close" viewBox="0 0 24 24" fill="none">
+<path d="M20 20L4 4M20 4L4 20" stroke="currentcolor" stroke-width="2" stroke-linecap="round"/>
+</symbol>
+
+
+</svg>

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
 import AnimeList from '@/components/AnimeList/AnimeList';
+import SearchBar from '@/components/SearchBar/SearchBar';
 import { storage } from '@/services/localStorage';
 
 export type HomePageState = {
@@ -18,7 +19,12 @@ class HomePage extends Component {
   };
 
   render() {
-    return <AnimeList {...this.state} />;
+    return (
+      <>
+        <SearchBar onSearch={this.handleUpdate} {...this.state} />
+        <AnimeList {...this.state} />
+      </>
+    );
   }
 }
 
