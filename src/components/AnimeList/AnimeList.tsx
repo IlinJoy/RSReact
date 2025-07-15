@@ -2,7 +2,6 @@ import { Component } from 'react';
 
 import { animeApi } from '@/api/animeApi';
 import type { Anime } from '@/models/animeModel';
-import type { HomePageState } from '@/pages/HomePage/HomePage';
 import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 import { getError } from '@/utils/handleErrorMessage';
 
@@ -20,10 +19,10 @@ type AnimeListState = {
   isLoading: boolean;
   data: Anime[];
   error: Error | null;
-  page: 1;
+  page: number;
 };
 
-class AnimeList extends Component<AnimeListProps> {
+class AnimeList extends Component<AnimeListProps, AnimeListState> {
   state: AnimeListState = {
     isLoading: false,
     data: [],
@@ -35,14 +34,14 @@ class AnimeList extends Component<AnimeListProps> {
     this.fetchAnimeList();
   }
 
-  componentDidUpdate(prevProps: HomePageState) {
+  componentDidUpdate(prevProps: AnimeListProps) {
     if (prevProps.searchTerm !== this.props.searchTerm) {
       this.fetchAnimeList();
     }
   }
 
   fetchAnimeList = async () => {
-    this.setState({ isLoading: true, error: null });
+    this.setState<'isLoading' | 'error'>({ isLoading: true, error: null });
     try {
       const list = await animeApi.getAnimeList({
         q: this.props.searchTerm,
