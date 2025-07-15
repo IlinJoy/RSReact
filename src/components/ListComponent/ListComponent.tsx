@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from 'react';
 
-import Spinner from '../Spinner/Spinner';
+import { Spinner } from '../Spinner/Spinner';
 
 type ListComponentProps<T> = {
   isLoading?: boolean;
@@ -8,7 +8,7 @@ type ListComponentProps<T> = {
   renderItem: (item: T) => ReactNode;
 };
 
-class ListComponent<T> extends Component<ListComponentProps<T>> {
+export class ListComponent<T> extends Component<ListComponentProps<T>> {
   render() {
     const { isLoading, data, renderItem } = this.props;
 
@@ -23,5 +23,3 @@ class ListComponent<T> extends Component<ListComponentProps<T>> {
     return data.map((item) => renderItem(item));
   }
 }
-
-export default ListComponent;

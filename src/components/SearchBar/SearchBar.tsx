@@ -1,6 +1,6 @@
 import { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import SpriteIcon from '../SpriteIcon/SpriteIcon';
+import { SpriteIcon } from '../SpriteIcon/SpriteIcon';
 import styles from './SearchBar.module.scss';
 
 type SearchBarProps = {
@@ -14,7 +14,7 @@ type SearchBarState = {
   initialValue: string;
 };
 
-class SearchBar extends Component<SearchBarProps> {
+export class SearchBar extends Component<SearchBarProps> {
   state: SearchBarState = {
     inputValue: this.props.searchTerm,
     isDirty: false,
@@ -72,5 +72,3 @@ class SearchBar extends Component<SearchBarProps> {
     );
   }
 }
-
-export default SearchBar;

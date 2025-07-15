@@ -1,8 +1,8 @@
 import { Component } from 'react';
 
-import HomePage from './pages/HomePage/HomePage';
+import { HomePage } from './pages/HomePage/HomePage';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <main>
@@ -11,5 +11,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

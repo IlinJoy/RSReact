@@ -11,7 +11,7 @@ const BASE_SPRITE_CONFIG = {
   url: '/icons/sprite.svg',
 };
 
-class SpriteIcon extends Component<SpriteIconProps> {
+export class SpriteIcon extends Component<SpriteIconProps> {
   render() {
     const {
       id,
@@ -26,5 +26,3 @@ class SpriteIcon extends Component<SpriteIconProps> {
     );
   }
 }
-
-export default SpriteIcon;

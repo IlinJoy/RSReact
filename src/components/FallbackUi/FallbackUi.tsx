@@ -8,7 +8,7 @@ export type FallbackProps = {
   buttonMessage?: string;
 };
 
-class FallbackUi extends Component<FallbackProps> {
+export class FallbackUi extends Component<FallbackProps> {
   render() {
     const { error, resetError, buttonMessage = '' } = this.props;
     return (
@@ -24,5 +24,3 @@ class FallbackUi extends Component<FallbackProps> {
     );
   }
 }
-
-export default FallbackUi;

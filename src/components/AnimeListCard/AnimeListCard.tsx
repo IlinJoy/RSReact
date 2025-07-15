@@ -11,7 +11,7 @@ type AnimeListCardProps = {
   data: Anime;
 };
 
-class AnimeListCard extends Component<AnimeListCardProps> {
+export class AnimeListCard extends Component<AnimeListCardProps> {
   render() {
     const {
       title,
@@ -58,5 +58,3 @@ class AnimeListCard extends Component<AnimeListCardProps> {
     );
   }
 }
-
-export default AnimeListCard;

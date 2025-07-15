@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import styles from './Spinner.module.scss';
 
-class Spinner extends Component {
+export class Spinner extends Component {
   render() {
     return (
       <div className={styles.spinnerWrapper}>
@@ -11,5 +11,3 @@ class Spinner extends Component {
     );
   }
 }
-
-export default Spinner;

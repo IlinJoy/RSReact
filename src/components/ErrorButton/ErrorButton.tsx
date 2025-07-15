@@ -30,5 +30,3 @@ export class ErrorButton extends Component {
     );
   }
 }
-
-export default ErrorButton;

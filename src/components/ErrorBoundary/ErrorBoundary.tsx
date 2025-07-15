@@ -9,7 +9,7 @@ type ErrorBoundaryProps = {
 
 type ErrorBoundaryState = { error: Error | null };
 
-class ErrorBoundary extends Component<ErrorBoundaryProps> {
+export class ErrorBoundary extends Component<ErrorBoundaryProps> {
   state: ErrorBoundaryState = { error: null };
 
   static getDerivedStateFromError(error: Error) {
@@ -31,5 +31,3 @@ class ErrorBoundary extends Component<ErrorBoundaryProps> {
       : children;
   }
 }
-
-export default ErrorBoundary;

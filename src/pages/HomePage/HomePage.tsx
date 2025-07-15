@@ -1,15 +1,15 @@
 import { Component } from 'react';
 
-import AnimeList from '@/components/AnimeList/AnimeList';
-import ErrorButton from '@/components/ErrorButton/ErrorButton';
-import SearchBar from '@/components/SearchBar/SearchBar';
+import { AnimeList } from '@/components/AnimeList/AnimeList';
+import { ErrorButton } from '@/components/ErrorButton/ErrorButton';
+import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { storage } from '@/services/localStorage';
 
 export type HomePageState = {
   searchTerm: string;
 };
 
-class HomePage extends Component {
+export class HomePage extends Component {
   state: HomePageState = {
     searchTerm: storage.getData() || '',
   };
@@ -29,5 +29,3 @@ class HomePage extends Component {
     );
   }
 }
-
-export default HomePage;

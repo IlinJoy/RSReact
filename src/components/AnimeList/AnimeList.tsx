@@ -5,9 +5,9 @@ import type { Anime } from '@/models/animeModel';
 import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 import { getError } from '@/utils/handleErrorMessage';
 
-import AnimeListCard from '../AnimeListCard/AnimeListCard';
-import FallbackUi from '../FallbackUi/FallbackUi';
-import ListComponent from '../ListComponent/ListComponent';
+import { AnimeListCard } from '../AnimeListCard/AnimeListCard';
+import { FallbackUi } from '../FallbackUi/FallbackUi';
+import { ListComponent } from '../ListComponent/ListComponent';
 import styles from './AnimeList.module.scss';
 
 type AnimeListProps = {
@@ -22,7 +22,7 @@ type AnimeListState = {
   page: number;
 };
 
-class AnimeList extends Component<AnimeListProps, AnimeListState> {
+export class AnimeList extends Component<AnimeListProps, AnimeListState> {
   state: AnimeListState = {
     isLoading: false,
     data: [],
@@ -84,5 +84,3 @@ class AnimeList extends Component<AnimeListProps, AnimeListState> {
     );
   }
 }
-
-export default AnimeList;
