@@ -1,27 +1,21 @@
 import { Component } from 'react';
 
+import sprite from '@/assets/icons/sprite.svg';
+
 type SpriteIconProps = {
   id: string;
-  url?: string;
   size?: number;
 };
 
-const BASE_SPRITE_CONFIG = {
-  size: 24,
-  url: '/icons/sprite.svg',
-};
+const BASE_SPRITE_SIZE = 24;
 
 export class SpriteIcon extends Component<SpriteIconProps> {
   render() {
-    const {
-      id,
-      size = BASE_SPRITE_CONFIG.size,
-      url = BASE_SPRITE_CONFIG.url,
-    } = this.props;
+    const { id, size = BASE_SPRITE_SIZE } = this.props;
 
     return (
       <svg width={size} height={size} focusable="false">
-        <use href={`${url}#${id}`} />
+        <use href={`${sprite}#${id}`} />
       </svg>
     );
   }
