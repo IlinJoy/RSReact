@@ -50,9 +50,9 @@ describe('AnimeList Component', () => {
       setupAnimeList();
 
       expect(screen.getByRole('status')).toBeInTheDocument();
-      await waitFor(() =>
-        expect(screen.getByRole('status')).not.toBeInTheDocument()
-      );
+      await waitFor(() => {
+        expect(screen.queryByRole('status')).not.toBeInTheDocument();
+      });
     });
   });
 
@@ -69,7 +69,6 @@ describe('AnimeList Component', () => {
         expect(
           getByText(currentAnime.title_english || currentAnime.title)
         ).toBeInTheDocument();
-
         expect(getByText(currentAnime.status));
       }
     });
