@@ -1,6 +1,6 @@
 interface Pagination {
   last_visible_page: number;
-  has_next_page: true;
+  has_next_page: boolean;
   current_page: number;
   items: {
     count: number;
@@ -9,4 +9,4 @@ interface Pagination {
   };
 }
 
-export type PaginatedType<T> = { data: T[] } & Pagination;
+export type PaginatedType<T> = { data: T[] } & { pagination: Pagination };

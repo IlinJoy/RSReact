@@ -5,7 +5,7 @@ import type { Anime } from '@/models/animeModel';
 
 import styles from './AnimeListCard.module.scss';
 
-const GENRES_AMOUNT_TO_RENDER = 2;
+export const GENRES_AMOUNT_TO_RENDER = 2;
 
 type AnimeListCardProps = {
   data: Anime;
@@ -45,14 +45,14 @@ export class AnimeListCard extends Component<AnimeListCardProps> {
             <span> {scoredBy}</span>
           </p>
 
-          <div className={styles.genresWrapper}>
+          <ul className={styles.genresWrapper}>
             {genres.slice(0, GENRES_AMOUNT_TO_RENDER).map((genre) => (
-              <span key={genre.mal_id}>{genre.name}</span>
+              <li key={genre.mal_id}>{genre.name}</li>
             ))}
             {extraGenresAmount > 0 && (
-              <span className={styles.extra}>{'+' + extraGenresAmount}</span>
+              <li className={styles.extra}>{'+' + extraGenresAmount}</li>
             )}
-          </div>
+          </ul>
         </div>
       </article>
     );

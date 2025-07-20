@@ -1,5 +1,10 @@
+export const STORAGE_KEYS = {
+  PREFIX: 'ilinjoy-',
+  ANIME: 'task-anime',
+};
+
 class Storage<T = string> {
-  private keyPrefix = 'ilinjoy-';
+  private keyPrefix = STORAGE_KEYS.PREFIX;
   private key;
 
   constructor(key: string) {
@@ -25,4 +30,4 @@ class Storage<T = string> {
   }
 }
 
-export const storage = new Storage('task-anime');
+export const storage = new Storage(STORAGE_KEYS.ANIME);
