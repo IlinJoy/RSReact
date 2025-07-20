@@ -13,4 +13,4 @@ export const baseAnimeListQuery: QueryParameters = {
   limit: 20,
   order_by: 'favorites',
   sort: 'desc',
-};
+} as const;

@@ -3,7 +3,7 @@ import { type ChangeEvent, Component, type FormEvent } from 'react';
 import { SpriteIcon } from '../SpriteIcon/SpriteIcon';
 import styles from './SearchBar.module.scss';
 
-type SearchBarProps = {
+export type SearchBarProps = {
   searchTerm: string;
   onSearch: (searchTerm: string) => void;
 };
@@ -55,6 +55,7 @@ export class SearchBar extends Component<SearchBarProps> {
             />
             {inputValue && (
               <button
+                aria-label="reset"
                 type="reset"
                 onClick={(event) => this.handleSubmit(event, true)}
                 className={styles.resetButton}

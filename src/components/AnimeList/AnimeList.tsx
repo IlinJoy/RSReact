@@ -10,7 +10,7 @@ import { FallbackUi } from '../FallbackUi/FallbackUi';
 import { ListComponent } from '../ListComponent/ListComponent';
 import styles from './AnimeList.module.scss';
 
-type AnimeListProps = {
+export type AnimeListProps = {
   searchTerm: string;
   onError: (term: string) => void;
 };

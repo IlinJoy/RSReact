@@ -10,7 +10,7 @@ export interface Anime {
   url: string;
   images: ApiImages;
   trailer: Trailer;
-  approved: true;
+  approved: boolean;
   titles: ApiTitles[];
   title: string;
   title_english: string;
@@ -20,7 +20,7 @@ export interface Anime {
   source: string;
   episodes: number | null;
   status: AnimeStatus;
-  airing: true;
+  airing: boolean;
   aired: AnimeAired;
   duration: string;
   rating: AnimeRating;
@@ -45,7 +45,7 @@ export interface Anime {
 }
 
 export type AnimeType =
-  | 'tv'
+  | 'TV'
   | 'Movie'
   | 'Ova'
   | 'Special'
@@ -80,6 +80,6 @@ interface AnimeAired {
       month: number | null;
       year: number | null;
     };
-    string: string;
   };
+  string: string;
 }
