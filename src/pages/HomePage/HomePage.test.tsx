@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { baseAnimeListQuery } from '@/api/apiConfig';
@@ -117,13 +117,12 @@ describe('HomePage Component', () => {
     it('should handles successful API responses', async () => {
       const anime = db.anime;
       render(<HomePage />);
+      const cards = await screen.findAllByRole('article');
 
-      await waitFor(() => {
-        anime
-          .map((item) => item.title_english || item.title)
-          .forEach((title) => {
-            expect(screen.getByText(title)).toBeInTheDocument();
-          });
+      cards.forEach((card, index) => {
+        const { getByText } = within(card);
+        const title = anime[index].title_english || anime[index].title;
+        expect(getByText(title)).toBeInTheDocument();
       });
       expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
     });

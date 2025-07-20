@@ -8,12 +8,12 @@ import {
 import { getRandomItemFromArray, getRandomNumber } from './randomizers';
 
 export const getAnimeRandomValues = () => {
-  const title = getRandomItemFromArray(mockAnimeTitles);
+  const title_english = getRandomItemFromArray(mockAnimeTitles);
   return {
     mal_id: getRandomNumber(),
-    title,
-    title_english:
-      title || getRandomItemFromArray(mockAnimeTitles.filter(Boolean)),
+    title:
+      title_english || getRandomItemFromArray(mockAnimeTitles.filter(Boolean)),
+    title_english,
     score: getRandomNumber(),
     scored_by: getRandomNumber(0, 1000),
   } as const;
