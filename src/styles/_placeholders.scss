@@ -1,0 +1,31 @@
+@use './mixins' as *;
+
+%button {
+  @include transition;
+
+  cursor: pointer;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-2);
+
+  &:disabled {
+    pointer-events: none;
+    background-color: var(--color-typography-grey);
+  }
+}
+
+%button-main {
+  background-color: var(--color-accent);
+
+  &:hover {
+    background-color: var(--color-accent-light);
+  }
+}
+
+%button-error {
+  color: var(--color-typography);
+  background-color: var(--color-error);
+
+  &:hover {
+    background-color: var(--color-error-dark);
+  }
+}

@@ -1,0 +1,46 @@
+@use '../../styles/mixins' as *;
+
+.spinner-wrapper {
+  @include flex(column, $align: center, $justify: center);
+
+  flex-grow: 1;
+  align-self: stretch;
+}
+
+.loading {
+  color: var(--color-accent);
+
+  &::after {
+    content: '>';
+
+    display: inline-block;
+
+    width: 1em;
+
+    text-align: left;
+
+    animation: dots 1.5s infinite step-start;
+  }
+}
+
+@keyframes dots {
+  0% {
+    content: '/>';
+  }
+
+  25% {
+    content: './>';
+  }
+
+  50% {
+    content: '../>';
+  }
+
+  75% {
+    content: '.../>';
+  }
+
+  100% {
+    content: '/>';
+  }
+}

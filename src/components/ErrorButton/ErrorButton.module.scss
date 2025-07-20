@@ -1,0 +1,11 @@
+@use '../../styles/placeholders' as *;
+
+.error-button {
+  @extend %button;
+  @extend %button-error;
+
+  position: fixed;
+  z-index: 2;
+  right: var(--spacing-3);
+  bottom: var(--spacing-3);
+}

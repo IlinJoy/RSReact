@@ -1,0 +1,60 @@
+@use '../../styles/mixins' as *;
+@use '../../styles/placeholders' as *;
+
+.search-bar {
+  @include flex(row, var(--spacing-2), $justify: center);
+
+  width: 100%;
+  padding: var(--spacing-3);
+  background-color: var(--color-background-light);
+}
+
+.form {
+  @include flex(row, $wrap: no-wrap);
+
+  width: var(--container-m);
+}
+
+.input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.input {
+  @include transition;
+
+  width: 100%;
+  padding: var(--spacing-1);
+  padding-right: var(--spacing-5);
+  border-radius: var(--border-radius-2);
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.button {
+  @extend %button;
+  @extend %button-main;
+}
+
+.reset-button {
+  @extend %button;
+
+  @include flex($align: center, $justify: center);
+
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-1);
+  transform: translateY(-50%);
+
+  width: 24px;
+  height: 24px;
+  padding: 0;
+
+  background-color: transparent;
+
+  &:hover {
+    opacity: 0.7;
+  }
+}

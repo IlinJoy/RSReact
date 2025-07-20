@@ -1,0 +1,120 @@
+@use '../../styles/mixins' as *;
+
+.cover {
+  @include transition;
+
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center;
+
+  mask-image: linear-gradient(black, black, transparent 70%);
+}
+
+.anime-title {
+  @include transition;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.card {
+  @include card-border;
+  @include flex(column);
+  @include transition;
+
+  position: relative;
+
+  overflow: hidden;
+
+  width: 16rem;
+  min-width: 10rem;
+  height: 22rem;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius-3);
+
+  &:hover {
+    border-color: var(--color-grey-dark);
+
+    .cover {
+      transform: scale(1.05);
+
+      mask-image: linear-gradient(black, black, transparent 95%);
+    }
+  }
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.status {
+  z-index: 1;
+
+  padding: var(--spacing-0) var(--spacing-1);
+  border-radius: var(--border-radius-2);
+
+  font-family: var(--font-primary);
+  font-weight: 500;
+  color: var(--color-typography);
+  letter-spacing: normal;
+
+  background: linear-gradient(
+    45deg,
+    var(--color-accent-dark),
+    var(--color-background-light)
+  );
+}
+
+.description {
+  z-index: 1;
+  width: 100%;
+  margin-top: auto;
+
+  @include flex(column);
+}
+
+.score {
+  margin-right: var(--spacing-1);
+  color: var(--color-accent);
+
+  &::before {
+    content: '★';
+  }
+
+  & span {
+    font-size: 0.8rem;
+    color: var(--color-typography-grey);
+  }
+}
+
+.genresWrapper {
+  @include flex;
+
+  flex-wrap: nowrap;
+  width: 100%;
+
+  & span {
+    overflow: hidden;
+
+    padding: var(--spacing-0) var(--spacing-1);
+    border-radius: var(--border-radius-2);
+
+    font-size: 0.8rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    background-color: var(--color-background-light);
+  }
+}
+
+.extra {
+  flex-shrink: 0;
+}
