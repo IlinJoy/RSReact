@@ -12,14 +12,15 @@ export class AnimeApi<T> extends BaseApiService {
     this.baseAnimeListQuery = baseAnimeListQuery;
   }
 
-  public getAnimeList(queryParameters?: AnimeListQueryParams) {
+  public getAnimeList(queryParameters?: AnimeListQueryParams, init?: RequestInit) {
     return this.fetch<PaginatedType<T>>({
       queryParameters: { ...this.baseAnimeListQuery, ...queryParameters },
+      init,
     });
   }
 
-  public getAnimeDetails(id: number) {
-    return this.fetch<T>({ path: id });
+  public getAnimeDetails(id: number, init?: RequestInit) {
+    return this.fetch<T>({ path: id, init });
   }
 }
 
