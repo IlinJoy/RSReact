@@ -1,18 +1,13 @@
 import type { Anime } from '@/models/animeModel';
 
-import {
-  mockAnimeBaseData,
-  mockAnimeTitles,
-  mockPagination,
-} from './mocks/mockData';
+import { mockAnimeBaseData, mockAnimeTitles, mockPagination } from './mocks/mockData';
 import { getRandomItemFromArray, getRandomNumber } from './randomizers';
 
 export const getAnimeRandomValues = () => {
   const title_english = getRandomItemFromArray(mockAnimeTitles);
   return {
     mal_id: getRandomNumber(),
-    title:
-      title_english || getRandomItemFromArray(mockAnimeTitles.filter(Boolean)),
+    title: title_english || getRandomItemFromArray(mockAnimeTitles.filter(Boolean)),
     title_english,
     score: getRandomNumber(),
     scored_by: getRandomNumber(0, 1000),

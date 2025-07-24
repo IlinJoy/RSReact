@@ -3,12 +3,12 @@ import type { PaginatedType } from '@/models/paginationModel';
 
 import { withPagination } from '../generateMockData';
 
-type Db = {
+type DB = {
   anime: Anime[];
   paginatedAnimeList?: PaginatedType<Anime>;
 };
 
-export const db: Db = {
+export const db: DB = {
   anime: [],
 };
 

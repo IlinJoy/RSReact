@@ -29,39 +29,30 @@ export const mockAnimeTitles = [
   'Hunter x Hunter',
 ];
 
-export const mockAnimeBaseData: Omit<
-  Anime,
-  keyof ReturnType<typeof getAnimeRandomValues>
-> = {
+export const mockAnimeBaseData: Omit<Anime, keyof ReturnType<typeof getAnimeRandomValues>> = {
   url: 'https://myanimelist.net/anime/5114/Fullmetal_Alchemist__Brotherhood',
   images: {
     jpg: {
       image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745.jpg',
-      small_image_url:
-        'https://cdn.myanimelist.net/images/anime/1208/94745t.jpg',
-      large_image_url:
-        'https://cdn.myanimelist.net/images/anime/1208/94745l.jpg',
+      small_image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745t.jpg',
+      large_image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745l.jpg',
     },
     webp: {
       image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745.webp',
-      small_image_url:
-        'https://cdn.myanimelist.net/images/anime/1208/94745t.webp',
-      large_image_url:
-        'https://cdn.myanimelist.net/images/anime/1208/94745l.webp',
+      small_image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745t.webp',
+      large_image_url: 'https://cdn.myanimelist.net/images/anime/1208/94745l.webp',
     },
   },
   trailer: {
     youtube_id: '1ac3_YdSSy0',
     url: 'https://www.youtube.com/watch?v=1ac3_YdSSy0',
-    embed_url:
-      'https://www.youtube.com/embed/1ac3_YdSSy0?enablejsapi=1&wmode=opaque&autoplay=1',
+    embed_url: 'https://www.youtube.com/embed/1ac3_YdSSy0?enablejsapi=1&wmode=opaque&autoplay=1',
     images: {
       image_url: 'https://img.youtube.com/vi/1ac3_YdSSy0/default.jpg',
       small_image_url: 'https://img.youtube.com/vi/1ac3_YdSSy0/sddefault.jpg',
       medium_image_url: 'https://img.youtube.com/vi/1ac3_YdSSy0/mqdefault.jpg',
       large_image_url: 'https://img.youtube.com/vi/1ac3_YdSSy0/hqdefault.jpg',
-      maximum_image_url:
-        'https://img.youtube.com/vi/1ac3_YdSSy0/maxresdefault.jpg',
+      maximum_image_url: 'https://img.youtube.com/vi/1ac3_YdSSy0/maxresdefault.jpg',
     },
   },
   approved: true,

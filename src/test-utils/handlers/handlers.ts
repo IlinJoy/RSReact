@@ -4,14 +4,11 @@ import { API_CONFIG } from '@/api/apiConfig';
 
 import { db } from '../mocks/db';
 
-export const ANIME_URL =
-  API_CONFIG.BASE_URL + API_CONFIG.VERSION + API_CONFIG.ENDPOINTS.ANIME;
+export const ANIME_URL = API_CONFIG.BASE_URL + API_CONFIG.VERSION + API_CONFIG.ENDPOINTS.ANIME;
 
 export const handlers = [
   http.get(ANIME_URL, () => {
-    return HttpResponse.json({
-      ...db.paginatedAnimeList,
-    });
+    return HttpResponse.json(db.paginatedAnimeList);
   }),
 
   http.get(`${ANIME_URL}/:id`, ({ params }) => {

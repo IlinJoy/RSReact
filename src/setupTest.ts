@@ -8,10 +8,7 @@ import { server } from './test-utils/handlers/server';
 import { initializeDb } from './test-utils/mocks/db';
 
 beforeAll(() => {
-  initializeDb(
-    Array.from({ length: 3 }, (_, index) => generateMockData({ mal_id: index }))
-  );
-
+  initializeDb(Array.from({ length: 3 }, (_, index) => generateMockData({ mal_id: index })));
   server.listen();
 });
 
