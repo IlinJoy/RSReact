@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { useState } from 'react';
 
 import { AnimeList } from '@/components/AnimeList/AnimeList';
 import { ErrorButton } from '@/components/ErrorButton/ErrorButton';
@@ -9,23 +9,21 @@ export type HomePageState = {
   searchTerm: string;
 };
 
-export class HomePage extends Component {
-  state: HomePageState = {
-    searchTerm: storage.getData() || '',
-  };
+const getSearchTermFromStorage = () => storage.getData() || '';
 
-  handleUpdate = (searchTerm: string) => {
+export function HomePage() {
+  const [searchTerm, setSearchTerm] = useState(getSearchTermFromStorage);
+
+  const handleUpdate = (searchTerm: string) => {
     storage.setData(searchTerm);
-    this.setState({ searchTerm });
+    setSearchTerm(searchTerm);
   };
 
-  render() {
-    return (
-      <>
-        <SearchBar onSearch={this.handleUpdate} {...this.state} />
-        <AnimeList {...this.state} onError={this.handleUpdate} />
-        <ErrorButton />
-      </>
-    );
-  }
+  return (
+    <>
+      <SearchBar onSearch={handleUpdate} searchTerm={searchTerm} />
+      <AnimeList searchTerm={searchTerm} onError={handleUpdate} />
+      <ErrorButton />
+    </>
+  );
 }
