@@ -1,13 +1,12 @@
 import { screen, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
+import { AnimeList, type AnimeListProps } from '@/components/AnimeList/AnimeList';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { mockPagination } from '@/test-utils/mocks/mockData';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
-
-import { AnimeList, type AnimeListProps } from './AnimeList';
 
 const setupAnimeList = ({ searchTerm, onError }: Partial<AnimeListProps> = {}) => {
   const onErrorMock = vi.fn();

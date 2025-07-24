@@ -1,8 +1,7 @@
+import { API_CONFIG, baseAnimeListQuery } from '@/api/apiConfig';
+import { BaseApiService, type Endpoint, type QueryParameters } from '@/api/baseApi';
 import type { Anime } from '@/models/animeModel';
 import type { PaginatedType } from '@/models/paginationModel';
-
-import { API_CONFIG, baseAnimeListQuery } from './apiConfig';
-import { BaseApiService, type Endpoint, type QueryParameters } from './baseApi';
 
 export type AnimeListQueryParams = Omit<QueryParameters, 'limit' | 'sfw'>;
 

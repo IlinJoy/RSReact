@@ -1,13 +1,13 @@
 import { Component } from 'react';
 
 import { animeApi } from '@/api/animeApi';
+import { AnimeListCard } from '@/components/AnimeListCard/AnimeListCard';
+import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
+import { ListComponent } from '@/components/ListComponent/ListComponent';
 import type { Anime } from '@/models/animeModel';
 import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 import { getError } from '@/utils/handleErrorMessage';
 
-import { AnimeListCard } from '../AnimeListCard/AnimeListCard';
-import { FallbackUi } from '../FallbackUi/FallbackUi';
-import { ListComponent } from '../ListComponent/ListComponent';
 import styles from './AnimeList.module.scss';
 
 export type AnimeListProps = {
@@ -75,9 +75,7 @@ export class AnimeList extends Component<AnimeListProps, AnimeListState> {
           <ListComponent
             isLoading={isLoading}
             data={data}
-            renderItem={(data) => (
-              <AnimeListCard data={data} key={data.mal_id} />
-            )}
+            renderItem={(data) => <AnimeListCard data={data} key={data.mal_id} />}
           />
         )}
       </section>

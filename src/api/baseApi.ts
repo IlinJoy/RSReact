@@ -1,7 +1,6 @@
+import { API_CONFIG } from '@/api/apiConfig';
 import { ERROR_MESSAGES } from '@/constants/messages';
 import type { ApiSearchParams } from '@/models/apiParamsModel';
-
-import { API_CONFIG } from './apiConfig';
 
 export type QueryParameters = Partial<ApiSearchParams>;
 

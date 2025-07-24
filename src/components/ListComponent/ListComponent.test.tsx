@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 
-import { ListComponent } from './ListComponent';
+import { ListComponent } from '@/components/ListComponent/ListComponent';
 
 const setupListComponent = (isLoading = true) => {
   return {

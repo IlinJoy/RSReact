@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
 
+import { AnimeListCard, GENRES_AMOUNT_TO_RENDER } from '@/components/AnimeListCard/AnimeListCard';
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
 import { generateMockData } from '@/test-utils/generateMockData';
-
-import { AnimeListCard, GENRES_AMOUNT_TO_RENDER } from './AnimeListCard';
 
 const setupAnimeListCard = (props?: Partial<Anime>) => {
   const mockData = generateMockData(props);

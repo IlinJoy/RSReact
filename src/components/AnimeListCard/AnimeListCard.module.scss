@@ -66,11 +66,7 @@
   color: var(--color-typography);
   letter-spacing: normal;
 
-  background: linear-gradient(
-    45deg,
-    var(--color-accent-dark),
-    var(--color-background-light)
-  );
+  background: linear-gradient(45deg, var(--color-accent-dark), var(--color-background-light));
 }
 
 .description {
@@ -101,7 +97,7 @@
   flex-wrap: nowrap;
   width: 100%;
 
-  & span {
+  & li {
     overflow: hidden;
 
     padding: var(--spacing-0) var(--spacing-1);

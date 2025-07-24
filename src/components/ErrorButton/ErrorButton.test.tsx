@@ -1,9 +1,8 @@
 import { screen } from '@testing-library/react';
 
+import { ErrorButton } from '@/components/ErrorButton/ErrorButton';
 import { ERROR_MESSAGES } from '@/constants/messages';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
-
-import { ErrorButton } from './ErrorButton';
 
 describe('ErrorButton Component', () => {
   describe('Error Trigger', () => {

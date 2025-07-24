@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from 'react';
 
-import { Spinner } from '../Spinner/Spinner';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 type ListComponentProps<T> = {
   isLoading?: boolean;

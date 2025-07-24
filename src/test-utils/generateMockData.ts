@@ -1,7 +1,6 @@
 import type { Anime } from '@/models/animeModel';
-
-import { mockAnimeBaseData, mockAnimeTitles, mockPagination } from './mocks/mockData';
-import { getRandomItemFromArray, getRandomNumber } from './randomizers';
+import { mockAnimeBaseData, mockAnimeTitles, mockPagination } from '@/test-utils/mocks/mockData';
+import { getRandomItemFromArray, getRandomNumber } from '@/test-utils/randomizers';
 
 export const getAnimeRandomValues = () => {
   const title_english = getRandomItemFromArray(mockAnimeTitles);

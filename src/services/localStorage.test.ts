@@ -1,6 +1,6 @@
 import type { MockInstance } from 'vitest';
 
-import { AppStorage, STORAGE_KEYS } from './localStorage';
+import { AppStorage, STORAGE_KEYS } from '@/services/localStorage';
 
 const mockedData = { data: 'something' };
 const mockedDataJson = JSON.stringify(mockedData);

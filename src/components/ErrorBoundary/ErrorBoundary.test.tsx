@@ -1,9 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import type { MockInstance } from 'vitest';
 
+import { ErrorBoundary } from '@/components/ErrorBoundary/ErrorBoundary';
 import { ERROR_MESSAGES } from '@/constants/messages';
-
-import { ErrorBoundary } from './ErrorBoundary';
 
 const MockErrorComponent = () => {
   throw new Error(ERROR_MESSAGES.TEST);

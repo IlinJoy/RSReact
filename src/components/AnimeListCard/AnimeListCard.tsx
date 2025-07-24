@@ -30,12 +30,7 @@ export class AnimeListCard extends Component<AnimeListCardProps> {
     return (
       <article className={styles.card}>
         <span className={styles.status}>{status}</span>
-
-        <img
-          className={styles.cover}
-          src={webp.large_image_url}
-          alt={`${title} cover`}
-        />
+        <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>
           <h3 className={styles.animeTitle}>{animeTitle}</h3>
@@ -49,9 +44,7 @@ export class AnimeListCard extends Component<AnimeListCardProps> {
             {genres.slice(0, GENRES_AMOUNT_TO_RENDER).map((genre) => (
               <li key={genre.mal_id}>{genre.name}</li>
             ))}
-            {extraGenresAmount > 0 && (
-              <li className={styles.extra}>{'+' + extraGenresAmount}</li>
-            )}
+            {extraGenresAmount > 0 && <li className={styles.extra}>{'+' + extraGenresAmount}</li>}
           </ul>
         </div>
       </article>

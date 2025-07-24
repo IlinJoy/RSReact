@@ -1,11 +1,10 @@
 import { http, HttpResponse } from 'msw';
 
+import { animeApi } from '@/api/animeApi';
 import { ERROR_MESSAGES } from '@/constants/messages';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
-
-import { animeApi } from './animeApi';
 
 describe('AnimeApi', () => {
   describe('Success Scenarios', () => {

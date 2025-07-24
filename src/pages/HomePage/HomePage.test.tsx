@@ -2,13 +2,12 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { baseAnimeListQuery } from '@/api/apiConfig';
+import { HomePage } from '@/pages/HomePage/HomePage';
+import { storage } from '@/services/localStorage';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
-
-import { storage } from '../../services/localStorage';
-import { HomePage } from './HomePage';
 
 const mockedSearchTerm = 'test';
 
