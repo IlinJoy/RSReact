@@ -24,7 +24,4 @@ export class AnimeApi<T> extends BaseApiService {
   }
 }
 
-export const animeApi = new AnimeApi<Anime>(
-  API_CONFIG.ENDPOINTS.ANIME,
-  baseAnimeListQuery
-);
+export const animeApi = new AnimeApi<Anime>(API_CONFIG.ENDPOINTS.ANIME, baseAnimeListQuery);
