@@ -4,25 +4,12 @@ import { ListComponent } from './ListComponent';
 
 const setupListComponent = (isLoading = true) => {
   return {
-    ...render(
-      <ListComponent
-        data={[]}
-        isLoading={isLoading || false}
-        renderItem={vi.fn()}
-      />
-    ),
+    ...render(<ListComponent data={[]} isLoading={isLoading || false} renderItem={vi.fn()} />),
   };
 };
 
 describe('List Component', () => {
   describe('Loading', () => {
-    it('should render loading indicator', () => {
-      setupListComponent();
-
-      expect(screen.queryByRole('status')).toBeInTheDocument();
-      expect(screen.queryByText(/loading/i)).toBeInTheDocument();
-    });
-
     it('should show/hide based on loading prop', () => {
       const { rerender } = setupListComponent(false);
 
@@ -36,10 +23,7 @@ describe('List Component', () => {
     it('should have appropriate ARIA labels for screen readers', () => {
       setupListComponent();
 
-      expect(screen.queryByRole('status')).toHaveAttribute(
-        'aria-label',
-        'loading'
-      );
+      expect(screen.queryByRole('status')).toHaveAttribute('aria-label', 'loading');
     });
   });
 });

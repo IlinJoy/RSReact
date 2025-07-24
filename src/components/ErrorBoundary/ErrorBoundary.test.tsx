@@ -20,9 +20,7 @@ const MockFallback = ({ error }: { error: Error }) => (
 const setupErrorBoundary = () => {
   return {
     ...render(
-      <ErrorBoundary
-        renderFallback={({ error }) => <MockFallback error={error} />}
-      >
+      <ErrorBoundary renderFallback={({ error }) => <MockFallback error={error} />}>
         <MockErrorComponent />
       </ErrorBoundary>
     ),
@@ -31,9 +29,7 @@ const setupErrorBoundary = () => {
 
 describe('ErrorBoundary Component', () => {
   let errorSpy: MockInstance;
-  beforeEach(
-    () => (errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {}))
-  );
+  beforeEach(() => (errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})));
 
   describe('Error Catching', () => {
     it('should catch and handles JavaScript errors in child components', () => {
@@ -47,9 +43,7 @@ describe('ErrorBoundary Component', () => {
       setupErrorBoundary();
 
       expect(screen.getByText('Something went wrong.')).toBeInTheDocument();
-      expect(
-        screen.getByRole('button', { name: 'Reload Page' })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: 'Reload Page' })).toBeInTheDocument();
     });
 
     it('should log error to console', () => {
@@ -59,10 +53,7 @@ describe('ErrorBoundary Component', () => {
       expect(
         errorSpy.mock.calls
           .flat()
-          .some(
-            (arg) =>
-              typeof arg === 'string' && arg.includes(ERROR_MESSAGES.TEST)
-          )
+          .some((arg) => typeof arg === 'string' && arg.includes(ERROR_MESSAGES.TEST))
       ).toBe(true);
     });
   });

@@ -1,21 +1,16 @@
 import { screen } from '@testing-library/react';
 
-import { STORAGE_KEYS } from '@/services/localStorage';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
 
 import { SearchBar, type SearchBarProps } from './SearchBar';
 
-const setupSearchBar = ({
-  searchTerm,
-  onSearch,
-}: Partial<SearchBarProps> = {}) => {
+const mockedSearchTerm = 'test';
+
+const setupSearchBar = ({ searchTerm, onSearch }: Partial<SearchBarProps> = {}) => {
   const onSearchMock = vi.fn();
   return {
     ...setupUserEvent(
-      <SearchBar
-        searchTerm={searchTerm || ''}
-        onSearch={onSearch || onSearchMock}
-      />
+      <SearchBar searchTerm={searchTerm || ''} onSearch={onSearch || onSearchMock} />
     ),
     input: screen.getByRole('textbox'),
     searchButton: screen.getByRole('button', { name: /search/i }),
@@ -24,8 +19,7 @@ const setupSearchBar = ({
 };
 
 describe('SearchBar Component', () => {
-  const localStorageKey = `${STORAGE_KEYS.PREFIX}${STORAGE_KEYS.ANIME}`;
-  const testString = 'test';
+  afterEach(() => localStorage.clear());
 
   describe('Rendering', () => {
     it('should render search input and search button', () => {
@@ -35,15 +29,6 @@ describe('SearchBar Component', () => {
       expect(searchButton).toBeInTheDocument();
     });
 
-    it('should display saved search term from localStorage on mount', () => {
-      const storageValue = localStorage.getItem(localStorageKey) || '';
-      const { input } = setupSearchBar({
-        searchTerm: storageValue,
-      });
-
-      expect(input).toHaveValue(storageValue);
-    });
-
     it('should show empty input when no saved term exists', () => {
       const { input } = setupSearchBar();
 
@@ -51,11 +36,9 @@ describe('SearchBar Component', () => {
     });
 
     it('should show clear button only when input has value', () => {
-      setupSearchBar({ searchTerm: testString });
+      setupSearchBar({ searchTerm: mockedSearchTerm });
 
-      expect(
-        screen.getByRole('button', { name: /reset/i })
-      ).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /reset/i })).toBeInTheDocument();
     });
   });
 
@@ -63,47 +46,19 @@ describe('SearchBar Component', () => {
     it('should update input value when user types', async () => {
       const { input, user } = setupSearchBar();
 
-      await user.type(input, testString);
+      await user.type(input, mockedSearchTerm);
 
-      expect(input).toHaveValue(testString);
+      expect(input).toHaveValue(mockedSearchTerm);
     });
 
-    it('should save search term to localStorage when search button is clicked', async () => {
-      const onSearchMock = vi.fn((term) =>
-        localStorage.setItem(localStorageKey, term)
-      );
-      const { input, user, searchButton } = setupSearchBar({
-        onSearch: onSearchMock,
-      });
-
-      await user.type(input, testString);
-      await user.click(searchButton);
-
-      expect(localStorage.getItem(localStorageKey)).toBe(testString);
-    });
-
-    it('should save trimmed search term to localStorage when submitted', async () => {
-      const onSearchMock = vi.fn((term) =>
-        localStorage.setItem(localStorageKey, term)
-      );
-      const { input, searchButton, user } = setupSearchBar({
-        onSearch: onSearchMock,
-      });
-
-      await user.type(input, `  ${testString}  `);
-      await user.click(searchButton);
-
-      expect(localStorage.getItem(localStorageKey)).toBe(testString);
-    });
-
-    it('should trigger search callback with correct parameters', async () => {
+    it('should trigger search callback with a trimmed search ', async () => {
       const { input, searchButton, user, onSearchMock } = setupSearchBar();
 
-      await user.type(input, testString);
+      await user.type(input, mockedSearchTerm);
       await user.click(searchButton);
 
       expect(onSearchMock).toHaveBeenCalledOnce();
-      expect(onSearchMock).toBeCalledWith(testString);
+      expect(onSearchMock).toBeCalledWith(mockedSearchTerm);
     });
 
     it('should enable search button when input changes', async () => {
@@ -111,46 +66,18 @@ describe('SearchBar Component', () => {
 
       expect(searchButton).toBeDisabled();
 
-      await user.type(input, testString);
+      await user.type(input, mockedSearchTerm);
 
       expect(searchButton).not.toBeDisabled();
     });
 
     it('should clear input when reset button is clicked', async () => {
-      const { input, user, onSearchMock } = setupSearchBar({
-        searchTerm: testString,
-      });
+      const { input, user, onSearchMock } = setupSearchBar({ searchTerm: mockedSearchTerm });
 
       await user.click(screen.getByRole('button', { name: /reset/i }));
 
       expect(input).toHaveValue('');
       expect(onSearchMock).toBeCalledWith('');
-    });
-  });
-
-  describe('LocalStorage Integration', () => {
-    it('should retrieve saved search term on component mount', () => {
-      localStorage.setItem(localStorageKey, testString);
-      const { input } = setupSearchBar({
-        searchTerm: localStorage.getItem(localStorageKey) || '',
-      });
-
-      expect(input).toHaveValue(testString);
-    });
-
-    it('should overwrite existing localStorage value on new search', async () => {
-      localStorage.setItem(localStorageKey, 'prev value');
-      const onSearchMock = vi.fn((term) =>
-        localStorage.setItem(localStorageKey, term)
-      );
-      const { input, searchButton, user } = setupSearchBar({
-        onSearch: onSearchMock,
-      });
-
-      await user.type(input, testString);
-      await user.click(searchButton);
-
-      expect(localStorage.getItem(localStorageKey)).toBe(testString);
     });
   });
 });

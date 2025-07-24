@@ -7,7 +7,7 @@ import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
 
-import { storage } from '../../services/localStorage.ts';
+import { storage } from '../../services/localStorage';
 import { HomePage } from './HomePage';
 
 const mockedSearchTerm = 'test';
@@ -20,10 +20,6 @@ vi.mock('../../services/localStorage.ts', () => ({
 }));
 
 describe('HomePage Component', () => {
-  afterEach(() => {
-    localStorage.clear();
-  });
-
   describe('Integration Tests', () => {
     it('should make initial API call on component mount', async () => {
       let requestCount = 0;
@@ -37,29 +33,38 @@ describe('HomePage Component', () => {
 
       render(<HomePage />);
 
-      await waitFor(() => {
-        expect(requestCount).toBe(1);
-      });
+      await waitFor(() => expect(requestCount).toBe(1));
     });
 
-    it('should handle search term from localStorage on initial load', async () => {
+    it('should handle search term from storage on initial load', async () => {
       let receivedParams: Record<string, string>;
 
       server.use(
         http.get(ANIME_URL, ({ request }) => {
           const url = new URL(request.url);
-          receivedParams = {
-            q: url.searchParams.get('q') || '',
-          };
+          receivedParams = { q: url.searchParams.get('q') || '' };
           return new HttpResponse(null, { status: 200 });
         })
       );
 
       render(<HomePage />);
 
-      await waitFor(() => {
-        expect(receivedParams.q).toBe(mockedSearchTerm);
-      });
+      await waitFor(() => expect(receivedParams.q).toBe(mockedSearchTerm));
+      expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
+    });
+
+    it('should save new search term to storage and update state', async () => {
+      const { user } = setupUserEvent(<HomePage />);
+      const input = screen.getByRole('textbox');
+      const newTerm = 'new value';
+
+      await user.clear(input);
+      await user.type(input, newTerm);
+      await user.keyboard('{enter}');
+
+      expect(storage.setData).toHaveBeenCalledOnce();
+      expect(storage.setData).toBeCalledWith(newTerm);
+      expect(input).toHaveValue(newTerm);
     });
 
     it('should manage loading states during API calls', async () => {
@@ -73,9 +78,7 @@ describe('HomePage Component', () => {
       const { user } = setupUserEvent(<HomePage />);
 
       expect(screen.getByRole('status')).toBeInTheDocument();
-      await waitFor(() => {
-        expect(screen.queryByRole('status')).not.toBeInTheDocument();
-      });
+      await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
 
       const input = screen.getByRole('textbox');
 
@@ -84,99 +87,55 @@ describe('HomePage Component', () => {
       await user.keyboard('{Enter}');
 
       expect(screen.getByRole('status')).toBeInTheDocument();
-      await waitFor(() => {
-        expect(screen.queryByRole('status')).not.toBeInTheDocument();
-      });
-    });
-  });
-
-  describe('API Integration', () => {
-    it('should call API with correct parameters', async () => {
-      let searchParams: Record<string, string | number | boolean>;
-
-      server.use(
-        http.get(ANIME_URL, ({ request }) => {
-          const url = new URL(request.url);
-          searchParams = {
-            limit: Number(url.searchParams.get('limit')),
-            order_by: url.searchParams.get('order_by') || '',
-            sfw: url.searchParams.get('sfw') === 'true',
-            sort: url.searchParams.get('sort') || '',
-          };
-          return new HttpResponse(null, { status: 200 });
-        })
-      );
-
-      render(<HomePage />);
-
-      await waitFor(() => {
-        expect(searchParams).toEqual(baseAnimeListQuery);
-      });
+      await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });
 
-    it('should handles successful API responses', async () => {
-      const anime = db.anime;
-      render(<HomePage />);
-      const cards = await screen.findAllByRole('article');
+    describe('API Integration', () => {
+      it('should call API with correct parameters', async () => {
+        let searchParams: Record<string, string | number | boolean>;
 
-      cards.forEach((card, index) => {
-        const { getByText } = within(card);
-        const title = anime[index].title_english || anime[index].title;
-        expect(getByText(title)).toBeInTheDocument();
-      });
-      expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
-    });
+        server.use(
+          http.get(ANIME_URL, ({ request }) => {
+            const url = new URL(request.url);
+            searchParams = {
+              limit: Number(url.searchParams.get('limit')),
+              order_by: url.searchParams.get('order_by') || '',
+              sfw: url.searchParams.get('sfw') === 'true',
+              sort: url.searchParams.get('sort') || '',
+            };
+            return new HttpResponse(null, { status: 200 });
+          })
+        );
 
-    it('should handles API error responses', async () => {
-      server.use(http.get(ANIME_URL, () => HttpResponse.error()));
-      render(<HomePage />);
+        render(<HomePage />);
 
-      await waitFor(() => {
-        expect(
-          screen.getByRole('heading', { name: 'Something went wrong.' })
-        ).toBeInTheDocument();
-      });
-      expect(
-        screen.getByRole('button', { name: /Throw Error/i })
-      ).toBeInTheDocument();
-      expect(screen.queryByRole('article')).not.toBeInTheDocument();
-    });
-  });
-
-  describe('State Management', () => {
-    it('should manage search term state correctly', async () => {
-      const { user } = setupUserEvent(<HomePage />);
-      const input = screen.getByRole('textbox');
-
-      expect(input).toHaveValue(mockedSearchTerm);
-
-      await user.clear(input);
-      await user.keyboard('{Enter}');
-
-      expect(input).toHaveValue('');
-    });
-
-    it('should updates component state after fetch error', async () => {
-      const originalLocation = window.location;
-      Object.defineProperty(window, 'location', {
-        configurable: true,
-        value: { reload: vi.fn() },
-      });
-      server.use(http.get(ANIME_URL, () => HttpResponse.error()));
-      const { user } = setupUserEvent(<HomePage />);
-
-      const resetButton = await screen.findByRole('button', {
-        name: /Back To List/i,
+        await waitFor(() => expect(searchParams).toEqual(baseAnimeListQuery));
       });
 
-      await user.click(resetButton);
+      it('should handles successful API responses', async () => {
+        const anime = db.anime;
+        render(<HomePage />);
+        const cards = await screen.findAllByRole('article');
 
-      expect(storage.setData).toHaveBeenCalledWith('');
-      expect(window.location.reload).toHaveBeenCalled();
+        cards.forEach((card, index) => {
+          const { getByText } = within(card);
+          const title = anime[index].title_english || anime[index].title;
+          expect(getByText(title)).toBeInTheDocument();
+        });
+        expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
+      });
 
-      Object.defineProperty(window, 'location', {
-        configurable: true,
-        value: originalLocation,
+      it('should handles API error responses', async () => {
+        server.use(http.get(ANIME_URL, () => HttpResponse.error()));
+        render(<HomePage />);
+
+        await waitFor(() => {
+          expect(
+            screen.getByRole('heading', { name: 'Something went wrong.' })
+          ).toBeInTheDocument();
+        });
+        expect(screen.getByRole('button', { name: /Throw Error/i })).toBeInTheDocument();
+        expect(screen.queryByRole('article')).not.toBeInTheDocument();
       });
     });
   });

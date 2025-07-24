@@ -31,9 +31,7 @@ describe('AnimeListCard Component', () => {
       });
 
       const currentGenresLength =
-        genres.length > GENRES_AMOUNT_TO_RENDER
-          ? GENRES_AMOUNT_TO_RENDER + 1
-          : genres.length;
+        genres.length > GENRES_AMOUNT_TO_RENDER ? GENRES_AMOUNT_TO_RENDER + 1 : genres.length;
       const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
       const genresItems = screen.getAllByRole('listitem');
 
@@ -46,9 +44,7 @@ describe('AnimeListCard Component', () => {
       expect(genresItems).toHaveLength(currentGenresLength);
       expect(screen.getByText('genre 2')).toBeInTheDocument();
       expect(screen.queryByText('genre 3')).not.toBeInTheDocument();
-      expect(genresItems[GENRES_AMOUNT_TO_RENDER]).toHaveTextContent(
-        '+' + extraGenresAmount
-      );
+      expect(genresItems[GENRES_AMOUNT_TO_RENDER]).toHaveTextContent('+' + extraGenresAmount);
     });
 
     it('should display image cover correctly', () => {
