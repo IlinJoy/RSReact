@@ -1,7 +1,6 @@
 import { useState } from 'react';
 
 import { AnimeList } from '@/components/AnimeList/AnimeList';
-import { ErrorButton } from '@/components/ErrorButton/ErrorButton';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { storage } from '@/services/localStorage';
 
@@ -23,7 +22,6 @@ export function HomePage() {
     <>
       <SearchBar onSearch={handleUpdate} searchTerm={searchTerm} />
       <AnimeList searchTerm={searchTerm} onError={handleUpdate} />
-      <ErrorButton />
     </>
   );
 }

@@ -133,7 +133,6 @@ describe('HomePage Component', () => {
             screen.getByRole('heading', { name: 'Something went wrong.' })
           ).toBeInTheDocument();
         });
-        expect(screen.getByRole('button', { name: /Throw Error/i })).toBeInTheDocument();
         expect(screen.queryByRole('article')).not.toBeInTheDocument();
       });
     });
