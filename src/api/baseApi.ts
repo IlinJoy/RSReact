@@ -1,12 +1,10 @@
+import { API_CONFIG } from '@/api/apiConfig';
 import { ERROR_MESSAGES } from '@/constants/messages';
 import type { ApiSearchParams } from '@/models/apiParamsModel';
 
-import { API_CONFIG } from './apiConfig';
-
 export type QueryParameters = Partial<ApiSearchParams>;
 
-export type Endpoint =
-  (typeof API_CONFIG.ENDPOINTS)[keyof typeof API_CONFIG.ENDPOINTS];
+export type Endpoint = (typeof API_CONFIG.ENDPOINTS)[keyof typeof API_CONFIG.ENDPOINTS];
 
 type FetchParams = {
   path?: string | number;
@@ -23,9 +21,8 @@ export class BaseApiService {
 
   public async fetch<T>({ path = '', queryParameters }: FetchParams) {
     const queryString = this.generateQueryString(queryParameters);
-    const response = await fetch(
-      `${this.basePath + path}${this.endpoint}${queryString}`
-    );
+    const pathToFetch = path ? `/${path}` : '';
+    const response = await fetch(`${this.basePath}${this.endpoint}${pathToFetch}${queryString}`);
 
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.FETCH);

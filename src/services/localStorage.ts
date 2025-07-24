@@ -3,7 +3,7 @@ export const STORAGE_KEYS = {
   ANIME: 'task-anime',
 };
 
-class Storage<T = string> {
+export class AppStorage<T = string> {
   private keyPrefix = STORAGE_KEYS.PREFIX;
   private key;
 
@@ -15,7 +15,7 @@ class Storage<T = string> {
     try {
       localStorage.setItem(this.key, JSON.stringify(data));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 
@@ -25,9 +25,10 @@ class Storage<T = string> {
       const parsedData: T = data && JSON.parse(data);
       return parsedData;
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      return null;
     }
   }
 }
 
-export const storage = new Storage(STORAGE_KEYS.ANIME);
+export const storage = new AppStorage(STORAGE_KEYS.ANIME);

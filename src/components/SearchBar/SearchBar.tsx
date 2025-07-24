@@ -1,6 +1,7 @@
 import { type ChangeEvent, Component, type FormEvent } from 'react';
 
-import { SpriteIcon } from '../SpriteIcon/SpriteIcon';
+import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+
 import styles from './SearchBar.module.scss';
 
 export type SearchBarProps = {

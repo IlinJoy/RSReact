@@ -1,4 +1,4 @@
-import type { QueryParameters } from './baseApi';
+import type { QueryParameters } from '@/api/baseApi';
 
 export const API_CONFIG = {
   BASE_URL: 'https://api.jikan.moe',

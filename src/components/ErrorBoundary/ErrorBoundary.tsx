@@ -1,6 +1,6 @@
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
-import type { FallbackProps } from '../FallbackUi/FallbackUi';
+import type { FallbackProps } from '@/components/FallbackUi/FallbackUi';
 
 type ErrorBoundaryProps = {
   children: ReactNode;
@@ -26,8 +26,6 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps> {
     const { error } = this.state;
     const { renderFallback, children } = this.props;
 
-    return error
-      ? renderFallback({ error, resetError: this.resetError })
-      : children;
+    return error ? renderFallback({ error, resetError: this.resetError }) : children;
   }
 }
