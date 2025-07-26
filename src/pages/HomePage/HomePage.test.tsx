@@ -3,22 +3,26 @@ import { http, HttpResponse } from 'msw';
 
 import { baseAnimeListQuery } from '@/api/apiConfig';
 import { HomePage } from '@/pages/HomePage/HomePage';
-import { storage } from '@/services/localStorage';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { setupUserEvent } from '@/test-utils/setupUserEvent';
 
-const mockedSearchTerm = 'test';
+let mockedSearchTerm: string;
 
-vi.mock('../../services/localStorage.ts', () => ({
-  storage: {
-    getData: vi.fn(() => mockedSearchTerm),
-    setData: vi.fn(),
-  },
+const mockSetValue = vi.fn((newValue) => {
+  mockedSearchTerm = newValue;
+});
+
+vi.mock('../../hooks/useLocalStorage', () => ({
+  useLocalStorage: vi.fn(() => [mockedSearchTerm, mockSetValue]),
 }));
 
 describe('HomePage Component', () => {
+  beforeEach(() => {
+    mockedSearchTerm = 'test';
+  });
+
   describe('Integration Tests', () => {
     it('should make initial API call on component mount', async () => {
       let requestCount = 0;
@@ -61,8 +65,8 @@ describe('HomePage Component', () => {
       await user.type(input, newTerm);
       await user.keyboard('{enter}');
 
-      expect(storage.setData).toHaveBeenCalledOnce();
-      expect(storage.setData).toBeCalledWith(newTerm);
+      expect(mockSetValue).toHaveBeenCalledOnce();
+      expect(mockSetValue).toBeCalledWith(newTerm);
       expect(input).toHaveValue(newTerm);
     });
 
@@ -74,7 +78,7 @@ describe('HomePage Component', () => {
         })
       );
 
-      const { user } = setupUserEvent(<HomePage />);
+      const { user, rerender } = setupUserEvent(<HomePage />);
 
       expect(screen.getByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
@@ -85,6 +89,9 @@ describe('HomePage Component', () => {
       await user.type(input, 'new value');
       await user.keyboard('{Enter}');
 
+      rerender(<HomePage />);
+
+      await waitFor(() => expect(screen.queryByRole('status')).toBeInTheDocument());
       expect(screen.getByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });

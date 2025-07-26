@@ -5,7 +5,7 @@ import { getError } from '@/utils/handleErrorMessage';
 export function useFetcher<T>({ callback }: { callback: (signal: AbortSignal) => Promise<T> }) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<null | Error>(null);
-  const [data, setData] = useState<T | null>(null);
+  const [data, setData] = useState<T>();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -15,8 +15,8 @@ export function useFetcher<T>({ callback }: { callback: (signal: AbortSignal) =>
       setError(null);
 
       try {
-        const data = await callback(abortController.signal);
-        setData(data);
+        const fetchData = await callback(abortController.signal);
+        setData(fetchData);
       } catch (error) {
         const fetchError = getError(error);
         if (fetchError.name !== 'AbortError') {

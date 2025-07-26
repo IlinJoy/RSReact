@@ -33,7 +33,7 @@ export function AnimeList({ searchTerm, onError }: AnimeListProps) {
       ) : (
         <ListComponent
           isLoading={isLoading}
-          data={paginatedAnime?.data || []}
+          data={paginatedAnime?.data}
           renderItem={(data) => <AnimeListCard data={data} key={data.mal_id} />}
         />
       )}
