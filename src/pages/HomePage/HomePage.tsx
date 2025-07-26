@@ -1,3 +1,5 @@
+import { Outlet } from 'react-router';
+
 import { AnimeList } from '@/components/AnimeList/AnimeList';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
@@ -13,6 +15,7 @@ export function HomePage() {
     <>
       <SearchBar onSearch={setSearchTerm} searchTerm={searchTerm} />
       <AnimeList searchTerm={searchTerm} onError={setSearchTerm} />
+      <Outlet />
     </>
   );
 }
