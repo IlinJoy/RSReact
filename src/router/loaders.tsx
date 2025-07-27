@@ -1,4 +1,4 @@
-import { type Params, redirect } from 'react-router';
+import { type Params } from 'react-router';
 
 import { animeApi } from '@/api/animeApi';
 
@@ -9,7 +9,7 @@ export const animeListLoader = async ({ params, request }: LoaderProps) => {
   const page = Number(params.page || 1);
 
   if (isNaN(page) || page <= 0) {
-    throw redirect('*');
+    throw new Response('', { status: 404 });
   }
 
   return await animeApi.getAnimeList({ page, q }, { signal: request.signal });
@@ -17,5 +17,10 @@ export const animeListLoader = async ({ params, request }: LoaderProps) => {
 
 export const animeDetailsLoader = async ({ params }: Omit<LoaderProps, 'request'>) => {
   const id = Number(params.detailsId);
+
+  if (isNaN(id) || id <= 0) {
+    throw new Response('', { status: 404 });
+  }
+
   return await animeApi.getAnimeDetails(id);
 };

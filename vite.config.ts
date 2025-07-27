@@ -39,6 +39,7 @@ export default defineConfig({
         'src/constants/*',
         'src/api/apiConfig.ts',
         'src/models/*',
+        'src/main.{js,jsx,ts,tsx}',
         'src/test-utils/*',
         'src/**/*.d.ts',
       ],

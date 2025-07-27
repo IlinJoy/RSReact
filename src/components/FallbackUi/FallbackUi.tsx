@@ -1,5 +1,6 @@
-import { useNavigate, useRouteError } from 'react-router';
+import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 
+import { NotFoundPage } from '@/router/lazyElements';
 import { getError } from '@/utils/handleErrorMessage';
 
 import styles from './FallbackUi.module.scss';
@@ -13,22 +14,27 @@ export type FallbackProps = {
 export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackProps) {
   const routerError = useRouteError();
   const navigate = useNavigate();
-  const errMessage = error?.message || getError(routerError).message;
+  const currentError = error || routerError;
 
   const handleReset = () => {
     if (!resetError) {
-      navigate(-1);
+      navigate('/');
       window.location.reload();
     } else {
       resetError();
     }
   };
 
+  if (isRouteErrorResponse(currentError) && currentError.status === 404) {
+    console.log(currentError);
+    return <NotFoundPage />;
+  }
+
   return (
     <section className={styles.errorSection}>
       <div className={styles.wrapper}>
         <h1>Something went wrong.</h1>
-        <p>{errMessage}</p>
+        <p>{getError(currentError).message}</p>
         <button onClick={handleReset} className={styles.button}>
           {buttonMessage || 'Reload Page'}
         </button>
