@@ -16,7 +16,7 @@
   @include flex(column, var(--spacing-2), $align: center);
   @include transition;
 
-  width: fit-content;
+  width: 100%;
   min-height: 80vh;
 
   &.disable {
