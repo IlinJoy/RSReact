@@ -11,7 +11,7 @@ export function AboutPage() {
           guy. Proud student at RS School, mostly making sad noises and occasionally creating
           something useful... or at least entertaining.`}
         </p>
-        <a className={styles.link} href="https://rs.school" target="blank">
+        <a className={styles.link} href="https://rs.school/courses/reactjs" target="blank">
           <img className={styles.rsLogo} src="./rss-logo.png" alt="rss-logo" />
         </a>
       </div>
