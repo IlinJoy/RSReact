@@ -8,22 +8,3 @@
   min-height: 80vh;
   padding: var(--spacing-3);
 }
-
-.section {
-  @include flex(column, var(--spacing-2), $align: center);
-  @include transition;
-
-  width: fit-content;
-  min-height: 80vh;
-
-  &.disable {
-    pointer-events: none;
-    user-select: none;
-    width: 60%;
-    opacity: 0.5;
-
-    @include tablet {
-      width: auto;
-    }
-  }
-}

@@ -13,7 +13,7 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export function Root() {
   const navigate = useNavigate();
-  const { location } = useNavigation();
+  const navigation = useNavigation();
   const [searchParams] = useSearchParams();
   const { page = '1', detailsId = null } = useParams();
   const [searchTerm] = useLocalStorage('task-anime', '');
@@ -34,7 +34,7 @@ export function Root() {
 
   return (
     <main>
-      {location && <GlobalSpinner />}
+      {navigation.state === 'loading' && <GlobalSpinner />}
       {initializedRef.current && <Outlet />}
     </main>
   );

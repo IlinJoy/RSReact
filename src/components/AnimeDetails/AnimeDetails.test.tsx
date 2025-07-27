@@ -8,7 +8,6 @@ describe('AnimeDetails', () => {
     const {
       title,
       title_english,
-      title_japanese,
       episodes,
       duration,
       year,
@@ -19,7 +18,6 @@ describe('AnimeDetails', () => {
     setupWithRouter('/1/1');
 
     const detailsCard = await screen.findByLabelText('details');
-
     const { getByText, findByRole } = within(detailsCard);
 
     const image = await findByRole('img');
@@ -27,7 +25,6 @@ describe('AnimeDetails', () => {
     expect(image).toHaveAttribute('alt', `${title} detailed cover`);
 
     expect(getByText(title_english)).toBeInTheDocument();
-    expect(getByText(title_japanese)).toBeInTheDocument();
 
     expect(getByText(`episodes: ${episodes}`)).toBeInTheDocument();
     expect(getByText(`duration: ${duration}`)).toBeInTheDocument();

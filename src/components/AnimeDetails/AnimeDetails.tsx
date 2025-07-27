@@ -1,18 +1,15 @@
-import { useRef } from 'react';
-import { useLoaderData, useNavigate, useParams, useSearchParams } from 'react-router';
+import { useLoaderData, useLocation } from 'react-router';
 
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useClickOutside } from '@/hooks/useClickOutside';
+import { useNavigateTo } from '@/hooks/useReturnToList';
 import type { Anime, DataType } from '@/models/animeModel';
 
 import styles from './AnimeDetails.module.scss';
 
 export function AnimeDetails() {
   const { data } = useLoaderData<DataType<Anime>>();
-  const navigate = useNavigate();
-  const { page } = useParams();
-  const [searchParams] = useSearchParams();
-  const detailsRef = useRef<HTMLDivElement>(null);
+  const { search } = useLocation();
+  const navigateTo = useNavigateTo();
 
   const {
     title,
@@ -25,16 +22,13 @@ export function AnimeDetails() {
     images: { webp },
   } = data;
 
-  const backToList = () => {
-    const query = searchParams.get('q');
-    navigate(`/${page}${query ? `?q=${query}` : ''}`);
-  };
-
-  useClickOutside(detailsRef, backToList);
-
   return (
-    <div className={styles.details} ref={detailsRef} aria-label="details">
-      <button className={styles.closeBtn} aria-label="back to list" onClick={backToList}>
+    <div className={styles.details} aria-label="details">
+      <button
+        className={styles.closeBtn}
+        aria-label="back to list"
+        onClick={() => navigateTo(search)}
+      >
         <SpriteIcon id="close" size={20} />
       </button>
       <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
