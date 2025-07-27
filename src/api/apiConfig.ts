@@ -10,7 +10,7 @@ export const API_CONFIG = {
 
 export const baseAnimeListQuery: QueryParameters = {
   sfw: true,
-  limit: 20,
+  limit: 10,
   order_by: 'favorites',
   sort: 'desc',
 } as const;

@@ -1,32 +1,22 @@
-import { lazy } from 'react';
 import { createBrowserRouter } from 'react-router';
 
-import { Layout } from '@/pages/Layout';
+import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
+import { Root } from '@/pages/Layout';
+import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
+import { animeDetailsLoader, animeListLoader } from '@/router/loaders';
 
-const HomePage = lazy(() =>
-  import('../pages/HomePage/HomePage').then((module) => ({ default: module.HomePage }))
-);
-const AnimeDetails = lazy(() =>
-  import('../components/AnimeDetails/AnimeDetails').then((module) => ({
-    default: module.AnimeDetails,
-  }))
-);
-const AboutPage = lazy(() =>
-  import('../pages/AboutPage/AboutPage').then((module) => ({ default: module.AboutPage }))
-);
-const NotFoundPage = lazy(() =>
-  import('../pages/NotFoundPage/NotFoundPage').then((module) => ({ default: module.NotFoundPage }))
-);
-
-export const router = createBrowserRouter([
+export const routes = [
   {
     path: '/',
-    element: <Layout />,
+    element: <Root />,
+    errorElement: <FallbackUi />,
     children: [
       {
-        path: ':page?/', // Note the ? making it optional
+        path: ':page?',
         element: <HomePage />,
-        children: [{ path: ':detailsId', element: <AnimeDetails /> }],
+        loader: animeListLoader,
+        errorElement: <FallbackUi buttonMessage="Back To List" />,
+        children: [{ path: ':detailsId', element: <AnimeDetails />, loader: animeDetailsLoader }],
       },
       {
         path: 'about',
@@ -36,6 +26,12 @@ export const router = createBrowserRouter([
         path: '*',
         element: <NotFoundPage />,
       },
+      {
+        path: 'not-found',
+        element: <NotFoundPage />,
+      },
     ],
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);
