@@ -1,0 +1,10 @@
+@use '../../styles/placeholders' as *;
+
+.pagination {
+  & button {
+    @extend %button;
+    @extend %button-main;
+
+    margin: 0 var(--spacing-1);
+  }
+}
