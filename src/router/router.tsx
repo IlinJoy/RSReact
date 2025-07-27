@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
-import { Root } from '@/pages/Layout';
+import { Root } from '@/pages/Root';
 import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
 import { animeDetailsLoader, animeListLoader } from '@/router/loaders';
 

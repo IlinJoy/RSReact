@@ -1,3 +1,5 @@
+import { Link, useLocation } from 'react-router';
+
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
 
@@ -10,6 +12,7 @@ type AnimeListCardProps = {
 };
 
 export function AnimeListCard({ data }: AnimeListCardProps) {
+  const { search } = useLocation();
   const {
     title,
     title_english,
@@ -25,25 +28,27 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
   return (
-    <article className={styles.card}>
-      <span className={styles.status}>{status}</span>
-      <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
+    <Link to={`${data.mal_id}${search}`}>
+      <article className={styles.card}>
+        <span className={styles.status}>{status}</span>
+        <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
-      <div className={styles.description}>
-        <h3 className={styles.animeTitle}>{animeTitle}</h3>
+        <div className={styles.description}>
+          <h3 className={styles.animeTitle}>{animeTitle}</h3>
 
-        <p className={styles.score}>
-          {score}
-          <span> {scoredBy}</span>
-        </p>
+          <p className={styles.score}>
+            {score}
+            <span> {scoredBy}</span>
+          </p>
 
-        <ul className={styles.genresWrapper}>
-          {genres.slice(0, GENRES_AMOUNT_TO_RENDER).map((genre) => (
-            <li key={genre.mal_id}>{genre.name}</li>
-          ))}
-          {extraGenresAmount > 0 && <li className={styles.extra}>{'+' + extraGenresAmount}</li>}
-        </ul>
-      </div>
-    </article>
+          <ul className={styles.genresWrapper}>
+            {genres.slice(0, GENRES_AMOUNT_TO_RENDER).map((genre) => (
+              <li key={genre.mal_id}>{genre.name}</li>
+            ))}
+            {extraGenresAmount > 0 && <li className={styles.extra}>{'+' + extraGenresAmount}</li>}
+          </ul>
+        </div>
+      </article>
+    </Link>
   );
 }
