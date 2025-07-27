@@ -26,10 +26,6 @@ export const routes = [
         path: '*',
         element: <NotFoundPage />,
       },
-      {
-        path: 'not-found',
-        element: <NotFoundPage />,
-      },
     ],
   },
 ];
