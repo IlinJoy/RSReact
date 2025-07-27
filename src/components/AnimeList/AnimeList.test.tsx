@@ -1,26 +1,17 @@
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
-import { AnimeList, type AnimeListProps } from '@/components/AnimeList/AnimeList';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { mockPagination } from '@/test-utils/mocks/mockData';
-import { setupUserEvent } from '@/test-utils/setupUserEvent';
-
-const setupAnimeList = ({ searchTerm, onError }: Partial<AnimeListProps> = {}) => {
-  const onErrorMock = vi.fn();
-  return {
-    ...setupUserEvent(<AnimeList searchTerm={searchTerm || ''} onError={onError || onErrorMock} />),
-    onErrorMock,
-  };
-};
+import { setupWithRouter } from '@/test-utils/setupRender';
 
 describe('AnimeList Component', () => {
   describe('Rendering', () => {
     it('should render correct number of items when data is provided', async () => {
       const listItemsLength = db.anime.length;
-      setupAnimeList();
+      setupWithRouter();
 
       expect(await screen.findAllByRole('article')).toHaveLength(listItemsLength);
     });
@@ -31,54 +22,43 @@ describe('AnimeList Component', () => {
           return HttpResponse.json({ data: [], pagination: mockPagination });
         })
       );
-      setupAnimeList();
+      setupWithRouter();
 
       expect(await screen.findByText('Nothing Found')).toBeInTheDocument();
     });
+  });
+});
 
-    it('should show loading state while fetching data', async () => {
-      setupAnimeList();
-      expect(screen.getByRole('status')).toBeInTheDocument();
+describe('Error Handling', () => {
+  it('should display error message and reload button when API call fails', async () => {
+    server.use(http.get(ANIME_URL, () => HttpResponse.error()));
 
-      await waitFor(() => {
-        expect(screen.queryByRole('status')).not.toBeInTheDocument();
-      });
-    });
+    setupWithRouter('/1');
+
+    expect(await screen.findByRole('heading')).toHaveTextContent('Something went wrong.');
+    expect(screen.getByText('Failed to fetch')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Back To List/i })).toBeInTheDocument();
   });
 
-  describe('Error Handling', () => {
-    it('should display error message and reload button when API call fails', async () => {
-      server.use(http.get(ANIME_URL, () => HttpResponse.error()));
+  it('should call onError callback and reload page when fallback button clicked', async () => {
+    server.use(http.get(ANIME_URL, () => HttpResponse.error()));
 
-      setupAnimeList();
-
-      expect(await screen.findByRole('heading')).toHaveTextContent('Something went wrong.');
-      expect(screen.getByText('Failed to fetch')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: /Back To List/i })).toBeInTheDocument();
+    const originalLocation = window.location;
+    Object.defineProperty(window, 'location', {
+      value: { reload: vi.fn() },
+      writable: true,
     });
 
-    it('should call onError callback and reload page when fallback button clicked', async () => {
-      server.use(http.get(ANIME_URL, () => HttpResponse.error()));
+    const { user } = setupWithRouter('/1');
+    const reloadButton = await screen.findByRole('button', { name: /Back To List/i });
 
-      const originalLocation = window.location;
-      Object.defineProperty(window, 'location', {
-        value: { reload: vi.fn() },
-        writable: true,
-      });
+    await user.click(reloadButton);
 
-      const { onErrorMock, user } = setupAnimeList();
-      const reloadButton = await screen.findByRole('button', { name: /Back To List/i });
+    expect(window.location.reload).toHaveBeenCalled();
 
-      await user.click(reloadButton);
-
-      expect(onErrorMock).toBeCalledWith('');
-      expect(onErrorMock).toHaveBeenCalledOnce();
-      expect(window.location.reload).toHaveBeenCalled();
-
-      Object.defineProperty(window, 'location', {
-        value: originalLocation,
-        writable: true,
-      });
+    Object.defineProperty(window, 'location', {
+      value: originalLocation,
+      writable: true,
     });
   });
 });

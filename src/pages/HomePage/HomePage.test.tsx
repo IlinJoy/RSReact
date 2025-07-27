@@ -1,12 +1,11 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { baseAnimeListQuery } from '@/api/apiConfig';
-import { HomePage } from '@/pages/HomePage/HomePage';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
-import { setupUserEvent } from '@/test-utils/setupUserEvent';
+import { setupWithRouter } from '@/test-utils/setupRender';
 
 let mockedSearchTerm: string;
 
@@ -34,7 +33,7 @@ describe('HomePage Component', () => {
         })
       );
 
-      render(<HomePage />);
+      setupWithRouter('/1');
 
       await waitFor(() => expect(requestCount).toBe(1));
     });
@@ -46,19 +45,19 @@ describe('HomePage Component', () => {
         http.get(ANIME_URL, ({ request }) => {
           const url = new URL(request.url);
           receivedParams = { q: url.searchParams.get('q') || '' };
-          return new HttpResponse(null, { status: 200 });
+          return HttpResponse.json(db.paginatedAnimeList);
         })
       );
 
-      render(<HomePage />);
+      setupWithRouter('/1');
 
       await waitFor(() => expect(receivedParams.q).toBe(mockedSearchTerm));
-      expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
+      expect(await screen.findByRole('textbox')).toHaveValue(mockedSearchTerm);
     });
 
     it('should save new search term to storage and update state', async () => {
-      const { user } = setupUserEvent(<HomePage />);
-      const input = screen.getByRole('textbox');
+      const { user } = setupWithRouter();
+      const input = await screen.findByRole('textbox');
       const newTerm = 'new value';
 
       await user.clear(input);
@@ -74,13 +73,13 @@ describe('HomePage Component', () => {
       server.use(
         http.get(ANIME_URL, async () => {
           await new Promise((resolve) => setTimeout(resolve, 100));
-          return new HttpResponse(null, { status: 200 });
+          return HttpResponse.json(db.paginatedAnimeList);
         })
       );
 
-      const { user, rerender } = setupUserEvent(<HomePage />);
+      const { user } = setupWithRouter();
 
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(await screen.findByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
 
       const input = screen.getByRole('textbox');
@@ -89,10 +88,7 @@ describe('HomePage Component', () => {
       await user.type(input, 'new value');
       await user.keyboard('{Enter}');
 
-      rerender(<HomePage />);
-
-      await waitFor(() => expect(screen.queryByRole('status')).toBeInTheDocument());
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(await screen.findByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });
 
@@ -113,14 +109,14 @@ describe('HomePage Component', () => {
           })
         );
 
-        render(<HomePage />);
+        setupWithRouter('/1');
 
         await waitFor(() => expect(searchParams).toEqual(baseAnimeListQuery));
       });
 
       it('should handles successful API responses', async () => {
         const anime = db.anime;
-        render(<HomePage />);
+        setupWithRouter('/1');
         const cards = await screen.findAllByRole('article');
 
         cards.forEach((card, index) => {
@@ -133,7 +129,7 @@ describe('HomePage Component', () => {
 
       it('should handles API error responses', async () => {
         server.use(http.get(ANIME_URL, () => HttpResponse.error()));
-        render(<HomePage />);
+        setupWithRouter('/1');
 
         await waitFor(() => {
           expect(

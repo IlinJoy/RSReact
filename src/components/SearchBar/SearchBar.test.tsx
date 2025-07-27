@@ -1,7 +1,7 @@
 import { screen } from '@testing-library/react';
 
 import { SearchBar, type SearchBarProps } from '@/components/SearchBar/SearchBar';
-import { setupUserEvent } from '@/test-utils/setupUserEvent';
+import { setupUserEvent } from '@/test-utils/setupRender';
 
 const mockedSearchTerm = 'test';
 
