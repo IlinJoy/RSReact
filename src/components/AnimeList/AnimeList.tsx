@@ -5,6 +5,7 @@ import { ListComponent } from '@/components/ListComponent/ListComponent';
 import { Pagination } from '@/components/Pagination/Pagination';
 import type { Anime } from '@/models/animeModel';
 import type { PaginatedType } from '@/models/paginationModel';
+import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 
 export function AnimeList() {
   const navigate = useNavigate();
@@ -17,11 +18,12 @@ export function AnimeList() {
   };
 
   const shouldShowPagination = !!paginatedAnime.data.length;
+  const filteredList = filterDuplicateResponseItemsById(paginatedAnime.data);
 
   return (
     <>
       <ListComponent
-        data={paginatedAnime.data}
+        data={filteredList}
         renderItem={(data) => <AnimeListCard data={data} key={data.mal_id} />}
       />
       {shouldShowPagination && (
