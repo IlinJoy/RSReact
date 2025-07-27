@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { useLoaderData, useNavigate } from 'react-router';
+import { useLoaderData, useNavigate, useParams, useSearchParams } from 'react-router';
 
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useClickOutside } from '@/hooks/useClickOutside';
@@ -10,6 +10,8 @@ import styles from './AnimeDetails.module.scss';
 export function AnimeDetails() {
   const { data } = useLoaderData<DataType<Anime>>();
   const navigate = useNavigate();
+  const { page } = useParams();
+  const [searchParams] = useSearchParams();
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -26,7 +28,8 @@ export function AnimeDetails() {
   const animeTitle = title_english || title;
 
   const backToList = () => {
-    navigate(-1);
+    const query = searchParams.get('q');
+    navigate(`/${page}${query ? `?q=${query}` : ''}`);
   };
 
   useClickOutside(detailsRef, backToList);

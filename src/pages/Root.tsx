@@ -1,27 +1,41 @@
-import { Suspense, useEffect, useRef } from 'react';
-import { Outlet, useNavigate, useNavigation } from 'react-router';
+import { useEffect, useRef } from 'react';
+import {
+  generatePath,
+  Outlet,
+  useNavigate,
+  useNavigation,
+  useParams,
+  useSearchParams,
+} from 'react-router';
 
-import { Spinner } from '@/components/Spinner/Spinner';
+import { GlobalSpinner } from '@/components/GlobalSpinner/GlobalSpinner';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export function Root() {
   const navigate = useNavigate();
-  const navigation = useNavigation();
-  const isNavigating = Boolean(navigation.location);
+  const { location } = useNavigation();
+  const [searchParams] = useSearchParams();
+  const { page = '1', detailsId = null } = useParams();
   const [searchTerm] = useLocalStorage('task-anime', '');
   const initializedRef = useRef(false);
 
   useEffect(() => {
-    if (!initializedRef.current) {
-      navigate(`/1${searchTerm ? '?q=' + encodeURIComponent(searchTerm) : ''}`);
-      initializedRef.current = true;
+    if (initializedRef.current) {
+      return;
     }
-  }, [navigate, searchTerm]);
+
+    const query = searchParams.get('q') || searchTerm;
+    const path = generatePath('/:page?/:detailsId?', { page, detailsId });
+    const search = query ? `?q=${encodeURIComponent(query)}` : '';
+
+    navigate(`${path}${search}`);
+    initializedRef.current = true;
+  }, [detailsId, navigate, page, searchParams, searchTerm]);
 
   return (
     <main>
-      {isNavigating && <Spinner />}
-      <Suspense fallback={<Spinner />}>{initializedRef.current && <Outlet />}</Suspense>
+      {location && <GlobalSpinner />}
+      {initializedRef.current && <Outlet />}
     </main>
   );
 }
