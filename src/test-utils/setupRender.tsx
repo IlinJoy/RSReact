@@ -19,6 +19,7 @@ export const setupWithRouter = (path = '/') => {
 
   return {
     user: userEvent.setup(),
+    router,
     ...render(<RouterProvider router={router} />),
   };
 };

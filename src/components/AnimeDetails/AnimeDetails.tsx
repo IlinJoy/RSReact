@@ -25,8 +25,6 @@ export function AnimeDetails() {
     images: { webp },
   } = data;
 
-  const animeTitle = title_english || title;
-
   const backToList = () => {
     const query = searchParams.get('q');
     navigate(`/${page}${query ? `?q=${query}` : ''}`);
@@ -35,15 +33,15 @@ export function AnimeDetails() {
   useClickOutside(detailsRef, backToList);
 
   return (
-    <div className={styles.details} ref={detailsRef}>
+    <div className={styles.details} ref={detailsRef} aria-label="details">
       <button className={styles.closeBtn} aria-label="back to list" onClick={backToList}>
         <SpriteIcon id="close" size={20} />
       </button>
-      <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
+      <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
 
       <div className={styles.description}>
         <div>
-          <h3>{animeTitle}</h3>
+          <h3>{title_english || title}</h3>
           <p>{title_japanese}</p>
         </div>
 
@@ -53,11 +51,13 @@ export function AnimeDetails() {
           ))}
         </ul>
 
-        {Object.entries({ episodes, duration, year }).map(([key, value]) => (
-          <p key={key}>
-            {key}: {value}
-          </p>
-        ))}
+        {Object.entries({ episodes, duration, year })
+          .filter(([, value]) => value !== null)
+          .map(([key, value]) => (
+            <p key={key}>
+              {key}: {value}
+            </p>
+          ))}
       </div>
     </div>
   );

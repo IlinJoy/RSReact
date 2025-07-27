@@ -15,7 +15,7 @@ describe('AnimeApi', () => {
 
     it('should return anime with details by id', async () => {
       const response = await animeApi.getAnimeDetails(1);
-      expect(response).toEqual(db.anime[1]);
+      expect(response).toEqual({ data: db.anime[1] });
     });
   });
 
