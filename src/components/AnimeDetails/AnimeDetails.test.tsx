@@ -24,7 +24,7 @@ describe('AnimeDetails', () => {
     expect(image).toHaveAttribute('src', webp.large_image_url);
     expect(image).toHaveAttribute('alt', `${title} detailed cover`);
 
-    expect(getByText(title_english)).toBeInTheDocument();
+    expect(getByText(title_english || title)).toBeInTheDocument();
 
     expect(getByText(`episodes: ${episodes}`)).toBeInTheDocument();
     expect(getByText(`duration: ${duration}`)).toBeInTheDocument();

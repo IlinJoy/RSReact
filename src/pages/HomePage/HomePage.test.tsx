@@ -49,7 +49,7 @@ describe('HomePage Component', () => {
         })
       );
 
-      setupWithRouter('/1');
+      setupWithRouter();
 
       await waitFor(() => expect(receivedParams.q).toBe(mockedSearchTerm));
       expect(await screen.findByRole('textbox')).toHaveValue(mockedSearchTerm);
