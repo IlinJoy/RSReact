@@ -9,6 +9,7 @@ import {
 } from 'react-router';
 
 import { GlobalSpinner } from '@/components/GlobalSpinner/GlobalSpinner';
+import { Header } from '@/components/Header/Header';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export function Root() {
@@ -33,9 +34,12 @@ export function Root() {
   }, [detailsId, navigate, page, searchParams, searchTerm]);
 
   return (
-    <main>
-      {navigation.state === 'loading' && <GlobalSpinner />}
-      {initializedRef.current && <Outlet />}
-    </main>
+    <>
+      <Header />
+      <main>
+        {navigation.state === 'loading' && <GlobalSpinner />}
+        {initializedRef.current && <Outlet />}
+      </main>
+    </>
   );
 }
