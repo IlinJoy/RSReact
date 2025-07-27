@@ -1,0 +1,21 @@
+@use '../../styles/placeholders' as *;
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  @include flex(column, var(--spacing-3), $justify: center, $align: center);
+
+  max-width: 600px;
+  min-height: 80vh;
+  margin: auto;
+  padding: var(--spacing-3);
+
+  text-align: center;
+
+  & button {
+    @extend %button;
+    @extend %button-main;
+
+    padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+    font-size: 1em;
+  }
+}
