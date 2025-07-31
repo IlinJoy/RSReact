@@ -1,5 +1,6 @@
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 
+import { RESPONSE_CODES } from '@/constants/api';
 import { NotFoundPage } from '@/router/lazyElements';
 import { getError } from '@/utils/handleErrorMessage';
 
@@ -25,7 +26,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
     }
   };
 
-  if (isRouteErrorResponse(currentError) && currentError.status === 404) {
+  if (isRouteErrorResponse(currentError) && currentError.status === RESPONSE_CODES.NOT_FOUND) {
     return <NotFoundPage />;
   }
 
