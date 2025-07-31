@@ -15,6 +15,6 @@ describe('Not Found Page', () => {
 
     await user.click(await screen.findByRole('button', { name: /Back to the main page/i }));
 
-    expect(router.state.location.pathname).toBe('/1');
+    expect(router.state.location.pathname).toBe('/');
   });
 });

@@ -3,21 +3,24 @@ import { Outlet, useNavigate } from 'react-router';
 import { AnimeList } from '@/components/AnimeList/AnimeList';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
 import styles from './HomePage.module.scss';
 
 export function HomePage() {
-  const [searchTerm, setSearchTerm] = useLocalStorage('task-anime', '');
+  const { getQueryParam } = useQueryParams();
+  const [, setSearchTerm] = useLocalStorage('task-anime', '');
   const navigate = useNavigate();
+  const urlQuery = getQueryParam('query') || '';
 
   const handleSearchTermUpdate = (term: string) => {
     setSearchTerm(term);
-    navigate(`/1${term ? '?q=' + encodeURIComponent(term) : ''}`);
+    navigate(`/${term ? '?query=' + encodeURIComponent(term) : ''}`);
   };
 
   return (
     <>
-      <SearchBar onSearch={handleSearchTermUpdate} searchTerm={searchTerm} />
+      <SearchBar onSearch={handleSearchTermUpdate} searchTerm={urlQuery} />
       <section className={styles.cardsWrapper}>
         <AnimeList />
         <Outlet />

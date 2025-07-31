@@ -33,7 +33,7 @@ describe('Error Handling', () => {
   it('should display error message and reload button when API call fails', async () => {
     server.use(http.get(ANIME_URL, () => HttpResponse.error()));
 
-    setupWithRouter('/1');
+    setupWithRouter();
 
     expect(await screen.findByRole('heading')).toHaveTextContent('Something went wrong.');
     expect(screen.getByText('Failed to fetch')).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe('Error Handling', () => {
       writable: true,
     });
 
-    const { user } = setupWithRouter('/1');
+    const { user } = setupWithRouter();
     const reloadButton = await screen.findByRole('button', { name: /Back To List/i });
 
     await user.click(reloadButton);

@@ -1,5 +1,6 @@
 import { screen, within } from '@testing-library/react';
 
+import { ROUTES } from '@/router/routes';
 import { db } from '@/test-utils/mocks/db';
 import { setupWithRouter } from '@/test-utils/setupRender';
 
@@ -15,7 +16,7 @@ describe('AnimeDetails', () => {
       genres,
     } = db.anime[1];
 
-    setupWithRouter('/1/1');
+    setupWithRouter(`/${ROUTES.DETAILS}/1`);
 
     const detailsCard = await screen.findByLabelText('details');
     const { getByText, findByRole } = within(detailsCard);
@@ -37,12 +38,12 @@ describe('AnimeDetails', () => {
     expect(screen.getByLabelText('back to list')).toBeInTheDocument();
   });
 
-  it('should navigate back when close button is clicked', async () => {
-    const { user, router } = setupWithRouter('/1/1');
+  it('should navigate to list when close button is clicked', async () => {
+    const { user, router } = setupWithRouter(`/${ROUTES.DETAILS}/1`);
 
     const closeButton = await screen.findByLabelText('back to list');
     await user.click(closeButton);
 
-    expect(router.state.location.pathname).toBe('/1');
+    expect(router.state.location.pathname).toBe('/');
   });
 });

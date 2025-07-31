@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router';
 
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
+import { ROUTES } from '@/router/routes';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -28,7 +29,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
   return (
-    <Link to={`${data.mal_id}${search}`}>
+    <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`}>
       <article className={styles.card}>
         <span className={styles.status}>{status}</span>
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />

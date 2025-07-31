@@ -1,11 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-import { getFromLocalStorage, setToLocalStorage } from '@/utils/localStorageUtils';
-
-export const STORAGE_KEYS = {
-  PREFIX: 'ilinjoy-',
-  ANIME: 'task-anime',
-} as const;
+import { getFromLocalStorage, setToLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 type LocalStorageKey = Exclude<
   (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS],
@@ -16,9 +11,13 @@ export function useLocalStorage<T>(key: LocalStorageKey, initValue: T) {
   const storageKey = STORAGE_KEYS.PREFIX + key;
   const [value, setValue] = useState<T>(() => getFromLocalStorage(storageKey) || initValue);
 
-  useEffect(() => {
-    setToLocalStorage(storageKey, value);
-  }, [storageKey, value]);
+  const updateStorage = useCallback(
+    (value: T) => {
+      setToLocalStorage(storageKey, value);
+      setValue((prev) => ({ ...prev, value }));
+    },
+    [storageKey]
+  );
 
-  return [value, setValue] as const;
+  return [value, updateStorage] as const;
 }

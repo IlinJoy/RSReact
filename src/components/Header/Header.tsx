@@ -4,7 +4,7 @@ import { NavLink } from 'react-router';
 import styles from './Header.module.scss';
 
 const links = [
-  { name: 'Home', path: '/1' },
+  { name: 'Home', path: '/' },
   { name: 'About', path: '/about' },
 ];
 

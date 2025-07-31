@@ -6,6 +6,7 @@ import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
 import { setupWithRouter } from '@/test-utils/setupRender';
+import { STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 let mockedSearchTerm: string;
 
@@ -13,9 +14,12 @@ const mockSetValue = vi.fn((newValue) => {
   mockedSearchTerm = newValue;
 });
 
-vi.mock('../../hooks/useLocalStorage', () => ({
-  useLocalStorage: vi.fn(() => [mockedSearchTerm, mockSetValue]),
-}));
+const mockGetValue = vi.fn(() => JSON.stringify(mockedSearchTerm));
+
+vi.stubGlobal('localStorage', {
+  setItem: mockSetValue,
+  getItem: mockGetValue,
+});
 
 describe('HomePage Component', () => {
   beforeEach(() => {
@@ -33,7 +37,7 @@ describe('HomePage Component', () => {
         })
       );
 
-      setupWithRouter('/1');
+      setupWithRouter();
 
       await waitFor(() => expect(requestCount).toBe(1));
     });
@@ -65,7 +69,10 @@ describe('HomePage Component', () => {
       await user.keyboard('{enter}');
 
       expect(mockSetValue).toHaveBeenCalledOnce();
-      expect(mockSetValue).toBeCalledWith(newTerm);
+      expect(mockSetValue).toBeCalledWith(
+        STORAGE_KEYS.PREFIX + STORAGE_KEYS.ANIME,
+        JSON.stringify(newTerm)
+      );
       expect(input).toHaveValue(newTerm);
     });
 
@@ -109,14 +116,14 @@ describe('HomePage Component', () => {
           })
         );
 
-        setupWithRouter('/1');
+        setupWithRouter();
 
         await waitFor(() => expect(searchParams).toEqual(baseAnimeListQuery));
       });
 
       it('should handles successful API responses', async () => {
         const anime = db.anime;
-        setupWithRouter('/1');
+        setupWithRouter();
         const cards = await screen.findAllByRole('article');
 
         cards.forEach((card, index) => {
@@ -129,7 +136,7 @@ describe('HomePage Component', () => {
 
       it('should handles API error responses', async () => {
         server.use(http.get(ANIME_URL, () => HttpResponse.error()));
-        setupWithRouter('/1');
+        setupWithRouter();
 
         await waitFor(() => {
           expect(

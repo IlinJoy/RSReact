@@ -26,7 +26,6 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
   };
 
   if (isRouteErrorResponse(currentError) && currentError.status === 404) {
-    console.log(currentError);
     return <NotFoundPage />;
   }
 

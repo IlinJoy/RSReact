@@ -1,3 +1,8 @@
+export const STORAGE_KEYS = {
+  PREFIX: 'ilinjoy-',
+  ANIME: 'task-anime',
+} as const;
+
 export const getFromLocalStorage = <T>(key: string) => {
   try {
     const data = localStorage.getItem(key);

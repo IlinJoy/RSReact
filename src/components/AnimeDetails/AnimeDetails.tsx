@@ -1,7 +1,6 @@
-import { useLoaderData, useLocation } from 'react-router';
+import { useLoaderData, useLocation, useNavigate } from 'react-router';
 
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useNavigateTo } from '@/hooks/useReturnToList';
 import type { Anime, DataType } from '@/models/animeModel';
 
 import styles from './AnimeDetails.module.scss';
@@ -9,7 +8,7 @@ import styles from './AnimeDetails.module.scss';
 export function AnimeDetails() {
   const { data } = useLoaderData<DataType<Anime>>();
   const { search } = useLocation();
-  const navigateTo = useNavigateTo();
+  const navigate = useNavigate();
 
   const {
     title,
@@ -27,7 +26,7 @@ export function AnimeDetails() {
       <button
         className={styles.closeBtn}
         aria-label="back to list"
-        onClick={() => navigateTo(search)}
+        onClick={() => navigate(`/${search}`)}
       >
         <SpriteIcon id="close" size={20} />
       </button>
