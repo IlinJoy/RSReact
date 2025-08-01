@@ -5,7 +5,7 @@
   @include flex(row, var(--spacing-2), $justify: center);
 
   width: 100%;
-  padding: var(--spacing-3);
+  padding: var(--spacing-2);
   background-color: var(--color-background-light);
 }
 
@@ -31,11 +31,6 @@
   &:focus {
     outline: none;
   }
-}
-
-.button {
-  @extend %button;
-  @extend %button-main;
 }
 
 .reset-button {

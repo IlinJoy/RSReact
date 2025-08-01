@@ -1,7 +1,27 @@
 @use '../../styles/mixins' as *;
 
-.section {
-  @include flex(row, var(--spacing-2), $justify: center);
+.wrapper {
+  width: 100%;
 
+  &.disable {
+    width: 60%;
+
+    @include tablet {
+      width: auto;
+    }
+  }
+}
+
+.section {
+  @include flex(column, var(--spacing-2), $align: center);
+  @include transition;
+
+  width: 100%;
   min-height: 80vh;
+
+  &.disable {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.5;
+  }
 }

@@ -9,6 +9,7 @@ export type Endpoint = (typeof API_CONFIG.ENDPOINTS)[keyof typeof API_CONFIG.END
 type FetchParams = {
   path?: string | number;
   queryParameters?: QueryParameters;
+  init?: RequestInit;
 };
 
 export class BaseApiService {
@@ -19,10 +20,13 @@ export class BaseApiService {
     this.endpoint = endpoint;
   }
 
-  public async fetch<T>({ path = '', queryParameters }: FetchParams) {
+  public async fetch<T>({ path = '', queryParameters, init = {} }: FetchParams) {
     const queryString = this.generateQueryString(queryParameters);
     const pathToFetch = path ? `/${path}` : '';
-    const response = await fetch(`${this.basePath}${this.endpoint}${pathToFetch}${queryString}`);
+    const response = await fetch(
+      `${this.basePath}${this.endpoint}${pathToFetch}${queryString}`,
+      init
+    );
 
     if (!response.ok) {
       throw new Error(ERROR_MESSAGES.FETCH);

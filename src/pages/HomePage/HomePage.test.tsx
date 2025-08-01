@@ -1,24 +1,31 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { baseAnimeListQuery } from '@/api/apiConfig';
-import { HomePage } from '@/pages/HomePage/HomePage';
-import { storage } from '@/services/localStorage';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
-import { setupUserEvent } from '@/test-utils/setupUserEvent';
+import { setupWithRouter } from '@/test-utils/setupRender';
+import { STORAGE_KEYS } from '@/utils/localStorageUtils';
 
-const mockedSearchTerm = 'test';
+let mockedSearchTerm: string;
 
-vi.mock('../../services/localStorage.ts', () => ({
-  storage: {
-    getData: vi.fn(() => mockedSearchTerm),
-    setData: vi.fn(),
-  },
-}));
+const mockSetValue = vi.fn((newValue) => {
+  mockedSearchTerm = newValue;
+});
+
+const mockGetValue = vi.fn(() => JSON.stringify(mockedSearchTerm));
+
+vi.stubGlobal('localStorage', {
+  setItem: mockSetValue,
+  getItem: mockGetValue,
+});
 
 describe('HomePage Component', () => {
+  beforeEach(() => {
+    mockedSearchTerm = 'test';
+  });
+
   describe('Integration Tests', () => {
     it('should make initial API call on component mount', async () => {
       let requestCount = 0;
@@ -30,7 +37,7 @@ describe('HomePage Component', () => {
         })
       );
 
-      render(<HomePage />);
+      setupWithRouter();
 
       await waitFor(() => expect(requestCount).toBe(1));
     });
@@ -42,27 +49,30 @@ describe('HomePage Component', () => {
         http.get(ANIME_URL, ({ request }) => {
           const url = new URL(request.url);
           receivedParams = { q: url.searchParams.get('q') || '' };
-          return new HttpResponse(null, { status: 200 });
+          return HttpResponse.json(db.paginatedAnimeList);
         })
       );
 
-      render(<HomePage />);
+      setupWithRouter();
 
       await waitFor(() => expect(receivedParams.q).toBe(mockedSearchTerm));
-      expect(screen.getByRole('textbox')).toHaveValue(mockedSearchTerm);
+      expect(await screen.findByRole('textbox')).toHaveValue(mockedSearchTerm);
     });
 
     it('should save new search term to storage and update state', async () => {
-      const { user } = setupUserEvent(<HomePage />);
-      const input = screen.getByRole('textbox');
+      const { user } = setupWithRouter();
+      const input = await screen.findByRole('textbox');
       const newTerm = 'new value';
 
       await user.clear(input);
       await user.type(input, newTerm);
       await user.keyboard('{enter}');
 
-      expect(storage.setData).toHaveBeenCalledOnce();
-      expect(storage.setData).toBeCalledWith(newTerm);
+      expect(mockSetValue).toHaveBeenCalledOnce();
+      expect(mockSetValue).toBeCalledWith(
+        STORAGE_KEYS.PREFIX + STORAGE_KEYS.ANIME,
+        JSON.stringify(newTerm)
+      );
       expect(input).toHaveValue(newTerm);
     });
 
@@ -70,13 +80,13 @@ describe('HomePage Component', () => {
       server.use(
         http.get(ANIME_URL, async () => {
           await new Promise((resolve) => setTimeout(resolve, 100));
-          return new HttpResponse(null, { status: 200 });
+          return HttpResponse.json(db.paginatedAnimeList);
         })
       );
 
-      const { user } = setupUserEvent(<HomePage />);
+      const { user } = setupWithRouter();
 
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(await screen.findByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
 
       const input = screen.getByRole('textbox');
@@ -85,7 +95,7 @@ describe('HomePage Component', () => {
       await user.type(input, 'new value');
       await user.keyboard('{Enter}');
 
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(await screen.findByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });
 
@@ -106,14 +116,14 @@ describe('HomePage Component', () => {
           })
         );
 
-        render(<HomePage />);
+        setupWithRouter();
 
         await waitFor(() => expect(searchParams).toEqual(baseAnimeListQuery));
       });
 
       it('should handles successful API responses', async () => {
         const anime = db.anime;
-        render(<HomePage />);
+        setupWithRouter();
         const cards = await screen.findAllByRole('article');
 
         cards.forEach((card, index) => {
@@ -126,14 +136,13 @@ describe('HomePage Component', () => {
 
       it('should handles API error responses', async () => {
         server.use(http.get(ANIME_URL, () => HttpResponse.error()));
-        render(<HomePage />);
+        setupWithRouter();
 
         await waitFor(() => {
           expect(
             screen.getByRole('heading', { name: 'Something went wrong.' })
           ).toBeInTheDocument();
         });
-        expect(screen.getByRole('button', { name: /Throw Error/i })).toBeInTheDocument();
         expect(screen.queryByRole('article')).not.toBeInTheDocument();
       });
     });

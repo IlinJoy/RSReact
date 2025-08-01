@@ -1,4 +1,4 @@
-interface Pagination {
+export interface PaginationType {
   last_visible_page: number;
   has_next_page: boolean;
   current_page: number;
@@ -9,4 +9,4 @@ interface Pagination {
   };
 }
 
-export type PaginatedType<T> = { data: T[] } & { pagination: Pagination };
+export type PaginatedType<T> = { data: T[] } & { pagination: PaginationType };

@@ -1,31 +1,30 @@
-import { Component } from 'react';
+import { Outlet, useNavigate } from 'react-router';
 
 import { AnimeList } from '@/components/AnimeList/AnimeList';
-import { ErrorButton } from '@/components/ErrorButton/ErrorButton';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
-import { storage } from '@/services/localStorage';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { useQueryParams } from '@/hooks/useQueryParams';
 
-export type HomePageState = {
-  searchTerm: string;
-};
+import styles from './HomePage.module.scss';
 
-export class HomePage extends Component {
-  state: HomePageState = {
-    searchTerm: storage.getData() || '',
+export function HomePage() {
+  const { getQueryParam } = useQueryParams();
+  const [, setSearchTerm] = useLocalStorage('task-anime', '');
+  const navigate = useNavigate();
+  const urlQuery = getQueryParam('query') || '';
+
+  const handleSearchTermUpdate = (term: string) => {
+    setSearchTerm(term);
+    navigate(`/${term ? '?query=' + encodeURIComponent(term) : ''}`);
   };
 
-  handleUpdate = (searchTerm: string) => {
-    storage.setData(searchTerm);
-    this.setState({ searchTerm });
-  };
-
-  render() {
-    return (
-      <>
-        <SearchBar onSearch={this.handleUpdate} {...this.state} />
-        <AnimeList {...this.state} onError={this.handleUpdate} />
-        <ErrorButton />
-      </>
-    );
-  }
+  return (
+    <>
+      <SearchBar onSearch={handleSearchTermUpdate} searchTerm={urlQuery} />
+      <section className={styles.cardsWrapper}>
+        <AnimeList />
+        <Outlet />
+      </section>
+    </>
+  );
 }

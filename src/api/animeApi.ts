@@ -1,6 +1,6 @@
 import { API_CONFIG, baseAnimeListQuery } from '@/api/apiConfig';
 import { BaseApiService, type Endpoint, type QueryParameters } from '@/api/baseApi';
-import type { Anime } from '@/models/animeModel';
+import type { Anime, DataType } from '@/models/animeModel';
 import type { PaginatedType } from '@/models/paginationModel';
 
 export type AnimeListQueryParams = Omit<QueryParameters, 'limit' | 'sfw'>;
@@ -12,14 +12,15 @@ export class AnimeApi<T> extends BaseApiService {
     this.baseAnimeListQuery = baseAnimeListQuery;
   }
 
-  public getAnimeList(queryParameters?: AnimeListQueryParams) {
+  public getAnimeList(queryParameters?: AnimeListQueryParams, init?: RequestInit) {
     return this.fetch<PaginatedType<T>>({
       queryParameters: { ...this.baseAnimeListQuery, ...queryParameters },
+      init,
     });
   }
 
-  public getAnimeDetails(id: number) {
-    return this.fetch<T>({ path: id });
+  public getAnimeDetails(id: number, init?: RequestInit) {
+    return this.fetch<DataType<T>>({ path: id, init });
   }
 }
 

@@ -1,7 +1,8 @@
-import { Component } from 'react';
+import { Link, useLocation } from 'react-router';
 
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
+import { ROUTES } from '@/router/routes';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -11,23 +12,24 @@ type AnimeListCardProps = {
   data: Anime;
 };
 
-export class AnimeListCard extends Component<AnimeListCardProps> {
-  render() {
-    const {
-      title,
-      title_english,
-      genres,
-      score,
-      scored_by,
-      status,
-      images: { webp },
-    } = this.props.data;
+export function AnimeListCard({ data }: AnimeListCardProps) {
+  const { search } = useLocation();
+  const {
+    title,
+    title_english,
+    genres,
+    score,
+    scored_by,
+    status,
+    images: { webp },
+  } = data;
 
-    const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
-    const animeTitle = title_english || title;
-    const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
+  const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
+  const animeTitle = title_english || title;
+  const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
-    return (
+  return (
+    <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`}>
       <article className={styles.card}>
         <span className={styles.status}>{status}</span>
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
@@ -48,6 +50,6 @@ export class AnimeListCard extends Component<AnimeListCardProps> {
           </ul>
         </div>
       </article>
-    );
-  }
+    </Link>
+  );
 }

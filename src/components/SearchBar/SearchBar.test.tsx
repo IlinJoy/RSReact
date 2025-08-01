@@ -1,7 +1,7 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 
 import { SearchBar, type SearchBarProps } from '@/components/SearchBar/SearchBar';
-import { setupUserEvent } from '@/test-utils/setupUserEvent';
+import { setupUserEvent } from '@/test-utils/setupRender';
 
 const mockedSearchTerm = 'test';
 
@@ -75,7 +75,7 @@ describe('SearchBar Component', () => {
 
       await user.click(screen.getByRole('button', { name: /reset/i }));
 
-      expect(input).toHaveValue('');
+      await waitFor(() => expect(input).toHaveValue(''));
       expect(onSearchMock).toBeCalledWith('');
     });
   });

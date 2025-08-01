@@ -1,0 +1,10 @@
+@use '../../styles/placeholders' as *;
+@use '../../styles/mixins' as *;
+
+.pagination {
+  @include flex($align: center);
+
+  & button {
+    margin: 0 var(--spacing-1);
+  }
+}

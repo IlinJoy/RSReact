@@ -1,15 +1,26 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
+import { createMemoryRouter, RouterProvider } from 'react-router';
 
 import { AnimeListCard, GENRES_AMOUNT_TO_RENDER } from '@/components/AnimeListCard/AnimeListCard';
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
 import { generateMockData } from '@/test-utils/generateMockData';
+import { setupUserEvent } from '@/test-utils/setupRender';
 
 const setupAnimeListCard = (props?: Partial<Anime>) => {
   const mockData = generateMockData(props);
+
+  const router = createMemoryRouter([
+    {
+      path: '/',
+      element: <AnimeListCard data={mockData} />,
+    },
+  ]);
+
   return {
-    ...render(<AnimeListCard data={mockData} />),
+    ...setupUserEvent(<RouterProvider router={router} />),
     mockData,
+    router,
   };
 };
 

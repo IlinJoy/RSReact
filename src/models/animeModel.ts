@@ -78,3 +78,5 @@ interface AnimeAired {
   };
   string: string;
 }
+
+export type DataType<T> = { data: T };

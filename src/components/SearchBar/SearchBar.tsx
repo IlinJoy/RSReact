@@ -1,5 +1,6 @@
-import { type ChangeEvent, Component, type FormEvent } from 'react';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 
+import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 
 import styles from './SearchBar.module.scss';
@@ -9,68 +10,54 @@ export type SearchBarProps = {
   onSearch: (searchTerm: string) => void;
 };
 
-type SearchBarState = {
-  inputValue: string;
-  isDirty: boolean;
-  initialValue: string;
-};
+export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
+  const [inputValue, setInputValue] = useState<string>(searchTerm);
+  const initialValueRef = useRef<string>(searchTerm);
+  const isDirty = inputValue.trim() !== searchTerm;
 
-export class SearchBar extends Component<SearchBarProps> {
-  state: SearchBarState = {
-    inputValue: this.props.searchTerm,
-    isDirty: false,
-    initialValue: this.props.searchTerm,
-  };
+  useEffect(() => {
+    if (initialValueRef.current !== searchTerm) {
+      setInputValue(searchTerm);
+      initialValueRef.current = searchTerm;
+    }
+  }, [searchTerm]);
 
-  handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = event.target.value;
-    this.setState({
-      inputValue,
-      isDirty: inputValue !== this.state.initialValue,
-    });
-  };
-
-  handleSubmit = (event: FormEvent, isResetting?: boolean) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
-    const searchTerm = isResetting ? '' : this.state.inputValue.trim();
-    this.setState({ initialValue: searchTerm, inputValue: searchTerm });
-    this.props.onSearch(searchTerm);
+    const searchTerm = inputValue.trim();
+    onSearch(searchTerm);
   };
 
-  render() {
-    const { inputValue, initialValue } = this.state;
-    const isDirty = inputValue !== initialValue;
+  const resetSearch = () => {
+    setInputValue('');
+    onSearch('');
+  };
 
-    return (
-      <div className={styles.searchBar}>
-        <form onSubmit={this.handleSubmit} className={styles.form}>
-          <div className={styles.inputWrapper}>
-            <input
-              name="search"
-              type="text"
-              placeholder="Looking for..."
-              value={inputValue}
-              onChange={this.handleChange}
-              className={styles.input}
+  return (
+    <div className={styles.searchBar}>
+      <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.inputWrapper}>
+          <input
+            name="search"
+            type="text"
+            placeholder="Looking for..."
+            value={inputValue}
+            onChange={(event) => setInputValue(event.target.value)}
+            className={styles.input}
+          />
+          {inputValue && (
+            <Button
+              aria-label="reset"
+              type="reset"
+              onClick={resetSearch}
+              className={styles.resetButton}
+              icon={<SpriteIcon id="close" size={16} />}
             />
-            {inputValue && (
-              <button
-                aria-label="reset"
-                type="reset"
-                onClick={(event) => this.handleSubmit(event, true)}
-                className={styles.resetButton}
-              >
-                <SpriteIcon id="close" size={16} />
-              </button>
-            )}
-          </div>
+          )}
+        </div>
 
-          <button type="submit" disabled={!isDirty} className={styles.button}>
-            Search
-          </button>
-        </form>
-      </div>
-    );
-  }
+        <Button type="submit" text="Search" disabled={!isDirty} isSmall />
+      </form>
+    </div>
+  );
 }

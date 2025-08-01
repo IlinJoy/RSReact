@@ -1,4 +1,5 @@
 @use '../../styles/mixins' as *;
+@use '../../styles/placeholders' as *;
 
 .cover {
   @include transition;
@@ -91,24 +92,8 @@
   }
 }
 
-.genresWrapper {
-  @include flex;
-
-  flex-wrap: nowrap;
-  width: 100%;
-
-  & li {
-    overflow: hidden;
-
-    padding: var(--spacing-0) var(--spacing-1);
-    border-radius: var(--border-radius-2);
-
-    font-size: 0.8rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    background-color: var(--color-background-light);
-  }
+.genres-wrapper {
+  @extend %genres-wrapper;
 }
 
 .extra {

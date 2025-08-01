@@ -17,6 +17,6 @@ export const handlers = [
       return new HttpResponse(null, { status: 404 });
     }
 
-    return HttpResponse.json(anime);
+    return HttpResponse.json({ data: anime });
   }),
 ];
