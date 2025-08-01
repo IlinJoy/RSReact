@@ -1,3 +1,5 @@
+import logo from '@/assets/images/rss-logo.png';
+
 import styles from './AboutPage.module.scss';
 
 export function AboutPage() {
@@ -12,7 +14,7 @@ export function AboutPage() {
           something useful... or at least entertaining.`}
         </p>
         <a className={styles.link} href="https://rs.school/courses/reactjs" target="blank">
-          <img className={styles.rsLogo} src="./rss-logo.png" alt="rss-logo" />
+          <img className={styles.rsLogo} src={logo} alt="rss-logo" />
         </a>
       </div>
     </section>
