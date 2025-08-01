@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router';
 
+import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
 import { ROUTES } from '@/router/routes';
@@ -29,9 +30,13 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
   return (
-    <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`}>
-      <article className={styles.card}>
+    <article className={styles.cardWrapper}>
+      <div className={styles.topRow}>
         <span className={styles.status}>{status}</span>
+        <ItemCheckbox isChecked={false} onChange={() => {}} />
+      </div>
+
+      <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>
@@ -49,7 +54,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
             {extraGenresAmount > 0 && <li className={styles.extra}>{'+' + extraGenresAmount}</li>}
           </ul>
         </div>
-      </article>
-    </Link>
+      </Link>
+    </article>
   );
 }

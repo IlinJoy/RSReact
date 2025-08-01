@@ -1,6 +1,7 @@
 import { useLoaderData, useLocation, useNavigate } from 'react-router';
 
 import { Button } from '@/components/Button/Button';
+import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import type { Anime, DataType } from '@/models/animeModel';
 
@@ -24,12 +25,16 @@ export function AnimeDetails() {
 
   return (
     <div className={styles.details} aria-label="details">
-      <Button
-        className={styles.closeBtn}
-        aria-label="back to list"
-        onClick={() => navigate(`/${search}`)}
-        icon={<SpriteIcon id="close" size={20} />}
-      />
+      <div className={styles.topRow}>
+        <Button
+          className={styles.closeBtn}
+          aria-label="back to list"
+          onClick={() => navigate(`/${search}`)}
+          icon={<SpriteIcon id="close" size={20} />}
+        />
+        <ItemCheckbox isChecked={false} onChange={() => {}} isLarge />
+      </div>
+
       <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
 
       <div className={styles.description}>

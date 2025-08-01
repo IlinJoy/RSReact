@@ -18,5 +18,12 @@
 <path d="M20 4V9H15" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 </symbol>
 
+<symbol id="heart" viewBox="0 0 24 24" fill="none">
+<path d="M2 9.13699C2 14 6.02 16.591 8.962 18.911C10 19.729 11 20.5 12 20.5C13 20.5 14 19.73 15.038 18.91C17.981 16.592 22 14 22 9.13798C22 4.27598 16.5 0.824985 12 5.50098C7.5 0.824985 2 4.27399 2 9.13699Z" fill="currentcolor"/>
+</symbol>
+
+</symbol>
+
+
 
 </svg>

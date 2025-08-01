@@ -8,3 +8,15 @@
     margin: 0 var(--spacing-1);
   }
 }
+
+.pagination-btn {
+  border: 1px solid var(--color-background-light);
+  border-radius: var(--border-radius-2);
+  color: var(--color-accent-light);
+  background-color: transparent;
+
+  &:disabled {
+    color: var(--color-grey-dark);
+    background-color: transparent;
+  }
+}

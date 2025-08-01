@@ -16,6 +16,7 @@ export function Pagination({ pagination, onChange }: PaginationProps) {
     <div className={styles.pagination}>
       <Button
         text={'<'}
+        className={styles.paginationBtn}
         onClick={() => onChange(-1)}
         disabled={current_page === 1}
         aria-label="back"
@@ -24,6 +25,7 @@ export function Pagination({ pagination, onChange }: PaginationProps) {
       <span>{`${current_page} of ${last_visible_page}`}</span>
       <Button
         text={'>'}
+        className={styles.paginationBtn}
         onClick={() => onChange(1)}
         disabled={current_page === last_visible_page}
         aria-label="forward"

@@ -1,0 +1,41 @@
+@use '../../styles/mixins' as *;
+
+.checkbox {
+  @include flex;
+  @include transition;
+
+  padding: var(--spacing-0);
+  border: 1px solid var(--color-typography-grey);
+  border-radius: var(--border-radius-3);
+
+  line-height: 0;
+  color: var(--color-typography-dark);
+  text-align: center;
+
+  background-color: var(--color-typography);
+
+  &.checked {
+    border-color: var(--color-background-light);
+    color: var(--color-accent-light);
+    background-color: var(--color-accent-dark);
+  }
+
+  &.large {
+    padding: var(--spacing-1);
+  }
+}
+
+.checkbox-wrapper {
+  position: relative;
+
+  &:hover .checkbox {
+    border-color: var(--color-accent-light);
+  }
+}
+
+.hidden {
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}

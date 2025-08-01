@@ -3,7 +3,7 @@
 
 .button {
   @include transition;
-  @include flex($align: center);
+  @include flex(row, 0.7em, $align: center);
 
   cursor: pointer;
 
@@ -13,8 +13,6 @@
   }
 
   & .icon {
-    margin-right: -0.2em;
-    margin-left: 0.2em;
     line-height: 0;
   }
 }

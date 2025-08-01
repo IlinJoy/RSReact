@@ -1,6 +1,10 @@
 @use '../../styles/mixins' as *;
 @use '../../styles/placeholders' as *;
 
+.card-wrapper {
+  position: relative;
+}
+
 .cover {
   @include transition;
 
@@ -56,9 +60,16 @@
   }
 }
 
-.status {
-  z-index: 1;
+.top-row {
+  @include flex($justify: space-between, $align: center);
 
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-2) 0 var(--spacing-2);
+}
+
+.status {
   padding: var(--spacing-0) var(--spacing-1);
   border-radius: var(--border-radius-2);
 
@@ -67,7 +78,7 @@
   color: var(--color-typography);
   letter-spacing: normal;
 
-  background: linear-gradient(45deg, var(--color-accent-dark), var(--color-background-light));
+  background: var(--color-background-light);
 }
 
 .description {
