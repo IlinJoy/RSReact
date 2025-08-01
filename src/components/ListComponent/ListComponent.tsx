@@ -8,15 +8,21 @@ type ListComponentProps<T> = {
   isLoading?: boolean;
   data?: T[];
   renderItem: (item: T) => ReactNode;
+  emptyView: ReactNode;
 };
 
-export function ListComponent<T>({ isLoading, data, renderItem }: ListComponentProps<T>) {
+export function ListComponent<T>({
+  isLoading,
+  data,
+  renderItem,
+  emptyView,
+}: ListComponentProps<T>) {
   if (isLoading || !data) {
     return <Spinner />;
   }
 
   if (!data?.length) {
-    return <div>Nothing Found</div>;
+    return emptyView;
   }
 
   return <div className={styles.wrapper}>{data?.map((item) => renderItem(item))}</div>;

@@ -1,0 +1,9 @@
+@use '../../styles/mixins' as *;
+
+.nothing-section {
+  @include flex(column, var(--spacing-3), $align: center);
+
+  & button {
+    margin-top: var(--spacing-2);
+  }
+}

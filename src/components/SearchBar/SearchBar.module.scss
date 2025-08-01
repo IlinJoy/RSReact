@@ -33,11 +33,6 @@
   }
 }
 
-.button {
-  @extend %button;
-  @extend %button-main;
-}
-
 .reset-button {
   @extend %button;
 

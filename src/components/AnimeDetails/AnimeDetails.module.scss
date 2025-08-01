@@ -28,13 +28,12 @@
 }
 
 .close-btn {
-  @extend %button;
-
   position: absolute;
   z-index: 2;
   top: 0;
   left: 0;
 
+  padding: var(--spacing-1) var(--spacing-2);
   border-radius: var(--border-radius-1);
 
   color: var(--color-typography);

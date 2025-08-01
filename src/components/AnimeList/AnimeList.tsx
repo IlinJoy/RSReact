@@ -3,6 +3,7 @@ import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router
 
 import { AnimeListCard } from '@/components/AnimeListCard/AnimeListCard';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
+import { NothingFound } from '@/components/NothingFound/NothingFound';
 import { Pagination } from '@/components/Pagination/Pagination';
 import { useQueryParams } from '@/hooks/useQueryParams';
 import type { Anime } from '@/models/animeModel';
@@ -41,6 +42,7 @@ export function AnimeList() {
       <div className={clsx(styles.section, { [styles.disable]: isOutletOpen })}>
         <ListComponent
           data={filteredList}
+          emptyView={<NothingFound />}
           renderItem={(data) => <AnimeListCard data={data} key={data.mal_id} />}
         />
         {shouldShowPagination && (

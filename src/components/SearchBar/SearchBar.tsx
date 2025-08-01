@@ -1,5 +1,6 @@
-import { type FormEvent, useRef, useState } from 'react';
+import { type FormEvent, useEffect, useRef, useState } from 'react';
 
+import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 
 import styles from './SearchBar.module.scss';
@@ -12,18 +13,23 @@ export type SearchBarProps = {
 export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
   const [inputValue, setInputValue] = useState<string>(searchTerm);
   const initialValueRef = useRef<string>(searchTerm);
-  const isDirty = inputValue !== initialValueRef.current;
+  const isDirty = inputValue.trim() !== searchTerm;
+
+  useEffect(() => {
+    if (initialValueRef.current !== searchTerm) {
+      setInputValue(searchTerm);
+      initialValueRef.current = searchTerm;
+    }
+  }, [searchTerm]);
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
     const searchTerm = inputValue.trim();
-    initialValueRef.current = searchTerm;
     onSearch(searchTerm);
   };
 
   const resetSearch = () => {
     setInputValue('');
-    initialValueRef.current = '';
     onSearch('');
   };
 
@@ -40,20 +46,17 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
             className={styles.input}
           />
           {inputValue && (
-            <button
+            <Button
               aria-label="reset"
               type="reset"
               onClick={resetSearch}
               className={styles.resetButton}
-            >
-              <SpriteIcon id="close" size={16} />
-            </button>
+              icon={<SpriteIcon id="close" size={16} />}
+            />
           )}
         </div>
 
-        <button type="submit" disabled={!isDirty} className={styles.button}>
-          Search
-        </button>
+        <Button type="submit" text="Search" disabled={!isDirty} isSmall />
       </form>
     </div>
   );

@@ -32,5 +32,9 @@ export function useQueryParams() {
     [setSearchParams]
   );
 
-  return { setQueryParams, getQueryParam, searchParams };
+  const resetQueryParams = useCallback(() => {
+    setSearchParams('', { replace: true });
+  }, [setSearchParams]);
+
+  return { setQueryParams, getQueryParam, resetQueryParams };
 }

@@ -1,5 +1,6 @@
 import { useLoaderData, useLocation, useNavigate } from 'react-router';
 
+import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import type { Anime, DataType } from '@/models/animeModel';
 
@@ -23,13 +24,12 @@ export function AnimeDetails() {
 
   return (
     <div className={styles.details} aria-label="details">
-      <button
+      <Button
         className={styles.closeBtn}
         aria-label="back to list"
         onClick={() => navigate(`/${search}`)}
-      >
-        <SpriteIcon id="close" size={20} />
-      </button>
+        icon={<SpriteIcon id="close" size={20} />}
+      />
       <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
 
       <div className={styles.description}>

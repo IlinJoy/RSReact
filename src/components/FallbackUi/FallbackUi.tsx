@@ -1,5 +1,6 @@
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
 
+import { Button } from '@/components/Button/Button';
 import { RESPONSE_CODES } from '@/constants/api';
 import { NotFoundPage } from '@/router/lazyElements';
 import { getError } from '@/utils/handleErrorMessage';
@@ -35,9 +36,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
       <div className={styles.wrapper}>
         <h1>Something went wrong.</h1>
         <p>{getError(currentError).message}</p>
-        <button onClick={handleReset} className={styles.button}>
-          {buttonMessage || 'Reload Page'}
-        </button>
+        <Button text={buttonMessage || 'Reload Page'} onClick={handleReset} />
       </div>
     </section>
   );
