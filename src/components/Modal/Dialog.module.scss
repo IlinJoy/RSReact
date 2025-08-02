@@ -34,7 +34,13 @@
   top: var(--spacing-2);
   right: var(--spacing-2);
 
+  border-radius: var(--border-radius-2);
+
   color: inherit;
 
-  background-color: transparent;
+  background: var(--color-background);
+
+  &:hover {
+    background: var(--color-background-light);
+  }
 }

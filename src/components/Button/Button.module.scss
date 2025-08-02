@@ -21,6 +21,10 @@
   @extend %button-main;
 }
 
+.large {
+  padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+}
+
 .medium {
   padding: var(--spacing-1) var(--spacing-2);
 }

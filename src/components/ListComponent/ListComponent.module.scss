@@ -1,5 +1,9 @@
 @use '../../styles/mixins' as *;
 
-.wrapper {
+.horizontal {
   @include flex(row, var(--spacing-2), $justify: center);
+}
+
+.vertical {
+  @include flex(column, var(--spacing-2));
 }

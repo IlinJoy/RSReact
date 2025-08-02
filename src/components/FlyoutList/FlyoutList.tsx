@@ -47,6 +47,7 @@ export function FlyoutList() {
       <Dialog modalRef={dialogRef}>
         <ListComponent
           data={selectedItems}
+          direction="vertical"
           renderItem={(data) => <div key={data.id}>{data.title}</div>}
         />
       </Dialog>

@@ -9,6 +9,7 @@ type ListComponentProps<T> = {
   data?: T[];
   renderItem: (item: T) => ReactNode;
   emptyView?: ReactNode;
+  direction?: 'vertical' | 'horizontal';
 };
 
 export function ListComponent<T>({
@@ -16,6 +17,7 @@ export function ListComponent<T>({
   data,
   renderItem,
   emptyView,
+  direction = 'horizontal',
 }: ListComponentProps<T>) {
   if (isLoading || !data) {
     return <Spinner />;
@@ -25,5 +27,5 @@ export function ListComponent<T>({
     return emptyView;
   }
 
-  return <div className={styles.wrapper}>{data?.map((item) => renderItem(item))}</div>;
+  return <div className={styles[direction]}>{data?.map((item) => renderItem(item))}</div>;
 }
