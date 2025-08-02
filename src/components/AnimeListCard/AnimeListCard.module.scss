@@ -3,6 +3,10 @@
 
 .card-wrapper {
   position: relative;
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 .cover {

@@ -29,6 +29,10 @@
     margin-bottom: var(--spacing-2);
 
     text-align: left;
+
+    @include tablet {
+      gap: var(--spacing-1);
+    }
   }
 }
 

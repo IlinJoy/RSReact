@@ -8,11 +8,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 
+  overflow-y: hidden;
+
   background-color: transparent;
 }
 
 .wrapper::backdrop {
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(8px);
 }
 
 .content {
@@ -29,8 +31,8 @@
   background-color: var(--color-background);
 
   @include tablet {
-    width: 80vw;
-    height: 95vh;
+    width: 85vw;
+    height: 100vh;
   }
 }
 
