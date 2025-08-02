@@ -5,8 +5,8 @@ export const mapAnime = (anime: Anime) => ({
   title: anime.title_english || anime.title,
   title_japanese: anime.title_japanese,
   genres: anime.genres.map((genre) => genre.name),
-  episodes: anime.episodes,
+  episodes: anime.episodes || 0,
   duration: anime.duration,
-  year: anime.year,
+  year: anime.year || 0,
   images: anime.images.webp.large_image_url,
 });

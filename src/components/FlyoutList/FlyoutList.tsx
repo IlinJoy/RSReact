@@ -6,22 +6,36 @@ import { ListItem } from '@/components/FlyoutList/ListItem/ListItem';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
 import { Dialog } from '@/components/Modal/Dialog';
 import { getItems } from '@/store/slices';
+import { createDownloadUrl, generateCsvFromObjectArray } from '@/utils/createDownloadUrl';
 
 export function FlyoutList() {
   const selectedItems = useSelector(getItems);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
+  const downloadUrl = createDownloadUrl(selectedItems, {
+    type: 'text/csv',
+    mapFunction: generateCsvFromObjectArray,
+  });
+
   const toggleDialog = () =>
     dialogRef.current?.open ? dialogRef.current.close() : dialogRef.current?.showModal();
 
-  console.log(selectedItems);
   return (
     <>
-      <Controls totalAmount={selectedItems.length} onListOpen={toggleDialog} />
+      <Controls
+        downloadUrl={downloadUrl}
+        totalAmount={selectedItems.length}
+        onListOpen={toggleDialog}
+      />
       <Dialog
         modalRef={dialogRef}
         headingElement={
-          <Controls isModal totalAmount={selectedItems.length} onListOpen={toggleDialog} />
+          <Controls
+            isModal
+            downloadUrl={downloadUrl}
+            totalAmount={selectedItems.length}
+            onListOpen={toggleDialog}
+          />
         }
       >
         <ListComponent

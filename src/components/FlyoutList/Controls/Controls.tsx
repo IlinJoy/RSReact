@@ -9,11 +9,12 @@ import styles from './Controls.module.scss';
 
 type ControlsProps = {
   totalAmount: number;
+  downloadUrl: string;
   onListOpen: () => void;
   isModal?: boolean;
 };
 
-export function Controls({ totalAmount, onListOpen, isModal }: ControlsProps) {
+export function Controls({ totalAmount, onListOpen, isModal, downloadUrl }: ControlsProps) {
   const dispatch = useAppDispatch();
 
   const total = totalAmount >= 15 && !isModal ? '15+' : totalAmount;
@@ -35,13 +36,15 @@ export function Controls({ totalAmount, onListOpen, isModal }: ControlsProps) {
           />
         )}
       </div>
+      <a href={downloadUrl} download={`${totalAmount}_items`}>
+        <Button
+          size="small"
+          icon={<SpriteIcon id="download" />}
+          title="Download List"
+          aria-label="Download List"
+        />
+      </a>
 
-      <Button
-        size="small"
-        icon={<SpriteIcon id="download" />}
-        title="Download List"
-        aria-label="Download List"
-      />
       <Button
         icon={<SpriteIcon id="remove" />}
         size="small"

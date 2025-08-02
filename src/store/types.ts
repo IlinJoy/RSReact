@@ -5,9 +5,9 @@ export type CheckedItems = {
   title: string;
   title_japanese: string;
   genres: string[];
-  episodes: number | null;
+  episodes: number;
   duration: string;
-  year: number | null;
+  year: number;
   images: string;
 };
 
