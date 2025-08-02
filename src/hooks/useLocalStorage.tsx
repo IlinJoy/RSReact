@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
 
-import { getFromLocalStorage, setToLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
-
-type LocalStorageKey = Exclude<
-  (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS],
-  typeof STORAGE_KEYS.PREFIX
->;
+import {
+  getFromLocalStorage,
+  type LocalStorageKey,
+  setToLocalStorage,
+  STORAGE_KEYS,
+} from '@/utils/localStorageUtils';
 
 export function useLocalStorage<T>(key: LocalStorageKey, initValue: T) {
   const storageKey = STORAGE_KEYS.PREFIX + key;

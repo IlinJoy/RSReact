@@ -9,13 +9,13 @@
   border-radius: var(--border-radius-3);
 
   line-height: 0;
-  color: var(--color-typography-dark);
+  color: var(--color-typography-grey);
   text-align: center;
 
-  background-color: var(--color-typography);
+  background-color: var(--color-background-dark);
 
   &.checked {
-    border-color: var(--color-background-light);
+    border-color: var(--color-accent-dark);
     color: var(--color-accent-light);
     background-color: var(--color-accent-dark);
   }
@@ -29,7 +29,8 @@
   position: relative;
 
   &:hover .checkbox {
-    border-color: var(--color-accent-light);
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-dark);
   }
 }
 

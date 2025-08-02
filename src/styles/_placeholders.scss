@@ -52,3 +52,12 @@
     background-color: var(--color-background-light);
   }
 }
+
+%header-block-wrapper {
+  @include flex(row, var(--spacing-0), $align: center);
+
+  position: relative;
+  padding: var(--spacing-0);
+  border-radius: var(--border-radius-2);
+  background-color: var(--color-background);
+}

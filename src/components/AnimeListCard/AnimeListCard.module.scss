@@ -34,6 +34,15 @@
   line-clamp: 2;
 }
 
+.description {
+  z-index: 1;
+  width: 100%;
+  margin-top: auto;
+
+  @include flex(column);
+  @include transition;
+}
+
 .card {
   @include card-border;
   @include flex(column);
@@ -49,13 +58,15 @@
   padding: var(--spacing-2);
   border-radius: var(--border-radius-3);
 
+  background-color: var(--color-card-background);
+
   &:hover {
     border-color: var(--color-grey-dark);
 
     .cover {
       transform: scale(1.05);
 
-      mask-image: linear-gradient(black, black, transparent 95%);
+      mask-image: linear-gradient(black, black 70%, transparent 87%);
     }
   }
 
@@ -83,14 +94,6 @@
   letter-spacing: normal;
 
   background: var(--color-background-light);
-}
-
-.description {
-  z-index: 1;
-  width: 100%;
-  margin-top: auto;
-
-  @include flex(column);
 }
 
 .score {

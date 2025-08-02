@@ -10,13 +10,20 @@
 }
 
 .pagination-btn {
-  border: 1px solid var(--color-background-light);
+  border: 1px solid var(--color-accent-dark);
   border-radius: var(--border-radius-2);
   color: var(--color-accent-light);
   background-color: transparent;
 
   &:disabled {
+    border-color: var(--color-grey-dark);
     color: var(--color-grey-dark);
     background-color: transparent;
   }
+}
+
+.light {
+  border-color: var(--color-accent);
+  font-weight: 800;
+  background-color: var(--color-card-background);
 }
