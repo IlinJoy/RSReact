@@ -21,6 +21,10 @@
   @extend %button-main;
 }
 
-.small {
+.medium {
   padding: var(--spacing-1) var(--spacing-2);
+}
+
+.small {
+  padding: var(--spacing-0) var(--spacing-1);
 }

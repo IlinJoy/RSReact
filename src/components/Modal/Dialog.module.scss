@@ -1,0 +1,40 @@
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  @include card-border;
+
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: transparent;
+}
+
+.wrapper::backdrop {
+  backdrop-filter: blur(2px);
+}
+
+.content {
+  position: relative;
+
+  overflow-y: auto;
+
+  width: 60vw;
+  min-height: 60vh;
+  padding: var(--spacing-8);
+
+  color: var(--color-typography);
+
+  background-color: var(--color-background);
+}
+
+.close-button {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+
+  color: inherit;
+
+  background-color: transparent;
+}

@@ -1,0 +1,14 @@
+import type { CheckedItems } from '@/store/types';
+
+import styles from './ListItem.module.scss';
+
+type ListItemProps = { data: CheckedItems };
+
+export function ListItem({ data }: ListItemProps) {
+  return (
+    <div className={styles.listItem}>
+      <img className={styles.icon} src={data.images} alt={`${data.title} icon`} />
+      <p>Title: {data.title}</p>
+    </div>
+  );
+}

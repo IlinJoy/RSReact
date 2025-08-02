@@ -1,0 +1,19 @@
+@use '../../../styles/mixins' as *;
+
+.list-item {
+  @include flex(row, $align: center);
+
+  width: 80%;
+}
+
+.icon {
+  overflow: hidden;
+
+  width: 3rem;
+  height: 3rem;
+  margin-right: var(--spacing-3);
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center;
+}

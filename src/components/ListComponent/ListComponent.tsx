@@ -8,7 +8,7 @@ type ListComponentProps<T> = {
   isLoading?: boolean;
   data?: T[];
   renderItem: (item: T) => ReactNode;
-  emptyView: ReactNode;
+  emptyView?: ReactNode;
 };
 
 export function ListComponent<T>({

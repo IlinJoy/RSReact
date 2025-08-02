@@ -34,7 +34,12 @@
 }
 
 body {
+  scrollbar-gutter: stable;
   background-color: var(--color-background);
+}
+
+body:has(dialog[open]) {
+  overflow: hidden;
 }
 
 section {

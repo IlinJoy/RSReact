@@ -20,7 +20,7 @@ export function Pagination({ pagination, onChange }: PaginationProps) {
         onClick={() => onChange(-1)}
         disabled={current_page === 1}
         aria-label="back"
-        isSmall
+        size="medium"
       />
       <span>{`${current_page} of ${last_visible_page}`}</span>
       <Button
@@ -29,7 +29,7 @@ export function Pagination({ pagination, onChange }: PaginationProps) {
         onClick={() => onChange(1)}
         disabled={current_page === last_visible_page}
         aria-label="forward"
-        isSmall
+        size="medium"
       />
     </div>
   );

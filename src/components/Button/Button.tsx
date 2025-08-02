@@ -7,18 +7,18 @@ type ButtonProps = {
   text?: string;
   className?: string;
   icon?: ReactNode;
-  isSmall?: boolean;
+  size?: 'small' | 'medium';
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'>;
 
-export function Button({
-  text,
-  className = styles.baseButton,
-  icon,
-  isSmall,
-  ...props
-}: ButtonProps) {
+export function Button({ text, className = styles.baseButton, icon, size, ...props }: ButtonProps) {
   return (
-    <button className={clsx(styles.button, className, { [styles.small]: isSmall })} {...props}>
+    <button
+      className={clsx(styles.button, className, {
+        [styles.medium]: size === 'medium',
+        [styles.small]: size === 'small',
+      })}
+      {...props}
+    >
       {text} {icon && <span className={styles.icon}>{icon}</span>}
     </button>
   );

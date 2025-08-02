@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
+import { useCheckItem } from '@/hooks/useCheckItem';
 import type { Anime } from '@/models/animeModel';
 import { ROUTES } from '@/router/routes';
 
@@ -16,6 +17,7 @@ type AnimeListCardProps = {
 export function AnimeListCard({ data }: AnimeListCardProps) {
   const { search } = useLocation();
   const {
+    mal_id,
     title,
     title_english,
     genres,
@@ -25,6 +27,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     images: { webp },
   } = data;
 
+  const { isSelected, handleCheckItem } = useCheckItem(mal_id);
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
@@ -33,7 +36,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     <article className={styles.cardWrapper}>
       <div className={styles.topRow}>
         <span className={styles.status}>{status}</span>
-        <ItemCheckbox isChecked={false} onChange={() => {}} />
+        <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data)} />
       </div>
 
       <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>
