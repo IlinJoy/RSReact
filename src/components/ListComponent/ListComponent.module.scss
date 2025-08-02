@@ -5,5 +5,5 @@
 }
 
 .vertical {
-  @include flex(column, var(--spacing-2));
+  @include flex(column, 0);
 }

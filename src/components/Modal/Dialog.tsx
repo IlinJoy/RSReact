@@ -8,9 +8,10 @@ import styles from './Dialog.module.scss';
 type DialogProps = {
   modalRef: RefObject<HTMLDialogElement | null>;
   children: ReactNode;
+  headingElement?: ReactNode;
 } & Omit<DialogHTMLAttributes<HTMLDialogElement>, 'ref'>;
 
-export function Dialog({ modalRef, children, ...rest }: DialogProps) {
+export function Dialog({ modalRef, headingElement, children, ...rest }: DialogProps) {
   useEffect(() => {
     const dialog = modalRef.current;
 
@@ -33,12 +34,15 @@ export function Dialog({ modalRef, children, ...rest }: DialogProps) {
   return (
     <dialog ref={modalRef} className={styles.wrapper} {...rest}>
       <div className={styles.content}>
-        <Button
-          onClick={() => modalRef.current?.close()}
-          size="small"
-          className={styles.closeButton}
-          icon={<SpriteIcon id="close" />}
-        />
+        <div className={styles.heading}>
+          {headingElement}
+          <Button
+            onClick={() => modalRef.current?.close()}
+            size="small"
+            className={styles.closeButton}
+            icon={<SpriteIcon id="close" />}
+          />
+        </div>
         {children}
       </div>
     </dialog>

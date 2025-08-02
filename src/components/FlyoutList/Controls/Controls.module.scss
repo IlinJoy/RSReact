@@ -1,4 +1,4 @@
-@use '../../styles/mixins' as *;
+@use '../../../styles/mixins' as *;
 
 .wrapper {
   @include card-border;
@@ -14,6 +14,22 @@
   text-align: center;
 
   background-color: var(--color-background);
+
+  &.modal {
+    position: sticky;
+    top: 0;
+    bottom: auto;
+    left: 0;
+
+    flex-direction: row;
+    gap: var(--spacing-2);
+    align-items: center;
+
+    width: fit-content;
+    margin-bottom: var(--spacing-2);
+
+    text-align: left;
+  }
 }
 
 .buttons-column {
@@ -21,4 +37,10 @@
 
   padding-bottom: var(--spacing-1);
   border-bottom: 1px solid var(--color-background-light);
+
+  &.modal {
+    flex-direction: row;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
 }

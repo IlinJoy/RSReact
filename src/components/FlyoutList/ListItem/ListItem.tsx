@@ -9,6 +9,7 @@ export function ListItem({ data }: ListItemProps) {
     <div className={styles.listItem}>
       <img className={styles.icon} src={data.images} alt={`${data.title} icon`} />
       <p>Title: {data.title}</p>
+      <p>Episodes: {data.episodes || 0}</p>
     </div>
   );
 }
