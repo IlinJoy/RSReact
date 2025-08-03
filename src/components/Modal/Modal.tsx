@@ -28,6 +28,7 @@ export function Modal({ headingElement, onClose, children }: DialogProps) {
             size="small"
             className={styles.closeButton}
             icon={<SpriteIcon id="close" />}
+            aria-label="close"
           />
         </div>
         {children}
