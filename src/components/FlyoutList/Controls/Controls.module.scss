@@ -1,4 +1,5 @@
 @use '../../../styles/mixins' as *;
+@use '../../../styles/placeholders' as *;
 
 .wrapper {
   @include card-border;
@@ -42,5 +43,21 @@
     flex-direction: row;
     padding-bottom: 0;
     border-bottom: none;
+  }
+}
+
+.link-button {
+  @include transition;
+  @include flex(row, 0.7em, $align: center);
+
+  @extend %button-main;
+
+  cursor: pointer;
+  padding: var(--spacing-0) var(--spacing-1);
+  color: var(--color-button-text);
+
+  &:disabled {
+    pointer-events: none;
+    background-color: var(--color-button-disabled);
   }
 }

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { type RefObject, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Controls } from '@/components/FlyoutList/Controls/Controls';
@@ -12,10 +12,15 @@ export function FlyoutList() {
   const selectedItems = useSelector(getItems);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const downloadUrl = createDownloadUrl(selectedItems, {
-    type: 'text/csv',
-    mapFunction: generateCsvFromObjectArray,
-  });
+  const handleDownload = (downloadLinkRef: RefObject<HTMLAnchorElement | null>) => {
+    if (downloadLinkRef.current) {
+      downloadLinkRef.current.href = createDownloadUrl(selectedItems, {
+        type: 'text/csv',
+        mapFunction: generateCsvFromObjectArray,
+      });
+      downloadLinkRef.current.download = `${selectedItems.length}_items`;
+    }
+  };
 
   const toggleDialog = () =>
     dialogRef.current?.open ? dialogRef.current.close() : dialogRef.current?.showModal();
@@ -23,7 +28,7 @@ export function FlyoutList() {
   return (
     <>
       <Controls
-        downloadUrl={downloadUrl}
+        onDownload={handleDownload}
         totalAmount={selectedItems.length}
         onListOpen={toggleDialog}
       />
@@ -32,7 +37,7 @@ export function FlyoutList() {
         headingElement={
           <Controls
             isModal
-            downloadUrl={downloadUrl}
+            onDownload={handleDownload}
             totalAmount={selectedItems.length}
             onListOpen={toggleDialog}
           />

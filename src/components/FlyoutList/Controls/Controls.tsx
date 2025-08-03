@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { type RefObject, useRef } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
@@ -9,12 +10,13 @@ import styles from './Controls.module.scss';
 
 type ControlsProps = {
   totalAmount: number;
-  downloadUrl: string;
+  onDownload: (linkHref: RefObject<HTMLAnchorElement | null>) => void;
   onListOpen: () => void;
   isModal?: boolean;
 };
 
-export function Controls({ totalAmount, onListOpen, isModal, downloadUrl }: ControlsProps) {
+export function Controls({ totalAmount, onListOpen, isModal, onDownload }: ControlsProps) {
+  const linkRef = useRef<HTMLAnchorElement>(null);
   const dispatch = useAppDispatch();
 
   const total = totalAmount >= 15 && !isModal ? '15+' : totalAmount;
@@ -36,13 +38,15 @@ export function Controls({ totalAmount, onListOpen, isModal, downloadUrl }: Cont
           />
         )}
       </div>
-      <a href={downloadUrl} download={`${totalAmount}_items`}>
-        <Button
-          size="small"
-          icon={<SpriteIcon id="download" />}
-          title="Download List"
-          aria-label="Download List"
-        />
+
+      <a
+        ref={linkRef}
+        onClick={() => onDownload(linkRef)}
+        title="Download List"
+        aria-label="Download List"
+        className={styles.linkButton}
+      >
+        <SpriteIcon id="download" />
       </a>
 
       <Button
