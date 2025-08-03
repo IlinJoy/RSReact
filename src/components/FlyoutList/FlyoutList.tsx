@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { Controls } from '@/components/FlyoutList/Controls/Controls';
 import { ListItem } from '@/components/FlyoutList/ListItem/ListItem';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
-import { Dialog } from '@/components/Modal/Dialog';
+import { Modal } from '@/components/Modal/Modal';
 import { getItems } from '@/store/slices/checkedItemsSlice';
 import { createDownloadUrl, generateCsvFromObjectArray } from '@/utils/createDownloadUrl';
 
@@ -32,7 +32,7 @@ export function FlyoutList() {
         onListOpen={toggleDialog}
       />
       {isShownModal && (
-        <Dialog
+        <Modal
           onClose={toggleDialog}
           headingElement={
             <Controls
@@ -48,7 +48,7 @@ export function FlyoutList() {
             direction="vertical"
             renderItem={(data) => <ListItem key={data.id} data={data} />}
           />
-        </Dialog>
+        </Modal>
       )}
     </>
   );
