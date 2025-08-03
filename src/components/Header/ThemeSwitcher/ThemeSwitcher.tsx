@@ -1,12 +1,8 @@
+import { appThemes } from '@/components/Header/ThemeSwitcher/themeConfig';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './ThemeSwitcher.module.scss';
-
-const appThemes = [
-  { value: 'light', label: 'Light', icon: 'sun' },
-  { value: 'dark', label: 'Dark', icon: 'moon' },
-] as const;
 
 export function ThemeSwitcher() {
   const { theme, updateTheme } = useTheme();

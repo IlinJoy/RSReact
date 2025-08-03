@@ -38,7 +38,6 @@ export default tseslint.config(
         },
       ],
       curly: 'error',
-      '@typescript-eslint/consistent-type-imports': 'error',
       'react/jsx-no-useless-fragment': 'error',
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',

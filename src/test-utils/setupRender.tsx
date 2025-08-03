@@ -1,22 +1,21 @@
 import { render, type RenderOptions } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import type { JSXElementConstructor, PropsWithChildren, ReactNode } from 'react';
+import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { Provider } from 'react-redux';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 
 import { routes } from '@/router/router';
 import { type AppStore, type RootState, setupStore } from '@/store/store';
 
+type SetupProvider = FC<{ children: ReactNode }>;
+
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>;
   store?: AppStore;
-  providers?: JSXElementConstructor<PropsWithChildren>[];
+  providers?: SetupProvider[];
 }
 
-export const combineProviders = (
-  children: ReactNode,
-  providers: JSXElementConstructor<PropsWithChildren>[]
-) => {
+export const combineProviders = (children: ReactNode, providers: SetupProvider[]) => {
   return providers.reduceRight((acc, Provider) => <Provider>{acc}</Provider>, children);
 };
 

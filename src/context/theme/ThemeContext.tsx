@@ -2,7 +2,7 @@ import { createContext, type ReactNode, use, useCallback, useLayoutEffect, useSt
 
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
-type Theme = 'light' | 'dark' | null;
+export type Theme = 'light' | 'dark' | null;
 
 type ThemeContextType = {
   theme: Theme;
