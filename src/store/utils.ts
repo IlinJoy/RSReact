@@ -8,5 +8,5 @@ export const mapAnime = (anime: Anime) => ({
   episodes: anime.episodes || 0,
   duration: anime.duration,
   year: anime.year || 0,
-  images: anime.images.webp.large_image_url,
+  image: anime.images.webp.large_image_url,
 });

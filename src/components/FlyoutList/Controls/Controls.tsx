@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useAppDispatch } from '@/store/hooks';
-import { removeAll } from '@/store/slices';
+import { removeAll } from '@/store/slices/checkedItemsSlice';
 
 import styles from './Controls.module.scss';
 

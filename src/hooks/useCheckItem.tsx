@@ -3,7 +3,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 
 import type { Anime } from '@/models/animeModel';
 import { useAppDispatch } from '@/store/hooks';
-import { addItem, getItems, removeItem } from '@/store/slices';
+import { addItem, getItems, removeItem } from '@/store/slices/checkedItemsSlice';
 
 export function useCheckItem(id: number) {
   const selectedItems = useSelector(getItems, shallowEqual);

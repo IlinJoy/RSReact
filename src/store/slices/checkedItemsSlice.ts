@@ -4,7 +4,7 @@ import type { CheckedItemsState, PayloadAnimeAction } from '@store/types';
 import type { Anime } from '@/models/animeModel';
 import { mapAnime } from '@/store/utils';
 
-const initialState: CheckedItemsState = { data: [] };
+export const initialState: CheckedItemsState = { data: [] };
 
 export const checkedItemsSlice = createSlice({
   name: 'checkedItems',

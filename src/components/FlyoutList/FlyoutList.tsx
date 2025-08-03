@@ -5,7 +5,7 @@ import { Controls } from '@/components/FlyoutList/Controls/Controls';
 import { ListItem } from '@/components/FlyoutList/ListItem/ListItem';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
 import { Dialog } from '@/components/Modal/Dialog';
-import { getItems } from '@/store/slices';
+import { getItems } from '@/store/slices/checkedItemsSlice';
 import { createDownloadUrl, generateCsvFromObjectArray } from '@/utils/createDownloadUrl';
 
 export function FlyoutList() {

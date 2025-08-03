@@ -8,7 +8,7 @@ export type CheckedItems = {
   episodes: number;
   duration: string;
   year: number;
-  images: string;
+  image: string;
 };
 
 export type CheckedItemsState = { data: CheckedItems[] };

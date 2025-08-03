@@ -6,7 +6,7 @@ import { FlyoutList } from '@/components/FlyoutList/FlyoutList';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { getItems } from '@/store/slices';
+import { getItems } from '@/store/slices/checkedItemsSlice';
 
 import styles from './HomePage.module.scss';
 

@@ -1,12 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import checkedItemsReducer from './slices';
+import checkedItemsReducer from './slices/checkedItemsSlice';
 
-export const store = configureStore({
-  reducer: {
-    checkedItems: checkedItemsReducer,
-  },
+const rootReducer = combineReducers({
+  checkedItems: checkedItemsReducer,
 });
 
-export type RootState = ReturnType<typeof store.getState>;
+export const setupStore = (preloadedState?: Partial<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
+
+export const store = setupStore();
+
+export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = typeof store.dispatch;
+export type AppStore = ReturnType<typeof setupStore>;
