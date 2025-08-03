@@ -11,6 +11,11 @@
 
   max-width: 1440px;
   margin: auto;
+
+  @include mobile {
+    flex-direction: column;
+    gap: var(--spacing-0);
+  }
 }
 
 .nav {

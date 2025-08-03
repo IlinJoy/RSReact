@@ -21,7 +21,7 @@
 
   @include tablet {
     position: fixed;
-    z-index: 200;
+    z-index: 50;
     inset: var(--spacing-2);
     height: auto;
   }

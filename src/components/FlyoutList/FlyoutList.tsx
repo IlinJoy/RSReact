@@ -1,4 +1,4 @@
-import { type RefObject, useRef } from 'react';
+import { type RefObject, useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Controls } from '@/components/FlyoutList/Controls/Controls';
@@ -9,8 +9,8 @@ import { getItems } from '@/store/slices/checkedItemsSlice';
 import { createDownloadUrl, generateCsvFromObjectArray } from '@/utils/createDownloadUrl';
 
 export function FlyoutList() {
+  const [isShownModal, setIsShownModal] = useState(false);
   const selectedItems = useSelector(getItems);
-  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const handleDownload = (downloadLinkRef: RefObject<HTMLAnchorElement | null>) => {
     if (downloadLinkRef.current) {
@@ -22,8 +22,7 @@ export function FlyoutList() {
     }
   };
 
-  const toggleDialog = () =>
-    dialogRef.current?.open ? dialogRef.current.close() : dialogRef.current?.showModal();
+  const toggleDialog = useCallback(() => setIsShownModal((prev) => !prev), []);
 
   return (
     <>
@@ -32,23 +31,25 @@ export function FlyoutList() {
         totalAmount={selectedItems.length}
         onListOpen={toggleDialog}
       />
-      <Dialog
-        modalRef={dialogRef}
-        headingElement={
-          <Controls
-            isModal
-            onDownload={handleDownload}
-            totalAmount={selectedItems.length}
-            onListOpen={toggleDialog}
+      {isShownModal && (
+        <Dialog
+          onClose={toggleDialog}
+          headingElement={
+            <Controls
+              isModal
+              onDownload={handleDownload}
+              totalAmount={selectedItems.length}
+              onListOpen={toggleDialog}
+            />
+          }
+        >
+          <ListComponent
+            data={selectedItems}
+            direction="vertical"
+            renderItem={(data) => <ListItem key={data.id} data={data} />}
           />
-        }
-      >
-        <ListComponent
-          data={selectedItems}
-          direction="vertical"
-          renderItem={(data) => <ListItem key={data.id} data={data} />}
-        />
-      </Dialog>
+        </Dialog>
+      )}
     </>
   );
 }

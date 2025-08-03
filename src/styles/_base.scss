@@ -61,7 +61,7 @@ body {
   background-color: var(--color-background);
 }
 
-body:has(dialog[open]) {
+body:has([data-modal='true']) {
   overflow: hidden;
 }
 
