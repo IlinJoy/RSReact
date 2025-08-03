@@ -8,7 +8,7 @@ import { removeAll } from '@/store/slices/checkedItemsSlice';
 
 import styles from './Controls.module.scss';
 
-type ControlsProps = {
+export type ControlsProps = {
   totalAmount: number;
   onDownload: (linkHref: RefObject<HTMLAnchorElement | null>) => void;
   onListOpen: () => void;
@@ -24,7 +24,7 @@ export function Controls({ totalAmount, onListOpen, isModal, onDownload }: Contr
   return (
     <div className={clsx(styles.wrapper, { [styles.modal]: isModal })}>
       <div className={clsx(styles.buttonsColumn, { [styles.modal]: isModal })}>
-        <span>
+        <span aria-label="Chosen items total amount">
           Total:
           <br /> {total}
         </span>
