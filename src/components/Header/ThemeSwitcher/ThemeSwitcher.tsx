@@ -1,5 +1,5 @@
-import { appThemes } from '@/components/Header/ThemeSwitcher/themeConfig';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { APP_THEMES } from '@/context/theme/themeConfig';
 import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './ThemeSwitcher.module.scss';
@@ -9,7 +9,7 @@ export function ThemeSwitcher() {
 
   return (
     <div className={styles.wrapper}>
-      {appThemes.map((item) => {
+      {Object.values(APP_THEMES).map((item) => {
         const { value, label, icon } = item;
         return (
           <div key={value} className={styles.inputWrapper}>

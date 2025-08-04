@@ -1,39 +1,35 @@
-import { createContext, type ReactNode, use, useCallback, useLayoutEffect, useState } from 'react';
+import { createContext, type ReactNode, use, useLayoutEffect } from 'react';
 
+import { isClient } from '@/constants/common';
+import { APP_THEMES } from '@/context/theme/themeConfig';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
-export type Theme = 'light' | 'dark' | null;
+export type Theme = keyof typeof APP_THEMES;
 
 type ThemeContextType = {
   theme: Theme;
-  updateTheme: (theme: Exclude<Theme, null>) => void;
+  updateTheme: (theme: Theme) => void;
 };
 
 const defaultValue = {
-  theme: null,
+  theme: APP_THEMES.dark.value,
   updateTheme: () => {},
-};
+} as const;
 
 const ThemeContext = createContext<ThemeContextType>(defaultValue);
 
 export function ThemeContextProvider({ children }: { children: ReactNode }) {
-  const [storedTheme, setStoredTheme] = useLocalStorage<Theme>('theme', null);
-  const [theme, setTheme] = useState(
-    () =>
-      storedTheme ?? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+  const { light, dark } = APP_THEMES;
+  const [theme, updateTheme] = useLocalStorage<Theme>(
+    'theme',
+    isClient && window.matchMedia('(prefers-color-scheme: light)').matches
+      ? light.value
+      : dark.value
   );
 
   useLayoutEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
   }, [theme]);
-
-  const updateTheme = useCallback(
-    (theme: Exclude<Theme, null>) => {
-      setTheme(theme);
-      setStoredTheme(theme);
-    },
-    [setStoredTheme]
-  );
 
   return <ThemeContext value={{ theme, updateTheme }}>{children}</ThemeContext>;
 }
