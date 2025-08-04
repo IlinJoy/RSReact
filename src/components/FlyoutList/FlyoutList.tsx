@@ -5,12 +5,12 @@ import { Controls } from '@/components/FlyoutList/Controls/Controls';
 import { ListItem } from '@/components/FlyoutList/ListItem/ListItem';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
 import { Modal } from '@/components/Modal/Modal';
-import { getItems } from '@/store/slices/checkedItemsSlice';
+import { checkedItemsSelectors } from '@/store/slices/selectors';
 import { createDownloadUrl, generateCsvFromObjectArray } from '@/utils/createDownloadUrl';
 
 export function FlyoutList() {
   const [isShownModal, setIsShownModal] = useState(false);
-  const selectedItems = useSelector(getItems);
+  const selectedItems = useSelector(checkedItemsSelectors.selectAll);
 
   const handleDownload = (downloadLinkRef: RefObject<HTMLAnchorElement | null>) => {
     if (downloadLinkRef.current) {

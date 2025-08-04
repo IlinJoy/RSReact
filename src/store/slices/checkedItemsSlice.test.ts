@@ -6,7 +6,7 @@ import reducer, {
 } from '@/store/slices/checkedItemsSlice';
 import { mapAnime } from '@/store/utils';
 import { generateMockData } from '@/test-utils/generateMockData';
-import { mockStoreItem } from '@/test-utils/mocks/mockStoreData';
+import { mockStoreItem, mockStoreItems } from '@/test-utils/mocks/mockStoreData';
 
 describe('checkedItemsSlice', () => {
   let previousState: typeof initialState;
@@ -24,19 +24,23 @@ describe('checkedItemsSlice', () => {
       const mockedAnime = generateMockData();
       const mockStoreItem = mapAnime(mockedAnime);
 
-      expect(reducer(previousState, addItem(mockedAnime))).toEqual({ data: [mockStoreItem] });
+      expect(reducer(previousState, addItem(mockedAnime))).toEqual({
+        ids: [mockedAnime.mal_id],
+        entities: { [mockedAnime.mal_id]: mockStoreItem },
+      });
     });
 
     it('should remove item from store', () => {
-      previousState = { data: [mockStoreItem, { ...mockStoreItem, id: 2 }] };
+      previousState = { ...mockStoreItems };
 
       expect(reducer(previousState, removeItem(2))).toEqual({
-        data: [mockStoreItem],
+        ids: [1],
+        entities: { 1: mockStoreItem },
       });
     });
 
     it('should remove remove all from store', () => {
-      previousState = { data: [mockStoreItem, mockStoreItem] };
+      previousState = { ...mockStoreItems };
 
       expect(reducer(previousState, removeAll())).toEqual(initialState);
     });

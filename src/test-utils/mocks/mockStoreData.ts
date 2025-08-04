@@ -1,6 +1,6 @@
-import type { CheckedItems } from '@store/types';
+import type { CheckedItem } from '@store/types';
 
-export const mockStoreItem: CheckedItems = {
+export const mockStoreItem: CheckedItem = {
   id: 1,
   title: 'title',
   title_japanese: 'title_japanese',
@@ -9,4 +9,9 @@ export const mockStoreItem: CheckedItems = {
   duration: '30',
   year: 2000,
   image: 'imageLink',
+};
+
+export const mockStoreItems = {
+  ids: [1, 2],
+  entities: { 1: mockStoreItem, 2: { ...mockStoreItem, id: 2 } },
 };

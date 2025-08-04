@@ -5,7 +5,7 @@ import { addItem } from '@/store/slices/checkedItemsSlice';
 import { type AppStore, setupStore } from '@/store/store';
 import { mapAnime } from '@/store/utils';
 import { db } from '@/test-utils/mocks/db';
-import { mockStoreItem } from '@/test-utils/mocks/mockStoreData';
+import { mockStoreItems } from '@/test-utils/mocks/mockStoreData';
 import { setupUserEvent } from '@/test-utils/setupRender';
 
 describe('Flyout Component', () => {
@@ -73,9 +73,7 @@ describe('Flyout Component', () => {
         const mockedUrl = 'test';
         URL.createObjectURL = vi.fn(() => mockedUrl);
         mockedStore = setupStore({
-          checkedItems: {
-            data: [mockStoreItem, mockStoreItem],
-          },
+          checkedItems: { ...mockStoreItems },
         });
         const { user, store } = setupUserEvent(<FlyoutList />, { store: mockedStore });
 
@@ -86,7 +84,7 @@ describe('Flyout Component', () => {
         expect(link).toHaveAttribute('href', mockedUrl);
         expect(link).toHaveAttribute(
           'download',
-          `${store.getState().checkedItems.data.length}_items`
+          `${store.getState().checkedItems.ids.length}_items`
         );
       });
     });

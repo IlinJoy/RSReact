@@ -3,8 +3,8 @@ import { useLoaderData, useLocation, useNavigate } from 'react-router';
 import { Button } from '@/components/Button/Button';
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useCheckItem } from '@/hooks/useCheckItem';
 import type { Anime, DataType } from '@/models/animeModel';
+import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeDetails.module.scss';
 
@@ -36,7 +36,11 @@ export function AnimeDetails() {
           onClick={() => navigate(`/${search}`)}
           icon={<SpriteIcon id="close" size={20} />}
         />
-        <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data)} isLarge />
+        <ItemCheckbox
+          isChecked={isSelected}
+          onChange={() => handleCheckItem(data, isSelected)}
+          isLarge
+        />
       </div>
 
       <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />

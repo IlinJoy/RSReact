@@ -1,8 +1,8 @@
-import type { CheckedItems } from '@/store/types';
+import type { CheckedItem } from '@/store/types';
 
 import styles from './ListItem.module.scss';
 
-type ListItemProps = { data: CheckedItems };
+type ListItemProps = { data: CheckedItem };
 
 export function ListItem({ data }: ListItemProps) {
   return (

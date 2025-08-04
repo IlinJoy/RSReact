@@ -1,6 +1,4 @@
-import type { PayloadAction } from '@reduxjs/toolkit';
-
-export type CheckedItems = {
+export type CheckedItem = {
   id: number;
   title: string;
   title_japanese: string;
@@ -11,5 +9,7 @@ export type CheckedItems = {
   image: string;
 };
 
-export type CheckedItemsState = { data: CheckedItems[] };
-export type PayloadAnimeAction = PayloadAction<CheckedItems>;
+export type CheckedItemsState = {
+  ids: number[];
+  entities: { [key: number]: CheckedItem };
+};

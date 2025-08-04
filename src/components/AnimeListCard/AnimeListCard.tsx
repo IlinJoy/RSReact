@@ -2,9 +2,9 @@ import { Link, useLocation } from 'react-router';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
-import { useCheckItem } from '@/hooks/useCheckItem';
 import type { Anime } from '@/models/animeModel';
 import { ROUTES } from '@/router/routes';
+import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -36,7 +36,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     <article className={styles.cardWrapper}>
       <div className={styles.topRow}>
         <span className={styles.status}>{status}</span>
-        <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data)} />
+        <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data, isSelected)} />
       </div>
 
       <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>

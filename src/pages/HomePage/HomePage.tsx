@@ -6,7 +6,7 @@ import { FlyoutList } from '@/components/FlyoutList/FlyoutList';
 import { SearchBar } from '@/components/SearchBar/SearchBar';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import { getItems } from '@/store/slices/checkedItemsSlice';
+import { checkedItemsSelectors } from '@/store/slices/selectors';
 
 import styles from './HomePage.module.scss';
 
@@ -15,7 +15,7 @@ export function HomePage() {
   const [, setSearchTerm] = useLocalStorage('task-anime', '');
   const navigate = useNavigate();
   const urlQuery = getQueryParam('query') || '';
-  const hasSelected = !!useSelector(getItems).length;
+  const hasSelected = !!useSelector(checkedItemsSelectors.selectTotal);
 
   const handleSearchTermUpdate = (term: string) => {
     setSearchTerm(term);

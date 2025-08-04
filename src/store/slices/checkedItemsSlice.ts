@@ -1,34 +1,32 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { CheckedItemsState, PayloadAnimeAction } from '@store/types';
+import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import type { CheckedItem } from '@store/types';
 
 import type { Anime } from '@/models/animeModel';
 import { mapAnime } from '@/store/utils';
 
-export const initialState: CheckedItemsState = { data: [] };
+export const checkedItemsAdapter = createEntityAdapter({
+  selectId: (data: CheckedItem) => data.id,
+});
+
+export const initialState = checkedItemsAdapter.getInitialState();
 
 export const checkedItemsSlice = createSlice({
   name: 'checkedItems',
   initialState,
   reducers: {
     addItem: {
-      reducer: (state, action: PayloadAnimeAction) => {
-        state.data.push(action.payload);
-      },
+      reducer: checkedItemsAdapter.addOne,
       prepare: (data: Anime) => ({ payload: mapAnime(data) }),
     },
-    removeItem: (state, action: PayloadAction<number>) => {
-      state.data = state.data.filter((item) => item.id !== action.payload);
+    removeItem(state, action) {
+      checkedItemsAdapter.removeOne(state, action.payload);
     },
-    removeAll: (state) => {
-      state.data = [];
+    removeAll: () => {
+      return initialState;
     },
-  },
-  selectors: {
-    getItems: (sliceState) => sliceState.data,
   },
 });
 
 export const { addItem, removeItem, removeAll } = checkedItemsSlice.actions;
-export const { getItems } = checkedItemsSlice.selectors;
 
 export default checkedItemsSlice.reducer;

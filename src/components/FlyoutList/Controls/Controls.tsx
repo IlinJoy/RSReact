@@ -3,7 +3,7 @@ import { type RefObject, useRef } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch } from '@/store/hooks/base';
 import { removeAll } from '@/store/slices/checkedItemsSlice';
 
 import styles from './Controls.module.scss';
