@@ -47,23 +47,25 @@ export function Controls({ CheckedItems, onListOpen, isModal }: ControlsProps) {
         )}
       </div>
 
-      <Button
-        size="small"
-        onClick={() => download(CheckedItems, linkRef)}
-        title="Download List"
-        aria-label="Download List"
-        icon={<SpriteIcon id="download" />}
-      >
-        <a ref={linkRef} data-testid="download-link" className={styles.linkButton} />
-      </Button>
+      <div className={clsx(styles.buttonsColumn, { [styles.modal]: isModal })}>
+        <Button
+          size="small"
+          onClick={() => download(CheckedItems, linkRef)}
+          title="Download List"
+          aria-label="Download List"
+          icon={<SpriteIcon id="download" />}
+        >
+          <a ref={linkRef} data-testid="download-link" className={styles.linkButton} />
+        </Button>
 
-      <Button
-        icon={<SpriteIcon id="remove" />}
-        size="small"
-        title="Remove All"
-        aria-label="Remove All"
-        onClick={() => dispatch(removeAll())}
-      />
+        <Button
+          icon={<SpriteIcon id="remove" />}
+          size="small"
+          title="Remove All"
+          aria-label="Remove All"
+          onClick={() => dispatch(removeAll())}
+        />
+      </div>
     </div>
   );
 }

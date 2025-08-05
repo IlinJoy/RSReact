@@ -15,14 +15,16 @@
 
   min-width: 400px;
   height: 80vh;
-  border-radius: var(--border-radius-2);
+  border-radius: var(--border-radius-3);
 
   background-color: var(--color-card-background);
 
   @include tablet {
     position: fixed;
     z-index: 50;
-    inset: var(--spacing-2);
+    inset: var(--spacing-2) var(--spacing-2) var(--spacing-2) var(--spacing-2);
+
+    min-width: auto;
     height: auto;
   }
 }

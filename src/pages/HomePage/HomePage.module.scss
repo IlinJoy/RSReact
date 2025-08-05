@@ -1,7 +1,7 @@
 @use '../../styles/mixins' as *;
 
 .cards-wrapper {
-  @include flex(row, $justify: center);
+  @include flex(column, $justify: center);
 
   position: relative;
   flex-wrap: nowrap;

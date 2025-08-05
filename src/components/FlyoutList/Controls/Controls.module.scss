@@ -1,6 +1,21 @@
 @use '../../../styles/mixins' as *;
 @use '../../../styles/placeholders' as *;
 
+@mixin wrapper-override {
+  position: sticky;
+  top: 0;
+  bottom: auto;
+  left: 0;
+
+  flex-direction: row;
+  gap: var(--spacing-2);
+  align-items: center;
+
+  width: fit-content;
+
+  text-align: left;
+}
+
 .wrapper {
   @include card-border;
   @include flex(column);
@@ -10,26 +25,24 @@
   bottom: var(--spacing-3);
   left: var(--spacing-3);
 
-  padding: var(--spacing-2);
+  padding: var(--spacing-1);
 
   text-align: center;
 
   background-color: var(--color-card-background);
 
   &.modal {
-    position: sticky;
-    top: 0;
-    bottom: auto;
-    left: 0;
+    @include wrapper-override;
 
-    flex-direction: row;
-    align-items: center;
-
-    width: fit-content;
     margin-bottom: var(--spacing-2);
     padding: var(--spacing-1);
+  }
 
-    text-align: left;
+  @include mobile {
+    @include wrapper-override;
+
+    justify-content: space-between;
+    width: 100%;
   }
 }
 
@@ -41,6 +54,13 @@
 
   &.modal {
     flex-direction: row;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @include mobile {
+    flex-direction: row;
+    gap: var(--spacing-2);
     padding-bottom: 0;
     border-bottom: none;
   }

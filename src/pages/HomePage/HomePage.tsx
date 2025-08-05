@@ -26,9 +26,9 @@ export function HomePage() {
     <>
       <SearchBar onSearch={handleSearchTermUpdate} searchTerm={urlQuery} />
       <section className={styles.cardsWrapper}>
+        {hasSelected && <FlyoutList />}
         <AnimeList />
         <Outlet />
-        {hasSelected && <FlyoutList />}
       </section>
     </>
   );
