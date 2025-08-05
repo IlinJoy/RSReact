@@ -1,12 +1,22 @@
 import { screen } from '@testing-library/react';
 
 import { Controls, type ControlsProps } from '@/components/FlyoutList/Controls/Controls';
+import { mockStoreItem } from '@/test-utils/mocks/mockStoreData';
 import { setupUserEvent } from '@/test-utils/setupRender';
+
+const mockedStoreItemsArr = [mockStoreItem, { ...mockStoreItem, id: 2 }];
+const mockDownload = vi.fn();
+
+vi.mock('@/hooks/useDownload', () => ({
+  useDownload: vi.fn(() => ({
+    download: mockDownload,
+  })),
+}));
 
 const setupControls = (props: Partial<ControlsProps> = {}) => {
   return {
     ...setupUserEvent(
-      <Controls onDownload={vi.fn()} onListOpen={vi.fn()} totalAmount={0} {...props} />
+      <Controls CheckedItems={mockedStoreItemsArr} onListOpen={vi.fn()} {...props} />
     ),
   };
 };
@@ -14,10 +24,11 @@ const setupControls = (props: Partial<ControlsProps> = {}) => {
 describe('Flyout Controls Component', () => {
   describe('Rendering', () => {
     it('should render total amount of chosen items', () => {
-      const totalAmount = 10;
-      setupControls({ totalAmount });
+      setupControls();
 
-      expect(screen.getByLabelText(/total/i)).toHaveTextContent(totalAmount.toString());
+      expect(screen.getByLabelText(/total/i)).toHaveTextContent(
+        mockedStoreItemsArr.length.toString()
+      );
     });
 
     it('should render all buttons and link for general view', () => {
@@ -46,14 +57,13 @@ describe('Download Handling', () => {
     expect(mockOpenListCallback).toHaveBeenCalledOnce();
   });
 
-  it('should call download callback with link ref on link click', async () => {
-    const mockDownloadCallback = vi.fn();
-    const { user } = setupControls({ onDownload: mockDownloadCallback });
+  it('should initialize download on download click', async () => {
+    const { user } = setupControls();
 
     await user.click(screen.getByLabelText(/Download/i));
 
-    const callbackArgument = mockDownloadCallback.mock.calls[0][0];
-    expect(mockDownloadCallback).toHaveBeenCalledOnce();
-    expect(callbackArgument.current).toBeInstanceOf(HTMLAnchorElement);
+    const mockDownloadArg = mockDownload.mock.calls[0][0];
+    expect(mockDownload).toHaveBeenCalledOnce();
+    expect(mockDownloadArg).toEqual(mockedStoreItemsArr);
   });
 });

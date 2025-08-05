@@ -1,25 +1,33 @@
 import clsx from 'clsx';
-import { type RefObject, useRef } from 'react';
+import { useRef } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { useDownload } from '@/hooks/useDownload';
 import { useAppDispatch } from '@/store/hooks/base';
 import { removeAll } from '@/store/slices/checkedItemsSlice';
+import type { CheckedItem } from '@/store/types';
+import { csvBaseOptions } from '@/utils/downloadUtils';
 
 import styles from './Controls.module.scss';
 
 export type ControlsProps = {
-  totalAmount: number;
-  onDownload: (linkHref: RefObject<HTMLAnchorElement | null>) => void;
+  CheckedItems: CheckedItem[];
   onListOpen: () => void;
   isModal?: boolean;
 };
 
-export function Controls({ totalAmount, onListOpen, isModal, onDownload }: ControlsProps) {
+export function Controls({ CheckedItems, onListOpen, isModal }: ControlsProps) {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const dispatch = useAppDispatch();
 
+  const totalAmount = CheckedItems.length;
   const total = totalAmount >= 15 && !isModal ? '15+' : totalAmount;
+
+  const { download } = useDownload<CheckedItem[]>({
+    fileName: `${totalAmount}_items`,
+    options: csvBaseOptions,
+  });
 
   return (
     <div className={clsx(styles.wrapper, { [styles.modal]: isModal })}>
@@ -39,15 +47,15 @@ export function Controls({ totalAmount, onListOpen, isModal, onDownload }: Contr
         )}
       </div>
 
-      <a
-        ref={linkRef}
-        onClick={() => onDownload(linkRef)}
+      <Button
+        size="small"
+        onClick={() => download(CheckedItems, linkRef)}
         title="Download List"
         aria-label="Download List"
-        className={styles.linkButton}
+        icon={<SpriteIcon id="download" />}
       >
-        <SpriteIcon id="download" />
-      </a>
+        <a ref={linkRef} data-testid="download-link" className={styles.linkButton} />
+      </Button>
 
       <Button
         icon={<SpriteIcon id="remove" />}

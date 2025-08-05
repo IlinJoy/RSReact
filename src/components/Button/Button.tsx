@@ -19,7 +19,7 @@ export function Button({
 }: ButtonProps) {
   return (
     <button className={clsx(styles.button, className, styles[size])} {...props}>
-      {text} {icon && <span className={styles.icon}>{icon}</span>}
+      {text} {props.children} {icon && <span className={styles.icon}>{icon}</span>}
     </button>
   );
 }

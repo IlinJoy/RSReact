@@ -47,17 +47,5 @@
 }
 
 .link-button {
-  @include transition;
-  @include flex(row, 0.7em, $align: center);
-
-  @extend %button-main;
-
-  cursor: pointer;
-  padding: var(--spacing-0) var(--spacing-1);
-  color: var(--color-button-text);
-
-  &:disabled {
-    pointer-events: none;
-    background-color: var(--color-button-disabled);
-  }
+  display: none;
 }

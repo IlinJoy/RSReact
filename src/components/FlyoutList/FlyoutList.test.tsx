@@ -8,6 +8,13 @@ import { db } from '@/test-utils/mocks/db';
 import { mockStoreItems } from '@/test-utils/mocks/mockStoreData';
 import { setupUserEvent } from '@/test-utils/setupRender';
 
+const mockedUrl = 'test';
+
+vi.stubGlobal('URL', {
+  revokeObjectURL: vi.fn(),
+  createObjectURL: vi.fn(() => mockedUrl),
+});
+
 describe('Flyout Component', () => {
   let mockedStore: AppStore;
 
@@ -70,14 +77,12 @@ describe('Flyout Component', () => {
       });
 
       it('should generate correct download link with a filename', async () => {
-        const mockedUrl = 'test';
-        URL.createObjectURL = vi.fn(() => mockedUrl);
         mockedStore = setupStore({
           checkedItems: { ...mockStoreItems },
         });
         const { user, store } = setupUserEvent(<FlyoutList />, { store: mockedStore });
 
-        const link = screen.getByLabelText(/Download/i);
+        const link = screen.getByTestId(/download/i);
 
         await user.click(link);
 
