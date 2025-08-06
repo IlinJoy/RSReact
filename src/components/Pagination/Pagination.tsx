@@ -1,8 +1,7 @@
+import { Button } from '@components/Button/Button';
+import { useTheme } from '@context/theme/ThemeContext';
 import type { PaginationType } from '@models/paginationModel';
 import clsx from 'clsx';
-
-import { Button } from '@/components/Button/Button';
-import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './Pagination.module.scss';
 

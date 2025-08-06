@@ -3,10 +3,10 @@ import reducer, {
   initialState,
   removeAll,
   removeItem,
-} from '@/store/slices/checkedItemsSlice';
-import { mapAnime } from '@/store/utils';
-import { generateMockData } from '@/test-utils/generateMockData';
-import { mockStoreItem, mockStoreItems } from '@/test-utils/mocks/mockStoreData';
+} from '@slices/checkedItems/checkedItemsSlice';
+import { mapAnime } from '@store/utils';
+import { generateMockData } from '@test-utils/generateMockData';
+import { mockStoreItem, mockStoreItems } from '@test-utils/mocks/mockStoreData';
 
 describe('checkedItemsSlice', () => {
   let previousState: typeof initialState;

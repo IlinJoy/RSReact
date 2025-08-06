@@ -1,6 +1,6 @@
-import type { Anime } from '@/models/animeModel';
-import type { PaginatedType } from '@/models/paginationModel';
-import { withPagination } from '@/test-utils/generateMockData';
+import type { Anime } from '@models/animeModel';
+import type { PaginatedType } from '@models/paginationModel';
+import { withPagination } from '@test-utils/generateMockData';
 
 type DB = {
   anime: Anime[];

@@ -1,8 +1,7 @@
+import type { Anime } from '@models/animeModel';
 import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import type { CheckedItem } from '@store/types';
-
-import type { Anime } from '@/models/animeModel';
-import { mapAnime } from '@/store/utils';
+import { mapAnime } from '@store/utils';
 
 export const checkedItemsAdapter = createEntityAdapter({
   selectId: (data: CheckedItem) => data.id,

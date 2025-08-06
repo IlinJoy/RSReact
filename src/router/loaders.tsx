@@ -1,8 +1,7 @@
+import { animeApi } from '@api/animeApi';
+import { checkIsValidNumberToQuery, redirectWithStoredQuery } from '@router/loadersUtils';
+import { getFromLocalStorage, STORAGE_KEYS } from '@utils/localStorageUtils';
 import { type Params } from 'react-router';
-
-import { animeApi } from '@/api/animeApi';
-import { checkIsValidNumberToQuery, redirectWithStoredQuery } from '@/router/loadersUtils';
-import { getFromLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 type LoaderProps = { params: Params<string>; request: Request };
 

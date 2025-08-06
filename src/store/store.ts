@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import checkedItemsReducer from './slices/checkedItemsSlice';
+import checkedItemsReducer from './slices/checkedItems/checkedItemsSlice';
 
 const rootReducer = combineReducers({
   checkedItems: checkedItemsReducer,

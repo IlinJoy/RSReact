@@ -1,7 +1,6 @@
+import { ThemeSwitcher } from '@components/Header/ThemeSwitcher/ThemeSwitcher';
 import clsx from 'clsx';
 import { NavLink } from 'react-router';
-
-import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher/ThemeSwitcher';
 
 import styles from './Header.module.scss';
 

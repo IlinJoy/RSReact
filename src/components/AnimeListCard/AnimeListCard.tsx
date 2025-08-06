@@ -1,10 +1,9 @@
+import { ItemCheckbox } from '@components/ItemCheckbox/ItemCheckbox';
+import { MESSAGES } from '@constants/messages';
+import type { Anime } from '@models/animeModel';
+import { ROUTES } from '@router/routes';
+import { useCheckItem } from '@store/hooks/useCheckItem';
 import { Link, useLocation } from 'react-router';
-
-import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
-import { MESSAGES } from '@/constants/messages';
-import type { Anime } from '@/models/animeModel';
-import { ROUTES } from '@/router/routes';
-import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeListCard.module.scss';
 

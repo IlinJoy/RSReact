@@ -1,7 +1,6 @@
+import { API_CONFIG } from '@api/apiConfig';
+import { db } from '@test-utils/mocks/db';
 import { http, HttpResponse } from 'msw';
-
-import { API_CONFIG } from '@/api/apiConfig';
-import { db } from '@/test-utils/mocks/db';
 
 export const ANIME_URL = API_CONFIG.BASE_URL + API_CONFIG.VERSION + API_CONFIG.ENDPOINTS.ANIME;
 

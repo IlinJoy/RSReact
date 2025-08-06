@@ -1,6 +1,5 @@
+import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
 import clsx from 'clsx';
-
-import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 
 import styles from './ItemCheckbox.module.scss';
 

@@ -1,10 +1,9 @@
+import type { Anime } from '@models/animeModel';
+import { addItem, removeItem } from '@slices/checkedItems/checkedItemsSlice';
+import { isItemCheckedSelector } from '@slices/checkedItems/selectors';
+import { useAppDispatch } from '@store/hooks/base';
 import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
-
-import type { Anime } from '@/models/animeModel';
-import { useAppDispatch } from '@/store/hooks/base';
-import { addItem, removeItem } from '@/store/slices/checkedItemsSlice';
-import { isItemCheckedSelector } from '@/store/slices/selectors';
 
 export function useCheckItem(id: number) {
   const dispatch = useAppDispatch();

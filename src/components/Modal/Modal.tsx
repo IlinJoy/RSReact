@@ -1,7 +1,6 @@
+import { Button } from '@components/Button/Button';
+import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
 import { type MouseEvent, type ReactNode } from 'react';
-
-import { Button } from '@/components/Button/Button';
-import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 
 import styles from './Modal.module.scss';
 

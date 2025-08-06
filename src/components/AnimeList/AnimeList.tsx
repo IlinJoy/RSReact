@@ -1,14 +1,13 @@
+import { AnimeListCard } from '@components/AnimeListCard/AnimeListCard';
+import { ListComponent } from '@components/ListComponent/ListComponent';
+import { NothingFound } from '@components/NothingFound/NothingFound';
+import { Pagination } from '@components/Pagination/Pagination';
+import { useQueryParams } from '@hooks/useQueryParams';
+import type { Anime } from '@models/animeModel';
+import type { PaginatedType } from '@models/paginationModel';
+import { filterDuplicateResponseItemsById } from '@utils/filterDuplicateResponseItemsById';
 import clsx from 'clsx';
 import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
-
-import { AnimeListCard } from '@/components/AnimeListCard/AnimeListCard';
-import { ListComponent } from '@/components/ListComponent/ListComponent';
-import { NothingFound } from '@/components/NothingFound/NothingFound';
-import { Pagination } from '@/components/Pagination/Pagination';
-import { useQueryParams } from '@/hooks/useQueryParams';
-import type { Anime } from '@/models/animeModel';
-import type { PaginatedType } from '@/models/paginationModel';
-import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 
 import styles from './AnimeList.module.scss';
 

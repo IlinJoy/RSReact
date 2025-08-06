@@ -1,12 +1,11 @@
+import { AnimeList } from '@components/AnimeList/AnimeList';
+import { FlyoutList } from '@components/FlyoutList/FlyoutList';
+import { SearchBar } from '@components/SearchBar/SearchBar';
+import { useLocalStorage } from '@hooks/useLocalStorage';
+import { useQueryParams } from '@hooks/useQueryParams';
+import { checkedItemsSelectors } from '@slices/checkedItems/selectors';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router';
-
-import { AnimeList } from '@/components/AnimeList/AnimeList';
-import { FlyoutList } from '@/components/FlyoutList/FlyoutList';
-import { SearchBar } from '@/components/SearchBar/SearchBar';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
-import { useQueryParams } from '@/hooks/useQueryParams';
-import { checkedItemsSelectors } from '@/store/slices/selectors';
 
 import styles from './HomePage.module.scss';
 

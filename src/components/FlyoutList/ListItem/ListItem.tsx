@@ -1,4 +1,4 @@
-import type { CheckedItem } from '@/store/types';
+import type { CheckedItem } from '@store/types';
 
 import styles from './ListItem.module.scss';
 

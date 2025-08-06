@@ -1,13 +1,12 @@
+import { Button } from '@components/Button/Button';
+import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
+import { useDownload } from '@hooks/useDownload';
+import { removeAll } from '@slices/checkedItems/checkedItemsSlice';
+import { useAppDispatch } from '@store/hooks/base';
+import type { CheckedItem } from '@store/types';
+import { csvBaseOptions } from '@utils/downloadUtils';
 import clsx from 'clsx';
 import { useRef } from 'react';
-
-import { Button } from '@/components/Button/Button';
-import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useDownload } from '@/hooks/useDownload';
-import { useAppDispatch } from '@/store/hooks/base';
-import { removeAll } from '@/store/slices/checkedItemsSlice';
-import type { CheckedItem } from '@/store/types';
-import { csvBaseOptions } from '@/utils/downloadUtils';
 
 import styles from './Controls.module.scss';
 

@@ -1,8 +1,7 @@
+import { isClient } from '@constants/common';
+import { APP_THEMES } from '@context/theme/themeConfig';
+import { useLocalStorage } from '@hooks/useLocalStorage';
 import { createContext, type ReactNode, use, useLayoutEffect } from 'react';
-
-import { isClient } from '@/constants/common';
-import { APP_THEMES } from '@/context/theme/themeConfig';
-import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 export type Theme = keyof typeof APP_THEMES;
 

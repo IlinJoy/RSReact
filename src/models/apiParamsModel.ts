@@ -1,4 +1,4 @@
-import type { AnimeRating, AnimeStatus, AnimeType } from '@/models/animeModel';
+import type { AnimeRating, AnimeStatus, AnimeType } from '@models/animeModel';
 
 export interface ApiSearchParams {
   unapprove: boolean;

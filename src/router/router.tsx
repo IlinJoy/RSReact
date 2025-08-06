@@ -1,12 +1,11 @@
+import { FallbackUi } from '@components/FallbackUi/FallbackUi';
+import { GlobalSpinner } from '@components/GlobalSpinner/GlobalSpinner';
+import { Spinner } from '@components/Spinner/Spinner';
+import { Root } from '@pages/Root';
+import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@router/lazyElements';
+import { animeDetailsLoader, animeListLoader } from '@router/loaders';
+import { ROUTES } from '@router/routes';
 import { createBrowserRouter } from 'react-router';
-
-import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
-import { GlobalSpinner } from '@/components/GlobalSpinner/GlobalSpinner';
-import { Spinner } from '@/components/Spinner/Spinner';
-import { Root } from '@/pages/Root';
-import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
-import { animeDetailsLoader, animeListLoader } from '@/router/loaders';
-import { ROUTES } from '@/router/routes';
 
 export const routes = [
   {

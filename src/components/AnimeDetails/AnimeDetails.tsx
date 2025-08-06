@@ -1,10 +1,9 @@
+import { Button } from '@components/Button/Button';
+import { ItemCheckbox } from '@components/ItemCheckbox/ItemCheckbox';
+import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
+import type { Anime, DataType } from '@models/animeModel';
+import { useCheckItem } from '@store/hooks/useCheckItem';
 import { useLoaderData, useLocation, useNavigate } from 'react-router';
-
-import { Button } from '@/components/Button/Button';
-import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
-import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import type { Anime, DataType } from '@/models/animeModel';
-import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeDetails.module.scss';
 
