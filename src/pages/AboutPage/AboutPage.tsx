@@ -1,4 +1,4 @@
-import logo from '@assets/images/rss-logo.png';
+import logo from '@/assets/images/rss-logo.png';
 
 import styles from './AboutPage.module.scss';
 

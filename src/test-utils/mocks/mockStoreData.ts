@@ -1,4 +1,4 @@
-import type { CheckedItem } from '@store/types';
+import type { CheckedItem } from '@/store/types';
 
 export const mockStoreItem: CheckedItem = {
   id: 1,

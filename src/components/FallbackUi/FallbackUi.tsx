@@ -1,8 +1,9 @@
-import { Button } from '@components/Button/Button';
-import { RESPONSE_CODES } from '@constants/api';
-import { NotFoundPage } from '@router/lazyElements';
-import { getError } from '@utils/handleErrorMessage';
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
+
+import { Button } from '@/components/Button/Button';
+import { RESPONSE_CODES } from '@/constants/api';
+import { NotFoundPage } from '@/router/lazyElements';
+import { getError } from '@/utils/handleErrorMessage';
 
 import styles from './FallbackUi.module.scss';
 

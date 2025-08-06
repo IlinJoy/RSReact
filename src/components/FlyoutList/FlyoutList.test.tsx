@@ -81,10 +81,10 @@ describe('Flyout Component', () => {
           checkedItems: { ...mockStoreItems },
         });
         const { user, store } = setupUserEvent(<FlyoutList />, { store: mockedStore });
-
         const link = screen.getByTestId(/download/i);
+        link.click = vi.fn();
 
-        await user.click(link);
+        await user.click(screen.getByRole('button', { name: /download/i }));
 
         expect(link).toHaveAttribute('href', mockedUrl);
         expect(link).toHaveAttribute(

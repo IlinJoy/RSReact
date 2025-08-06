@@ -1,4 +1,4 @@
-import type { ApiImages, ApiResource, ApiTitles, Trailer } from '@models/commonModels';
+import type { ApiImages, ApiResource, ApiTitles, Trailer } from '@/models/commonModels';
 
 export interface Anime {
   mal_id: number;

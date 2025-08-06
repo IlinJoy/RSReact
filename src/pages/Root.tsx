@@ -1,8 +1,9 @@
-import { GlobalSpinner } from '@components/GlobalSpinner/GlobalSpinner';
-import { Header } from '@components/Header/Header';
-import { Spinner } from '@components/Spinner/Spinner';
 import { Suspense } from 'react';
 import { Outlet, useNavigation } from 'react-router';
+
+import { GlobalSpinner } from '@/components/GlobalSpinner/GlobalSpinner';
+import { Header } from '@/components/Header/Header';
+import { Spinner } from '@/components/Spinner/Spinner';
 
 export function Root() {
   const navigation = useNavigation();

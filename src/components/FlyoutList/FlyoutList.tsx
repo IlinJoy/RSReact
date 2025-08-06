@@ -1,10 +1,11 @@
-import { Controls } from '@components/FlyoutList/Controls/Controls';
-import { ListItem } from '@components/FlyoutList/ListItem/ListItem';
-import { ListComponent } from '@components/ListComponent/ListComponent';
-import { Modal } from '@components/Modal/Modal';
-import { checkedItemsSelectors } from '@slices/checkedItems/selectors';
 import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
+
+import { Controls } from '@/components/FlyoutList/Controls/Controls';
+import { ListItem } from '@/components/FlyoutList/ListItem/ListItem';
+import { ListComponent } from '@/components/ListComponent/ListComponent';
+import { Modal } from '@/components/Modal/Modal';
+import { checkedItemsSelectors } from '@/store/slices/checkedItems/selectors';
 
 export function FlyoutList() {
   const [isShownModal, setIsShownModal] = useState(false);

@@ -1,4 +1,4 @@
-import type { Anime } from '@models/animeModel';
+import type { Anime } from '@/models/animeModel';
 
 export const mapAnime = (anime: Anime) => ({
   id: anime.mal_id,

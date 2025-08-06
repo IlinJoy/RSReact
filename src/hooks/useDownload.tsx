@@ -1,5 +1,6 @@
-import { createDownloadUrl, type CreateDownloadUrlOptions } from '@utils/downloadUtils';
 import { type RefObject, useCallback, useEffect, useRef } from 'react';
+
+import { createDownloadUrl, type CreateDownloadUrlOptions } from '@/utils/downloadUtils';
 
 export type UseDownloadProps<T> = { fileName: string; options: CreateDownloadUrlOptions<T> };
 

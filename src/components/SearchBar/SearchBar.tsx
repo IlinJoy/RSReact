@@ -1,8 +1,9 @@
-import { Button } from '@components/Button/Button';
-import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
-import { useTheme } from '@context/theme/ThemeContext';
 import clsx from 'clsx';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
+
+import { Button } from '@/components/Button/Button';
+import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './SearchBar.module.scss';
 

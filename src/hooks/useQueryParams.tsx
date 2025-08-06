@@ -1,6 +1,7 @@
-import type { AnimeListQueryParams } from '@api/animeApi';
 import { useCallback } from 'react';
 import { useSearchParams } from 'react-router';
+
+import type { AnimeListQueryParams } from '@/api/animeApi';
 
 type AppQueries = Omit<AnimeListQueryParams, 'q'> & { query?: string };
 

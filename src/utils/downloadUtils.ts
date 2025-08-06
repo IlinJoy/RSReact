@@ -1,4 +1,4 @@
-import { generateCsvFromObjectArray } from '@utils/generateCsvFromObjectArray';
+import { generateCsvFromObjectArray } from '@/utils/generateCsvFromObjectArray';
 
 type MimeType = 'text/csv' | 'image/webp' | 'application/json';
 

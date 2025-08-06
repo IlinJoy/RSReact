@@ -20,6 +20,9 @@ export default defineConfig({
     assetsInlineLimit: 0,
   },
   test: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTest.ts',

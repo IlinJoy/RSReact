@@ -1,6 +1,6 @@
-import { SpriteIcon } from '@components/SpriteIcon/SpriteIcon';
-import { APP_THEMES } from '@context/theme/themeConfig';
-import { useTheme } from '@context/theme/ThemeContext';
+import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { APP_THEMES } from '@/context/theme/themeConfig';
+import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './ThemeSwitcher.module.scss';
 

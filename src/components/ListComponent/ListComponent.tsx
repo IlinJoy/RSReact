@@ -1,5 +1,6 @@
-import { Spinner } from '@components/Spinner/Spinner';
 import { type ReactNode } from 'react';
+
+import { Spinner } from '@/components/Spinner/Spinner';
 
 import styles from './ListComponent.module.scss';
 
