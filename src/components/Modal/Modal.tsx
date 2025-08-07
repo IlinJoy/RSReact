@@ -1,4 +1,5 @@
 import { type MouseEvent, type ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
@@ -18,7 +19,7 @@ export function Modal({ headingElement, onClose, children }: DialogProps) {
     }
   };
 
-  return (
+  const content = () => (
     <div onClick={closeOnOutsideClick} data-modal="true" className={styles.modal} role="dialog">
       <div className={styles.content}>
         <div className={styles.heading}>
@@ -35,4 +36,6 @@ export function Modal({ headingElement, onClose, children }: DialogProps) {
       </div>
     </div>
   );
+
+  return createPortal(content(), document.body);
 }
