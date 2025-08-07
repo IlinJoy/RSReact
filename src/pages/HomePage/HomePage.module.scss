@@ -1,10 +1,14 @@
 @use '../../styles/mixins' as *;
 
 .cards-wrapper {
-  @include flex(column, $justify: center);
+  @include flex(row, $justify: center);
 
   position: relative;
   flex-wrap: nowrap;
   min-height: 80vh;
   padding: var(--spacing-3);
+
+  @include mobile {
+    flex-direction: column;
+  }
 }
