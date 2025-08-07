@@ -18,9 +18,7 @@ export const checkedItemsSlice = createSlice({
       reducer: checkedItemsAdapter.addOne,
       prepare: (data: Anime) => ({ payload: mapAnime(data) }),
     },
-    removeItem(state, action) {
-      checkedItemsAdapter.removeOne(state, action.payload);
-    },
+    removeItem: checkedItemsAdapter.removeOne,
     removeAll: () => {
       return initialState;
     },
