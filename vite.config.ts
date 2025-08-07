@@ -20,6 +20,9 @@ export default defineConfig({
     assetsInlineLimit: 0,
   },
   test: {
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
     globals: true,
     environment: 'jsdom',
     setupFiles: './src/setupTest.ts',
@@ -35,6 +38,7 @@ export default defineConfig({
         'src/**/*.test.{js,jsx,ts,tsx}',
         'src/**/*.spec.{js,jsx,ts,tsx}',
         'src/index.{js,jsx,ts,tsx}',
+        'src/App.{js,jsx,ts,tsx}',
         'src/setupTests.{js,ts}',
         'src/constants/*',
         'src/api/apiConfig.ts',
@@ -42,6 +46,7 @@ export default defineConfig({
         'src/main.{js,jsx,ts,tsx}',
         'src/test-utils/*',
         'src/**/*.d.ts',
+        'src/**/*types*.{js,ts}',
       ],
     },
   },

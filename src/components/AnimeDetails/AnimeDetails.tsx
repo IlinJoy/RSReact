@@ -1,8 +1,10 @@
 import { useLoaderData, useLocation, useNavigate } from 'react-router';
 
 import { Button } from '@/components/Button/Button';
+import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import type { Anime, DataType } from '@/models/animeModel';
+import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeDetails.module.scss';
 
@@ -12,6 +14,7 @@ export function AnimeDetails() {
   const navigate = useNavigate();
 
   const {
+    mal_id,
     title,
     title_english,
     title_japanese,
@@ -22,14 +25,24 @@ export function AnimeDetails() {
     images: { webp },
   } = data;
 
+  const { isSelected, handleCheckItem } = useCheckItem(mal_id);
+
   return (
     <div className={styles.details} aria-label="details">
-      <Button
-        className={styles.closeBtn}
-        aria-label="back to list"
-        onClick={() => navigate(`/${search}`)}
-        icon={<SpriteIcon id="close" size={20} />}
-      />
+      <div className={styles.topRow}>
+        <Button
+          className={styles.closeBtn}
+          aria-label="back to list"
+          onClick={() => navigate(`/${search}`)}
+          icon={<SpriteIcon id="close" size={20} />}
+        />
+        <ItemCheckbox
+          isChecked={isSelected}
+          onChange={() => handleCheckItem(data, isSelected)}
+          isLarge
+        />
+      </div>
+
       <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
 
       <div className={styles.description}>

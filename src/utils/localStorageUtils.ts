@@ -1,7 +1,13 @@
 export const STORAGE_KEYS = {
   PREFIX: 'ilinjoy-',
   ANIME: 'task-anime',
+  THEME: 'theme',
 } as const;
+
+export type LocalStorageKey = Exclude<
+  (typeof STORAGE_KEYS)[keyof typeof STORAGE_KEYS],
+  typeof STORAGE_KEYS.PREFIX
+>;
 
 export const getFromLocalStorage = <T>(key: string) => {
   try {

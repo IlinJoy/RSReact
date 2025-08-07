@@ -25,7 +25,7 @@
 
 @mixin card-border($color: var(--color-background-light)) {
   border: 1px solid $color;
-  border-radius: var(--border-radius-1);
+  border-radius: var(--border-radius-2);
 }
 
 @mixin mobile() {

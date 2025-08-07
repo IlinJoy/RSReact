@@ -3,18 +3,16 @@
 
 .button {
   @include transition;
-  @include flex($align: center);
+  @include flex(row, 0.7em, $align: center);
 
   cursor: pointer;
 
   &:disabled {
     pointer-events: none;
-    background-color: var(--color-typography-grey);
+    background-color: var(--color-button-disabled);
   }
 
   & .icon {
-    margin-right: -0.2em;
-    margin-left: 0.2em;
     line-height: 0;
   }
 }
@@ -23,6 +21,14 @@
   @extend %button-main;
 }
 
-.small {
+.large {
+  padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+}
+
+.medium {
   padding: var(--spacing-1) var(--spacing-2);
+}
+
+.small {
+  padding: var(--spacing-0) var(--spacing-1);
 }

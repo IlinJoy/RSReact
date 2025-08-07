@@ -26,6 +26,7 @@
   width: 100%;
   padding: var(--spacing-1);
   padding-right: var(--spacing-5);
+  border: solid 1px var(--color-grey-dark);
   border-radius: var(--border-radius-2);
 
   &:focus {
@@ -51,5 +52,9 @@
 
   &:hover {
     opacity: 0.7;
+  }
+
+  &.light {
+    color: var(--color-grey-dark);
   }
 }

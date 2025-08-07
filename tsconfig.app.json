@@ -27,12 +27,18 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@api/*": ["src/api/*"],
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"],
-      "@services/*": ["src/services/*"],
-      "@models/*": ["src/models/*"],
-      "@constants/*": ["src/constants/*"]
+      "@/api/*": ["src/api/*"],
+      "@/components/*": ["src/components/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/services/*": ["src/services/*"],
+      "@/models/*": ["src/models/*"],
+      "@/constants/*": ["src/constants/*"],
+      "@/store/*": ["src/store/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/router/*": ["src/router/*"],
+      "@/context/*": ["src/context/*"],
+      "@/test-utils/*": ["src/test-utils/*"]
     }
   },
   "include": ["src"]

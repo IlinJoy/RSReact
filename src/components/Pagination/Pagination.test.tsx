@@ -1,7 +1,7 @@
-import type { PaginationType } from '@models/paginationModel';
 import { screen } from '@testing-library/react';
 
 import { Pagination } from '@/components/Pagination/Pagination';
+import type { PaginationType } from '@/models/paginationModel';
 import { mockPagination } from '@/test-utils/mocks/mockData';
 import { setupUserEvent } from '@/test-utils/setupRender';
 

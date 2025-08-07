@@ -1,7 +1,9 @@
+import clsx from 'clsx';
 import { type FormEvent, useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { useTheme } from '@/context/theme/ThemeContext';
 
 import styles from './SearchBar.module.scss';
 
@@ -11,6 +13,7 @@ export type SearchBarProps = {
 };
 
 export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
+  const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>(searchTerm);
   const initialValueRef = useRef<string>(searchTerm);
   const isDirty = inputValue.trim() !== searchTerm;
@@ -50,13 +53,15 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
               aria-label="reset"
               type="reset"
               onClick={resetSearch}
-              className={styles.resetButton}
+              className={clsx(styles.resetButton, { [styles.light]: theme === 'light' })}
               icon={<SpriteIcon id="close" size={16} />}
             />
           )}
         </div>
 
-        <Button type="submit" text="Search" disabled={!isDirty} isSmall />
+        <Button type="submit" disabled={!isDirty} size="medium">
+          Search
+        </Button>
       </form>
     </div>
   );

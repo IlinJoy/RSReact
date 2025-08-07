@@ -1,8 +1,10 @@
 import { Link, useLocation } from 'react-router';
 
+import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
 import { ROUTES } from '@/router/routes';
+import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -15,6 +17,7 @@ type AnimeListCardProps = {
 export function AnimeListCard({ data }: AnimeListCardProps) {
   const { search } = useLocation();
   const {
+    mal_id,
     title,
     title_english,
     genres,
@@ -24,14 +27,19 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     images: { webp },
   } = data;
 
+  const { isSelected, handleCheckItem } = useCheckItem(mal_id);
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
 
   return (
-    <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`}>
-      <article className={styles.card}>
+    <article className={styles.cardWrapper}>
+      <div className={styles.topRow}>
         <span className={styles.status}>{status}</span>
+        <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data, isSelected)} />
+      </div>
+
+      <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>
@@ -49,7 +57,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
             {extraGenresAmount > 0 && <li className={styles.extra}>{'+' + extraGenresAmount}</li>}
           </ul>
         </div>
-      </article>
-    </Link>
+      </Link>
+    </article>
   );
 }

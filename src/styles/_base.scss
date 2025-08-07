@@ -20,21 +20,49 @@
   --font-primary: 'Funnel Display', sans-serif;
   --font-secondary: 'Montserrat', sans-serif;
   --color-background: #0e0f11;
-  --color-background-light: #1f2635;
+  --color-background-light: #141821;
   --color-background-dark: #060707;
   --color-accent: #b8db18;
   --color-accent-light: #d7f553;
-  --color-accent-dark: #338602;
+  --color-accent-dark: #284318;
   --color-typography: #f3f5ed;
-  --color-typography-dark: #c6d4c8;
-  --color-typography-grey: #6a7386;
+  --color-typography-dark: #c9d2ca;
+  --color-typography-grey: #8b94a8;
   --color-grey-dark: #3c4557;
   --color-error: #df3011;
   --color-error-dark: #c91700;
+  --color-button-disabled: var(--color-typography-grey);
+  --color-button-text: var(--color-background-dark);
+  --color-card-background: var(--color-background);
+}
+
+[data-theme='light'] {
+  --color-background: #d8dee8;
+  --color-background-light: #fefefe;
+  --color-background-dark: #24272c;
+  --color-accent: #20a00a;
+  --color-accent-light: #5ab60f;
+  --color-accent-dark: #002d03;
+  --color-typography: #343942;
+  --color-typography-dark: #6e7880;
+  --color-typography-grey: #808a97;
+  --color-grey-dark: #a1afb5;
+  --color-error: #df3011;
+  --color-error-dark: #c91700;
+  --color-button-disabled: var(--color-grey-dark);
+  --color-button-text: var(--color-background-light);
+  --color-card-background: #e8eff6;
 }
 
 body {
+  @include transition($property: background-color);
+
+  scrollbar-gutter: stable;
   background-color: var(--color-background);
+}
+
+body:has([data-modal='true']) {
+  overflow: hidden;
 }
 
 section {

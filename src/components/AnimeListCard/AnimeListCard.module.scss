@@ -1,6 +1,14 @@
 @use '../../styles/mixins' as *;
 @use '../../styles/placeholders' as *;
 
+.card-wrapper {
+  position: relative;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
 .cover {
   @include transition;
 
@@ -26,6 +34,15 @@
   line-clamp: 2;
 }
 
+.description {
+  z-index: 1;
+  width: 100%;
+  margin-top: auto;
+
+  @include flex(column);
+  @include transition;
+}
+
 .card {
   @include card-border;
   @include flex(column);
@@ -41,13 +58,15 @@
   padding: var(--spacing-2);
   border-radius: var(--border-radius-3);
 
+  background-color: var(--color-card-background);
+
   &:hover {
     border-color: var(--color-grey-dark);
 
     .cover {
       transform: scale(1.05);
 
-      mask-image: linear-gradient(black, black, transparent 95%);
+      mask-image: linear-gradient(black, black 70%, transparent 87%);
     }
   }
 
@@ -56,9 +75,16 @@
   }
 }
 
-.status {
-  z-index: 1;
+.top-row {
+  @include flex($justify: space-between, $align: center);
 
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-2) 0 var(--spacing-2);
+}
+
+.status {
   padding: var(--spacing-0) var(--spacing-1);
   border-radius: var(--border-radius-2);
 
@@ -67,15 +93,7 @@
   color: var(--color-typography);
   letter-spacing: normal;
 
-  background: linear-gradient(45deg, var(--color-accent-dark), var(--color-background-light));
-}
-
-.description {
-  z-index: 1;
-  width: 100%;
-  margin-top: auto;
-
-  @include flex(column);
+  background: var(--color-background-light);
 }
 
 .score {

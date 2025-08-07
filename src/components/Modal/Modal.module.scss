@@ -1,0 +1,58 @@
+@use '../../styles/mixins' as *;
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+
+  background: rgb(0 0 0 / 20%);
+  backdrop-filter: blur(8px);
+}
+
+.content {
+  @include card-border;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow-y: auto;
+
+  width: 65vw;
+  height: 80vh;
+  padding: var(--spacing-4);
+
+  color: var(--color-typography);
+
+  background-color: var(--color-background);
+
+  @include tablet {
+    width: 90vw;
+    height: 90vh;
+  }
+}
+
+.heading {
+  @include flex($justify: space-between);
+
+  position: sticky;
+  top: 0;
+  margin-bottom: var(--spacing-2);
+}
+
+.close-button {
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+
+  margin-left: auto;
+  border-radius: var(--border-radius-2);
+
+  color: inherit;
+
+  background: var(--color-background);
+
+  &:hover {
+    background: var(--color-background-light);
+  }
+}
