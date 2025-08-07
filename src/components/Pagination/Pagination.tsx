@@ -18,22 +18,26 @@ export function Pagination({ pagination, onChange }: PaginationProps) {
   return (
     <div className={styles.pagination}>
       <Button
-        text={'<'}
         className={clsx(styles.paginationBtn, { [styles.light]: theme === 'light' })}
         onClick={() => onChange(-1)}
         disabled={current_page === 1}
         aria-label="back"
         size="medium"
-      />
+      >
+        {'<'}
+      </Button>
+
       <span>{`${current_page} of ${last_visible_page}`}</span>
+
       <Button
-        text={'>'}
         className={clsx(styles.paginationBtn, { [styles.light]: theme === 'light' })}
         onClick={() => onChange(1)}
         disabled={current_page === last_visible_page}
         aria-label="forward"
         size="medium"
-      />
+      >
+        {'>'}
+      </Button>
     </div>
   );
 }

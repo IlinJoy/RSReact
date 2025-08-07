@@ -59,7 +59,9 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
           )}
         </div>
 
-        <Button type="submit" text="Search" disabled={!isDirty} size="medium" />
+        <Button type="submit" disabled={!isDirty} size="medium">
+          Search
+        </Button>
       </form>
     </div>
   );

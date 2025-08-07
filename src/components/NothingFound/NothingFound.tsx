@@ -18,11 +18,9 @@ export function NothingFound() {
     <section className={styles.nothingSection}>
       <h1>Nothing Found</h1>
       <p>Try searching for something else</p>
-      <Button
-        text="Reset Search"
-        onClick={handleReset}
-        icon={<SpriteIcon id="reload" size={24} />}
-      />
+      <Button onClick={handleReset} icon={<SpriteIcon id="reload" size={24} />}>
+        Reset Search
+      </Button>
     </section>
   );
 }

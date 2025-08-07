@@ -36,7 +36,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
       <div className={styles.wrapper}>
         <h1>Something went wrong.</h1>
         <p>{getError(currentError).message}</p>
-        <Button text={buttonMessage || 'Reload Page'} onClick={handleReset} />
+        <Button onClick={handleReset}>{buttonMessage || 'Reload Page'}</Button>
       </div>
     </section>
   );
