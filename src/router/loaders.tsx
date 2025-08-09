@@ -1,12 +1,11 @@
 import { type Params } from 'react-router';
 
-import { animeApi } from '@/api/animeApi';
 import { checkIsValidNumberToQuery, redirectWithStoredQuery } from '@/router/loadersUtils';
 import { getFromLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 type LoaderProps = { params: Params<string>; request: Request };
 
-export const animeListLoader = async ({ request }: LoaderProps) => {
+export const animeListLoaderRedirection = async ({ request }: LoaderProps) => {
   const url = new URL(request.url);
   const page = url.searchParams.get('page');
 
@@ -22,15 +21,12 @@ export const animeListLoader = async ({ request }: LoaderProps) => {
     redirectWithStoredQuery(url, queryFromStorage);
   }
 
-  return await animeApi.getAnimeList(
-    { page: Number(page), q: queryFromParams },
-    { signal: request.signal }
-  );
+  return null;
 };
 
-export const animeDetailsLoader = async ({ params }: Omit<LoaderProps, 'request'>) => {
+export const animeDetailsLoaderRedirection = async ({ params }: Omit<LoaderProps, 'request'>) => {
   const id = params.detailsId;
   checkIsValidNumberToQuery(id);
 
-  return await animeApi.getAnimeDetails(Number(id));
+  return null;
 };

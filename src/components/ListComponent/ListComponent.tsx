@@ -19,7 +19,7 @@ export function ListComponent<T>({
   emptyView,
   direction = 'horizontal',
 }: ListComponentProps<T>) {
-  if (isLoading || !data) {
+  if (isLoading) {
     return <Spinner />;
   }
 
@@ -27,5 +27,5 @@ export function ListComponent<T>({
     return emptyView;
   }
 
-  return <div className={styles[direction]}>{data?.map((item) => renderItem(item))}</div>;
+  return <div className={styles[direction]}>{data.map((item) => renderItem(item))}</div>;
 }

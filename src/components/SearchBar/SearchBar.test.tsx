@@ -18,8 +18,6 @@ const setupSearchBar = ({ searchTerm, onSearch }: Partial<SearchBarProps> = {}) 
 };
 
 describe('SearchBar Component', () => {
-  afterEach(() => localStorage.clear());
-
   describe('Rendering', () => {
     it('should render search input and search button', () => {
       const { input, searchButton } = setupSearchBar();

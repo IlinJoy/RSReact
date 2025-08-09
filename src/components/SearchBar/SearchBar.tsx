@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type FormEvent, useEffect, useRef, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
@@ -15,15 +15,8 @@ export type SearchBarProps = {
 export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
   const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>(searchTerm);
-  const initialValueRef = useRef<string>(searchTerm);
-  const isDirty = inputValue.trim() !== searchTerm;
 
-  useEffect(() => {
-    if (initialValueRef.current !== searchTerm) {
-      setInputValue(searchTerm);
-      initialValueRef.current = searchTerm;
-    }
-  }, [searchTerm]);
+  const isDirty = inputValue.trim() !== searchTerm;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();

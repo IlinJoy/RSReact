@@ -1,11 +1,9 @@
 import { createBrowserRouter } from 'react-router';
 
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
-import { GlobalSpinner } from '@/components/GlobalSpinner/GlobalSpinner';
-import { Spinner } from '@/components/Spinner/Spinner';
 import { Root } from '@/pages/Root';
 import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
-import { animeDetailsLoader, animeListLoader } from '@/router/loaders';
+import { animeDetailsLoaderRedirection, animeListLoaderRedirection } from '@/router/loaders';
 import { ROUTES } from '@/router/routes';
 
 export const routes = [
@@ -16,15 +14,13 @@ export const routes = [
       {
         path: ROUTES.HOME,
         element: <HomePage />,
-        HydrateFallback: GlobalSpinner,
-        loader: animeListLoader,
         errorElement: <FallbackUi buttonMessage="Back To List" />,
+        loader: animeListLoaderRedirection,
         children: [
           {
             path: `${ROUTES.DETAILS}/:detailsId`,
+            loader: animeDetailsLoaderRedirection,
             element: <AnimeDetails />,
-            HydrateFallback: Spinner,
-            loader: animeDetailsLoader,
           },
         ],
       },
