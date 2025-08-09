@@ -5,7 +5,7 @@ import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useDownload } from '@/hooks/useDownload';
 import { useAppDispatch } from '@/store/hooks/base';
-import { removeAll } from '@/store/slices/checkedItems/checkedItemsSlice';
+import { removeAll } from '@/store/slices/checkedItems/checkedItems';
 import type { CheckedItem } from '@/store/types';
 import { csvBaseOptions } from '@/utils/downloadUtils';
 

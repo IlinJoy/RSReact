@@ -1,6 +1,6 @@
 import type { AnimeRating, AnimeStatus, AnimeType } from '@/models/animeModel';
 
-export interface ApiSearchParams {
+export interface AnimeSearchParams {
   unapprove: boolean;
   page: number;
   limit: number;

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import type { Anime } from '@/models/animeModel';
 import { useAppDispatch } from '@/store/hooks/base';
-import { addItem, removeItem } from '@/store/slices/checkedItems/checkedItemsSlice';
+import { addItem, removeItem } from '@/store/slices/checkedItems/checkedItems';
 import { isItemCheckedSelector } from '@/store/slices/checkedItems/selectors';
 
 export function useCheckItem(id: number) {

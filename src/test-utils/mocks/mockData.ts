@@ -1,5 +1,5 @@
-import { baseAnimeListQuery } from '@/api/apiConfig';
 import type { Anime } from '@/models/animeModel';
+import { baseAnimeListQuery } from '@/store/api/anime/config';
 import type { getAnimeRandomValues } from '@/test-utils/generateMockData';
 
 const mockLimit = baseAnimeListQuery.limit || 25;
