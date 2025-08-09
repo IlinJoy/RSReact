@@ -27,5 +27,5 @@ export function ListComponent<T>({
     return emptyView;
   }
 
-  return <div className={styles[direction]}>{data.map((item) => renderItem(item))}</div>;
+  return <div className={styles[direction]}>{data?.map((item) => renderItem(item))}</div>;
 }

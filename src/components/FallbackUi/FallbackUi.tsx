@@ -1,4 +1,6 @@
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
+import type { SerializedError } from 'vitest';
 
 import { Button } from '@/components/Button/Button';
 import { RESPONSE_CODES } from '@/constants/api';
@@ -8,7 +10,7 @@ import { getError } from '@/utils/handleErrorMessage';
 import styles from './FallbackUi.module.scss';
 
 export type FallbackProps = {
-  error?: Error;
+  error?: Error | FetchBaseQueryError | SerializedError | string;
   resetError?: () => void;
   buttonMessage?: string;
 };

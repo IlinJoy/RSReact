@@ -5,7 +5,7 @@ import { getFromLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 type LoaderProps = { params: Params<string>; request: Request };
 
-export const animeListLoaderRedirection = async ({ request }: LoaderProps) => {
+export const animeListRedirection = async ({ request }: LoaderProps) => {
   const url = new URL(request.url);
   const page = url.searchParams.get('page');
 
@@ -20,13 +20,6 @@ export const animeListLoaderRedirection = async ({ request }: LoaderProps) => {
   if (!queryFromParams && queryFromStorage) {
     redirectWithStoredQuery(url, queryFromStorage);
   }
-
-  return null;
-};
-
-export const animeDetailsLoaderRedirection = async ({ params }: Omit<LoaderProps, 'request'>) => {
-  const id = params.detailsId;
-  checkIsValidNumberToQuery(id);
 
   return null;
 };

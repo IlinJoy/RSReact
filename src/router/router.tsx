@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router';
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { Root } from '@/pages/Root';
 import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
-import { animeDetailsLoaderRedirection, animeListLoaderRedirection } from '@/router/loaders';
+import { animeListRedirection } from '@/router/loaders';
 import { ROUTES } from '@/router/routes';
 
 export const routes = [
@@ -15,11 +15,10 @@ export const routes = [
         path: ROUTES.HOME,
         element: <HomePage />,
         errorElement: <FallbackUi buttonMessage="Back To List" />,
-        loader: animeListLoaderRedirection,
+        loader: animeListRedirection,
         children: [
           {
             path: `${ROUTES.DETAILS}/:detailsId`,
-            loader: animeDetailsLoaderRedirection,
             element: <AnimeDetails />,
           },
         ],
