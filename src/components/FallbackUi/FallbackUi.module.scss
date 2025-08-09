@@ -4,7 +4,6 @@
 .error-section {
   @include flex($align: center, $justify: center);
 
-  height: 100vh;
   padding: var(--spacing-2);
 }
 

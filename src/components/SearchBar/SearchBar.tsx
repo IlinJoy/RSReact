@@ -4,6 +4,7 @@ import { type FormEvent, useState } from 'react';
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useTheme } from '@/context/theme/ThemeContext';
+import { useGetAnimeList } from '@/hooks/useGetAnimeList';
 
 import styles from './SearchBar.module.scss';
 
@@ -16,6 +17,7 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
   const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>(searchTerm);
 
+  const { invalidate } = useGetAnimeList();
   const isDirty = inputValue.trim() !== searchTerm;
 
   const handleSubmit = (event: FormEvent) => {
@@ -56,6 +58,14 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
           Search
         </Button>
       </form>
+      <Button
+        aria-label="Invalidate anime list"
+        title="Invalidate List"
+        onClick={invalidate}
+        className={styles.closeBtn}
+        size="small"
+        icon={<SpriteIcon id="reload" size={24} />}
+      />
     </div>
   );
 }

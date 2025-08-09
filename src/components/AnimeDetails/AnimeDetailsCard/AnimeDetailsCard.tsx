@@ -1,8 +1,7 @@
-import { useLocation, useNavigate } from 'react-router';
-
 import { Button } from '@/components/Button/Button';
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
+import { useGetAnimeDetails } from '@/hooks/useGetAnimeDetails';
 import type { Anime } from '@/models/animeModel';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
 
@@ -10,13 +9,12 @@ import styles from './AnimeDetailsCard.module.scss';
 
 type AnimeDetailsCardProps = {
   data: Anime;
+  onClose: () => void;
 };
 
-export function AnimeDetailsCard({ data }: AnimeDetailsCardProps) {
-  const { isSelected, handleCheckItem } = useCheckItem(data?.mal_id);
-
-  const { search } = useLocation();
-  const navigate = useNavigate();
+export function AnimeDetailsCard({ data, onClose }: AnimeDetailsCardProps) {
+  const { isSelected, handleCheckItem } = useCheckItem(data.mal_id);
+  const { invalidate } = useGetAnimeDetails();
 
   const {
     title,
@@ -32,12 +30,22 @@ export function AnimeDetailsCard({ data }: AnimeDetailsCardProps) {
   return (
     <>
       <div className={styles.topRow}>
-        <Button
-          className={styles.closeBtn}
-          aria-label="back to list"
-          onClick={() => navigate(`/${search}`)}
-          icon={<SpriteIcon id="close" size={20} />}
-        />
+        <div className={styles.buttonGroup}>
+          <Button
+            className={styles.closeBtn}
+            aria-label="back to list"
+            onClick={onClose}
+            icon={<SpriteIcon id="close" size={20} />}
+          />
+          <Button
+            aria-label="Invalidate details"
+            title="Invalidate"
+            onClick={invalidate}
+            className={styles.closeBtn}
+            icon={<SpriteIcon id="reload" size={20} />}
+          />
+        </div>
+
         <ItemCheckbox
           isChecked={isSelected}
           onChange={() => handleCheckItem(data, isSelected)}

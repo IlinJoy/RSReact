@@ -7,7 +7,13 @@ const baseUrl = API_CONFIG.BASE_URL + API_CONFIG.VERSION;
 
 export const jikanApi = createApi({
   reducerPath: 'animeApi',
-  baseQuery: fetchBaseQuery({ baseUrl }),
+  baseQuery: fetchBaseQuery({
+    baseUrl,
+    headers: {
+      'Cache-Control': 'no-cache',
+    },
+  }),
+  keepUnusedDataFor: 60,
   tagTypes: ['Anime'],
   endpoints: () => ({}),
 });

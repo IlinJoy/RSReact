@@ -8,6 +8,10 @@
   z-index: 1;
   width: 100%;
   padding: var(--spacing-2);
+
+  & .button-group {
+    @include flex;
+  }
 }
 
 .close-btn {
