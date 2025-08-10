@@ -9,6 +9,8 @@ export type LocalStorageKey = Exclude<
   typeof STORAGE_KEYS.PREFIX
 >;
 
+export const SEARCH_TERM_STORAGE_KEY = STORAGE_KEYS.PREFIX + STORAGE_KEYS.ANIME;
+
 export const getFromLocalStorage = <T>(key: string) => {
   try {
     const data = localStorage.getItem(key);

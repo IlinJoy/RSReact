@@ -1,7 +1,8 @@
 import { screen, waitFor, within } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
-import { baseAnimeListQuery } from '@/api/apiConfig';
+import { baseAnimeListQuery } from '@/store/api/anime/config';
+import { generateMockData, withPagination } from '@/test-utils/generateMockData';
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
 import { server } from '@/test-utils/handlers/server';
 import { db } from '@/test-utils/mocks/db';
@@ -33,7 +34,7 @@ describe('HomePage Component', () => {
       server.use(
         http.get(ANIME_URL, () => {
           requestCount++;
-          return new HttpResponse(null, { status: 200 });
+          return HttpResponse.json(db.paginatedAnimeList);
         })
       );
 
@@ -80,13 +81,13 @@ describe('HomePage Component', () => {
       server.use(
         http.get(ANIME_URL, async () => {
           await new Promise((resolve) => setTimeout(resolve, 100));
-          return HttpResponse.json(db.paginatedAnimeList);
+          return HttpResponse.json(withPagination([generateMockData()]));
         })
       );
 
       const { user } = setupWithRouter();
 
-      expect(await screen.findByRole('status')).toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
 
       const input = screen.getByRole('textbox');
@@ -95,7 +96,7 @@ describe('HomePage Component', () => {
       await user.type(input, 'new value');
       await user.keyboard('{Enter}');
 
-      expect(await screen.findByRole('status')).toBeInTheDocument();
+      expect(screen.getByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });
 
@@ -112,7 +113,7 @@ describe('HomePage Component', () => {
               sfw: url.searchParams.get('sfw') === 'true',
               sort: url.searchParams.get('sort') || '',
             };
-            return new HttpResponse(null, { status: 200 });
+            return HttpResponse.json(db.paginatedAnimeList);
           })
         );
 

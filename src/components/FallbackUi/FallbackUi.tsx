@@ -1,14 +1,14 @@
-import { isRouteErrorResponse, useNavigate, useRouteError } from 'react-router';
+import { useNavigate, useRouteError } from 'react-router';
 
 import { Button } from '@/components/Button/Button';
 import { RESPONSE_CODES } from '@/constants/api';
 import { NotFoundPage } from '@/router/lazyElements';
-import { getError } from '@/utils/handleErrorMessage';
+import { normalizeError } from '@/utils/normalizeError';
 
 import styles from './FallbackUi.module.scss';
 
 export type FallbackProps = {
-  error?: Error;
+  error?: unknown;
   resetError?: () => void;
   buttonMessage?: string;
 };
@@ -16,7 +16,7 @@ export type FallbackProps = {
 export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackProps) {
   const routerError = useRouteError();
   const navigate = useNavigate();
-  const currentError = error || routerError;
+  const currentError = normalizeError(error || routerError);
 
   const handleReset = () => {
     if (!resetError) {
@@ -27,7 +27,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
     }
   };
 
-  if (isRouteErrorResponse(currentError) && currentError.status === RESPONSE_CODES.NOT_FOUND) {
+  if (currentError.status === RESPONSE_CODES.NOT_FOUND) {
     return <NotFoundPage />;
   }
 
@@ -35,7 +35,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
     <section className={styles.errorSection}>
       <div className={styles.wrapper}>
         <h1>Something went wrong.</h1>
-        <p>{getError(currentError).message}</p>
+        <p>{currentError.message}</p>
         <Button onClick={handleReset}>{buttonMessage || 'Reload Page'}</Button>
       </div>
     </section>

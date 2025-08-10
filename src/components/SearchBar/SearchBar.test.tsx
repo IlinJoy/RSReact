@@ -1,16 +1,19 @@
 import { screen, waitFor } from '@testing-library/react';
 
 import { SearchBar, type SearchBarProps } from '@/components/SearchBar/SearchBar';
-import { setupUserEvent } from '@/test-utils/setupRender';
+import { setupWithRouter } from '@/test-utils/setupRender';
 
 const mockedSearchTerm = 'test';
 
 const setupSearchBar = ({ searchTerm, onSearch }: Partial<SearchBarProps> = {}) => {
   const onSearchMock = vi.fn();
   return {
-    ...setupUserEvent(
-      <SearchBar searchTerm={searchTerm || ''} onSearch={onSearch || onSearchMock} />
-    ),
+    ...setupWithRouter('/', [
+      {
+        path: '/',
+        element: <SearchBar searchTerm={searchTerm || ''} onSearch={onSearch || onSearchMock} />,
+      },
+    ]),
     input: screen.getByRole('textbox'),
     searchButton: screen.getByRole('button', { name: /search/i }),
     onSearchMock,
@@ -18,8 +21,6 @@ const setupSearchBar = ({ searchTerm, onSearch }: Partial<SearchBarProps> = {}) 
 };
 
 describe('SearchBar Component', () => {
-  afterEach(() => localStorage.clear());
-
   describe('Rendering', () => {
     it('should render search input and search button', () => {
       const { input, searchButton } = setupSearchBar();

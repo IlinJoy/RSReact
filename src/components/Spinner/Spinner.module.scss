@@ -3,12 +3,12 @@
 .spinner-wrapper {
   @include flex(column, $align: center, $justify: center);
 
-  flex-grow: 1;
-  align-self: stretch;
+  flex: 1;
 }
 
 .loading {
   color: var(--color-accent);
+  white-space: nowrap;
 
   &::after {
     content: '>';

@@ -19,7 +19,7 @@ export function ListComponent<T>({
   emptyView,
   direction = 'horizontal',
 }: ListComponentProps<T>) {
-  if (isLoading || !data) {
+  if (isLoading) {
     return <Spinner />;
   }
 

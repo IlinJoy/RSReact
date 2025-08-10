@@ -1,52 +1,58 @@
 import clsx from 'clsx';
-import { useLoaderData, useLocation, useNavigate, useParams } from 'react-router';
+import { useLocation, useNavigate, useParams } from 'react-router';
 
 import { AnimeListCard } from '@/components/AnimeListCard/AnimeListCard';
+import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { ListComponent } from '@/components/ListComponent/ListComponent';
 import { NothingFound } from '@/components/NothingFound/NothingFound';
 import { Pagination } from '@/components/Pagination/Pagination';
+import { Spinner } from '@/components/Spinner/Spinner';
+import { useGetAnimeList } from '@/hooks/useGetAnimeList';
 import { useQueryParams } from '@/hooks/useQueryParams';
-import type { Anime } from '@/models/animeModel';
-import type { PaginatedType } from '@/models/paginationModel';
-import { filterDuplicateResponseItemsById } from '@/utils/filterDuplicateResponseItemsById';
 
 import styles from './AnimeList.module.scss';
 
 export function AnimeList() {
-  const paginatedAnime = useLoaderData<PaginatedType<Anime>>();
   const { setQueryParams } = useQueryParams();
   const { search } = useLocation();
   const { detailsId } = useParams();
   const navigate = useNavigate();
 
-  const handlePaginationChange = (direction: number) => {
-    const page = paginatedAnime.pagination.current_page + direction;
-    setQueryParams({ page });
-  };
+  const { data: anime, isLoading, isFetching, error } = useGetAnimeList();
 
-  const shouldShowPagination = !!paginatedAnime.data.length;
-  const filteredList = filterDuplicateResponseItemsById(paginatedAnime.data);
+  const shouldShowPagination = !!anime?.data.length;
   const isOutletOpen = !!detailsId;
 
-  const handleClickOnSection = () => {
-    if (isOutletOpen) {
-      navigate(`/${search}`);
+  const handleClickOnSection = () => isOutletOpen && navigate(`/${search}`);
+
+  const handlePaginationChange = (direction: number) => {
+    if (anime?.pagination) {
+      const page = anime.pagination.current_page + direction;
+      setQueryParams({ page });
     }
   };
 
-  return (
+  return error ? (
+    <FallbackUi error={error} />
+  ) : (
     <div
       onClick={handleClickOnSection}
-      className={clsx(styles.wrapper, { [styles.disable]: isOutletOpen })}
+      className={clsx(styles.wrapper, { [styles.shrink]: isOutletOpen })}
     >
-      <div className={clsx(styles.section, { [styles.disable]: isOutletOpen })}>
+      {isFetching && !isLoading && (
+        <div className={styles.fixed}>
+          <Spinner />
+        </div>
+      )}
+      <div className={clsx(styles.section, { [styles.disable]: isFetching || isOutletOpen })}>
         <ListComponent
-          data={filteredList}
+          isLoading={isLoading}
+          data={anime?.data}
           emptyView={<NothingFound />}
           renderItem={(data) => <AnimeListCard data={data} key={data.mal_id} />}
         />
         {shouldShowPagination && (
-          <Pagination onChange={handlePaginationChange} pagination={paginatedAnime.pagination} />
+          <Pagination onChange={handlePaginationChange} pagination={anime.pagination} />
         )}
       </div>
     </div>

@@ -3,7 +3,7 @@ import reducer, {
   initialState,
   removeAll,
   removeItem,
-} from '@/store/slices/checkedItems/checkedItemsSlice';
+} from '@/store/slices/checkedItems/checkedItems';
 import { mapAnime } from '@/store/utils';
 import { generateMockData } from '@/test-utils/generateMockData';
 import { mockStoreItem, mockStoreItems } from '@/test-utils/mocks/mockStoreData';

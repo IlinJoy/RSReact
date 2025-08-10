@@ -1,4 +1,4 @@
-import { checkedItemsAdapter } from '@/store/slices/checkedItems/checkedItemsSlice';
+import { checkedItemsAdapter } from '@/store/slices/checkedItems/checkedItems';
 import type { RootState } from '@/store/store';
 
 export const checkedItemsSelectors = checkedItemsAdapter.getSelectors<RootState>(

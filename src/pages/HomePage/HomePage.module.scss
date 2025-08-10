@@ -4,7 +4,10 @@
   @include flex(row, $justify: center);
 
   position: relative;
+
   flex-wrap: nowrap;
+
+  width: 100%;
   min-height: 80vh;
   padding: var(--spacing-3);
 

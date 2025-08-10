@@ -1,9 +1,10 @@
 @use '../../styles/mixins' as *;
 
 .wrapper {
+  position: relative;
   width: 100%;
 
-  &.disable {
+  &.shrink {
     width: 60%;
 
     @include tablet {
@@ -13,8 +14,8 @@
 }
 
 .section {
+  @include transition($time: 0.5s);
   @include flex(column, var(--spacing-2), $align: center);
-  @include transition;
 
   width: 100%;
   min-height: 80vh;
@@ -22,6 +23,16 @@
   &.disable {
     pointer-events: none;
     user-select: none;
-    opacity: 0.5;
+    opacity: 0.4;
   }
+}
+
+.fixed {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+
+  display: flex;
+
+  margin: auto;
 }

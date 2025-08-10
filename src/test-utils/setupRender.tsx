@@ -2,6 +2,7 @@ import { render, type RenderOptions } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { FC, PropsWithChildren, ReactNode } from 'react';
 import { Provider } from 'react-redux';
+import type { RouteObject } from 'react-router';
 import { createMemoryRouter, RouterProvider } from 'react-router';
 
 import { routes } from '@/router/router';
@@ -41,8 +42,12 @@ export const setupUserEvent = (jsx: ReactNode, renderOptions?: ExtendedRenderOpt
   };
 };
 
-export const setupWithRouter = (path = '/', renderOptions?: ExtendedRenderOptions) => {
-  const router = createMemoryRouter(routes, {
+export const setupWithRouter = (
+  path = '/',
+  mockRoutes?: RouteObject[],
+  renderOptions?: ExtendedRenderOptions
+) => {
+  const router = createMemoryRouter(mockRoutes || routes, {
     initialEntries: [path],
   });
 

@@ -12,6 +12,16 @@ beforeAll(() => {
   server.listen();
 });
 
+beforeEach(() => {
+  vi.mock('./store/middlewares/middleware', async (importOriginal) => {
+    const module = await importOriginal<typeof import('./store/middlewares/middleware')>();
+    return {
+      ...module,
+      DELAY: 0,
+    };
+  });
+});
+
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();

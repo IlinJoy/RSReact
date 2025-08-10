@@ -1,17 +1,19 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router';
 
-import type { AnimeListQueryParams } from '@/api/animeApi';
+import type { AppQueries, AppStringQueries } from '@/store/api/anime/config';
 
-type AppQueries = Omit<AnimeListQueryParams, 'q'> & { query?: string };
+const appParamsKeys: (keyof AppQueries)[] = ['query', 'page'];
 
 export function useQueryParams() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const getQueryParam = useCallback(
-    (key: keyof AppQueries) => searchParams.get(key),
-    [searchParams]
-  );
+  const appQueryParams = useMemo(() => {
+    return appParamsKeys.reduce<AppStringQueries>((acc, key) => {
+      acc[key] = searchParams.get(key) ?? undefined;
+      return acc;
+    }, {});
+  }, [searchParams]);
 
   const setQueryParams = useCallback(
     (newValues: AppQueries) => {
@@ -36,5 +38,5 @@ export function useQueryParams() {
     setSearchParams('', { replace: true });
   }, [setSearchParams]);
 
-  return { setQueryParams, getQueryParam, resetQueryParams };
+  return { setQueryParams, resetQueryParams, appQueryParams };
 }

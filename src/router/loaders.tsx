@@ -1,20 +1,21 @@
 import { type Params } from 'react-router';
 
-import { animeApi } from '@/api/animeApi';
 import { checkIsValidNumberToQuery, redirectWithStoredQuery } from '@/router/loadersUtils';
+import { animeApi } from '@/store/api/anime/animeApi';
+import { store } from '@/store/store';
 import { getFromLocalStorage, STORAGE_KEYS } from '@/utils/localStorageUtils';
 
 type LoaderProps = { params: Params<string>; request: Request };
 
-export const animeListLoader = async ({ request }: LoaderProps) => {
+export const animeListRedirection = async ({ request }: LoaderProps) => {
   const url = new URL(request.url);
-  const page = url.searchParams.get('page');
+  const page = url.searchParams.get('page') || undefined;
 
   if (page) {
     checkIsValidNumberToQuery(page);
   }
 
-  const queryFromParams = url.searchParams.get('query') || '';
+  const queryFromParams = url.searchParams.get('query') || undefined;
   const queryFromStorage =
     getFromLocalStorage<string>(STORAGE_KEYS.PREFIX + STORAGE_KEYS.ANIME) || '';
 
@@ -22,15 +23,14 @@ export const animeListLoader = async ({ request }: LoaderProps) => {
     redirectWithStoredQuery(url, queryFromStorage);
   }
 
-  return await animeApi.getAnimeList(
-    { page: Number(page), q: queryFromParams },
-    { signal: request.signal }
-  );
+  return null;
 };
 
 export const animeDetailsLoader = async ({ params }: Omit<LoaderProps, 'request'>) => {
-  const id = params.detailsId;
+  const id = params.detailsId || '';
   checkIsValidNumberToQuery(id);
 
-  return await animeApi.getAnimeDetails(Number(id));
+  store.dispatch(animeApi.util.prefetch('getAnimeDetails', id, {}));
+
+  return null;
 };

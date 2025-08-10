@@ -1,7 +1,7 @@
 import { act, screen, within } from '@testing-library/react';
 
 import { FlyoutList } from '@/components/FlyoutList/FlyoutList';
-import { addItem } from '@/store/slices/checkedItems/checkedItemsSlice';
+import { addItem } from '@/store/slices/checkedItems/checkedItems';
 import { type AppStore, setupStore } from '@/store/store';
 import { mapAnime } from '@/store/utils';
 import { db } from '@/test-utils/mocks/db';

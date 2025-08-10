@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
@@ -13,7 +13,7 @@ describe('AnimeList Component', () => {
       const listItemsLength = db.anime.length;
       setupWithRouter();
 
-      expect(await screen.findAllByRole('article')).toHaveLength(listItemsLength);
+      await waitFor(() => expect(screen.queryAllByRole('article')).toHaveLength(listItemsLength));
     });
 
     it('should display "Nothing Found" message when data array is empty', async () => {
@@ -36,8 +36,8 @@ describe('Error Handling', () => {
     setupWithRouter();
 
     expect(await screen.findByRole('heading')).toHaveTextContent('Something went wrong.');
-    expect(screen.getByText('Failed to fetch')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Back To List/i })).toBeInTheDocument();
+    expect(screen.getByText(/Failed to fetch/i)).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Reload Page/i })).toBeInTheDocument();
   });
 
   it('should call onError callback and reload page when fallback button clicked', async () => {
@@ -50,7 +50,7 @@ describe('Error Handling', () => {
     });
 
     const { user } = setupWithRouter();
-    const reloadButton = await screen.findByRole('button', { name: /Back To List/i });
+    const reloadButton = await screen.findByRole('button', { name: /Reload Page/i });
 
     await user.click(reloadButton);
 
