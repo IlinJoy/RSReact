@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router';
 
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
+import { Spinner } from '@/components/Spinner/Spinner';
 import { Root } from '@/pages/Root';
 import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
 import { animeListRedirection } from '@/router/loaders';
@@ -15,6 +16,7 @@ export const routes = [
         path: ROUTES.HOME,
         element: <HomePage />,
         loader: animeListRedirection,
+        HydrateFallback: Spinner,
         children: [
           {
             path: `${ROUTES.DETAILS}/:detailsId`,

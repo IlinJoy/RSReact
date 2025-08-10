@@ -1,9 +1,10 @@
 import { isFulfilled, type Middleware } from '@reduxjs/toolkit';
 
+export const DELAY = 400;
+
 export const delayedFulfilledMiddleware: Middleware = () => (next) => (action) => {
   if (isFulfilled(action)) {
-    const delay = 500;
-    setTimeout(() => next(action), delay);
+    setTimeout(() => next(action), DELAY);
     return;
   }
 
