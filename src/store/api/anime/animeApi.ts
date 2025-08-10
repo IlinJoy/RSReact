@@ -22,10 +22,11 @@ export const animeApi = jikanApi.injectEndpoints({
       }),
       providesTags: [{ type: 'Anime', id: 'LIST' }],
     }),
+
     getAnimeDetails: build.query<Anime, string>({
       query: (id) => `${ANIME}/${id}`,
       transformResponse: (response: DataType<Anime>) => response.data,
-      providesTags: (_r, _, id) => [{ type: 'Anime', id }],
+      providesTags: (_r, _e, id) => [{ type: 'Anime', id }],
     }),
   }),
   overrideExisting: true,
