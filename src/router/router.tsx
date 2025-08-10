@@ -4,7 +4,7 @@ import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { Spinner } from '@/components/Spinner/Spinner';
 import { Root } from '@/pages/Root';
 import { AboutPage, AnimeDetails, HomePage, NotFoundPage } from '@/router/lazyElements';
-import { animeListRedirection } from '@/router/loaders';
+import { animeDetailsLoader, animeListRedirection } from '@/router/loaders';
 import { ROUTES } from '@/router/routes';
 
 export const routes = [
@@ -20,6 +20,8 @@ export const routes = [
         children: [
           {
             path: `${ROUTES.DETAILS}/:detailsId`,
+            loader: animeDetailsLoader,
+            HydrateFallback: Spinner,
             element: <AnimeDetails />,
           },
         ],
