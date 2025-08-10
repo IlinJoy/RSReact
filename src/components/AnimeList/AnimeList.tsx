@@ -18,7 +18,7 @@ export function AnimeList() {
   const { detailsId } = useParams();
   const navigate = useNavigate();
 
-  const { data: anime, isLoading, isFetching, isError } = useGetAnimeList();
+  const { data: anime, isLoading, isFetching, error } = useGetAnimeList();
 
   const shouldShowPagination = !!anime?.data.length;
   const isOutletOpen = !!detailsId;
@@ -32,8 +32,8 @@ export function AnimeList() {
     }
   };
 
-  return isError ? (
-    <FallbackUi />
+  return error ? (
+    <FallbackUi error={error} />
   ) : (
     <div
       onClick={handleClickOnSection}

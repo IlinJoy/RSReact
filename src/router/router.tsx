@@ -14,7 +14,6 @@ export const routes = [
       {
         path: ROUTES.HOME,
         element: <HomePage />,
-        errorElement: <FallbackUi buttonMessage="Back To List" />,
         loader: animeListRedirection,
         children: [
           {
