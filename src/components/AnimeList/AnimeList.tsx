@@ -40,7 +40,7 @@ export function AnimeList() {
       className={clsx(styles.wrapper, { [styles.shrink]: isOutletOpen })}
     >
       {isFetching && !isLoading && (
-        <div className={styles.absolute}>
+        <div className={styles.fixed}>
           <Spinner />
         </div>
       )}

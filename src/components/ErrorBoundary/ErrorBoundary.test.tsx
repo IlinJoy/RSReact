@@ -8,13 +8,17 @@ const MockErrorComponent = () => {
   throw new Error(ERROR_MESSAGES.TEST);
 };
 
-const MockFallback = ({ error }: { error?: Error }) => (
-  <div>
-    <h1>Something went wrong.</h1>
-    <p>{error?.message}</p>
-    <button>Reload Page</button>
-  </div>
-);
+const MockFallback = ({ error }: { error?: unknown }) => {
+  if (error instanceof Error) {
+    return (
+      <div>
+        <h1>Something went wrong.</h1>
+        <p>{error?.message}</p>
+        <button>Reload Page</button>
+      </div>
+    );
+  }
+};
 
 const setupErrorBoundary = () => {
   return {

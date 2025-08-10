@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import { http, HttpResponse } from 'msw';
 
 import { ANIME_URL } from '@/test-utils/handlers/handlers';
@@ -13,7 +13,7 @@ describe('AnimeList Component', () => {
       const listItemsLength = db.anime.length;
       setupWithRouter();
 
-      expect(await screen.findAllByRole('article')).toHaveLength(listItemsLength);
+      await waitFor(() => expect(screen.queryAllByRole('article')).toHaveLength(listItemsLength));
     });
 
     it('should display "Nothing Found" message when data array is empty', async () => {
