@@ -32,9 +32,11 @@ export function AnimeList() {
     }
   };
 
-  return error ? (
-    <FallbackUi error={error} />
-  ) : (
+  if (error) {
+    return <FallbackUi error={error} />;
+  }
+
+  return (
     <div
       onClick={handleClickOnSection}
       className={clsx(styles.wrapper, { [styles.shrink]: isOutletOpen })}
