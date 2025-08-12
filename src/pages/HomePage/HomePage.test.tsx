@@ -96,7 +96,7 @@ describe('HomePage Component', () => {
       await user.type(input, 'new value');
       await user.keyboard('{Enter}');
 
-      expect(screen.getByRole('status')).toBeInTheDocument();
+      expect(await screen.findByRole('status')).toBeInTheDocument();
       await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
     });
 

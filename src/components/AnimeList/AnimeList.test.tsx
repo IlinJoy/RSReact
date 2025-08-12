@@ -13,7 +13,8 @@ describe('AnimeList Component', () => {
       const listItemsLength = db.anime.length;
       setupWithRouter();
 
-      await waitFor(() => expect(screen.queryAllByRole('article')).toHaveLength(listItemsLength));
+      await waitFor(() => expect(screen.queryByRole('status')).not.toBeInTheDocument());
+      await expect(screen.findAllByRole('article')).resolves.toHaveLength(listItemsLength);
     });
 
     it('should display "Nothing Found" message when data array is empty', async () => {
