@@ -5,7 +5,7 @@ import { ThemeContextProvider } from '@/context/theme/ThemeContext';
 import { router } from '@/router/router';
 import { store } from '@/store/store';
 
-export function App() {
+export default function App() {
   return (
     <Provider store={store}>
       <ThemeContextProvider>

@@ -14,9 +14,9 @@ beforeAll(() => {
 
 beforeEach(() => {
   vi.mock('./store/middlewares/middleware', async (importOriginal) => {
-    const module = await importOriginal<typeof import('./store/middlewares/middleware')>();
+    const mod = await importOriginal<typeof import('./store/middlewares/middleware')>();
     return {
-      ...module,
+      ...mod,
       DELAY: 0,
     };
   });
