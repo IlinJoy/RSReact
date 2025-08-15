@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, type ReactNode, use, useLayoutEffect } from 'react';
 
 import { isClient } from '@/constants/common';

@@ -1,8 +1,6 @@
-import { useNavigate, useRouteError } from 'react-router';
-
 import { Button } from '@/components/Button/Button';
 import { RESPONSE_CODES } from '@/constants/api';
-import { NotFoundPage } from '@/router/lazyElements';
+import { NotFoundPage } from '@/pages/NotFoundPage/NotFound';
 import { normalizeError } from '@/utils/normalizeError';
 
 import styles from './FallbackUi.module.scss';
@@ -14,13 +12,10 @@ export type FallbackProps = {
 };
 
 export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackProps) {
-  const routerError = useRouteError();
-  const navigate = useNavigate();
-  const currentError = normalizeError(error || routerError);
+  const currentError = normalizeError(error);
 
   const handleReset = () => {
     if (!resetError) {
-      navigate('/');
       window.location.reload();
     } else {
       resetError();

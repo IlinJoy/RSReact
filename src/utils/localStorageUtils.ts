@@ -1,3 +1,5 @@
+import { isClient } from '@/constants/common';
+
 export const STORAGE_KEYS = {
   PREFIX: 'ilinjoy-',
   ANIME: 'task-anime',
@@ -12,6 +14,10 @@ export type LocalStorageKey = Exclude<
 export const SEARCH_TERM_STORAGE_KEY = STORAGE_KEYS.PREFIX + STORAGE_KEYS.ANIME;
 
 export const getFromLocalStorage = <T>(key: string) => {
+  if (!isClient) {
+    return;
+  }
+
   try {
     const data = localStorage.getItem(key);
     const parsedData: T = data && JSON.parse(data);
@@ -23,6 +29,10 @@ export const getFromLocalStorage = <T>(key: string) => {
 };
 
 export const setToLocalStorage = <T>(key: string, data: T) => {
+  if (!isClient) {
+    return;
+  }
+
   try {
     localStorage.setItem(key, JSON.stringify(data));
   } catch (error) {

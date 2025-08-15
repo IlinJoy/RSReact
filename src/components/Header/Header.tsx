@@ -1,5 +1,8 @@
+'use client';
+
 import clsx from 'clsx';
-import { NavLink } from 'react-router';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher/ThemeSwitcher';
 
@@ -11,18 +14,20 @@ const links = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <nav className={styles.nav}>
           {links.map((link) => (
-            <NavLink
+            <Link
               key={link.path}
-              to={link.path}
-              className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
+              href={link.path}
+              className={clsx(styles.navLink, { [styles.active]: pathname === link.path })}
             >
               {link.name}
-            </NavLink>
+            </Link>
           ))}
         </nav>
         <span className={styles.logo}>{`<///>`}</span>

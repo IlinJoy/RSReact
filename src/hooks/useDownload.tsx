@@ -1,3 +1,5 @@
+'use client';
+
 import { type RefObject, useCallback, useEffect, useRef } from 'react';
 
 import { createDownloadUrl, type CreateDownloadUrlOptions } from '@/utils/downloadUtils';

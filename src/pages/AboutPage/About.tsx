@@ -1,6 +1,6 @@
-import styles from './AboutPage.module.scss';
+import styles from './About.module.scss';
 
-export function AboutPage() {
+export function About() {
   return (
     <section>
       <div className={styles.wrapper}>

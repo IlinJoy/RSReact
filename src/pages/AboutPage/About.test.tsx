@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
 
-import { AboutPage } from '@/pages/AboutPage/AboutPage';
+import { About } from '@/pages/AboutPage/About';
 
 describe('About Page', () => {
   it('should render a link with correct href', () => {
-    render(<AboutPage />);
+    render(<About />);
 
     const link = screen.getByRole('link');
     expect(link).toBeInTheDocument();

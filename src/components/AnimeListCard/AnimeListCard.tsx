@@ -1,10 +1,11 @@
-import { Link, useLocation } from 'react-router';
+import Link from 'next/link';
+import { useState } from 'react';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
 import type { Anime } from '@/models/animeModel';
-import { ROUTES } from '@/router/routes';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
+import { getSearchString } from '@/utils/getSearchString';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -15,7 +16,8 @@ type AnimeListCardProps = {
 };
 
 export function AnimeListCard({ data }: AnimeListCardProps) {
-  const { search } = useLocation();
+  const [active, setActive] = useState(false);
+
   const {
     mal_id,
     title,
@@ -27,6 +29,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     images: { webp },
   } = data;
 
+  const search = getSearchString();
   const { isSelected, handleCheckItem } = useCheckItem(mal_id);
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
@@ -39,7 +42,12 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
         <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data, isSelected)} />
       </div>
 
-      <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>
+      <Link
+        href={`${data.mal_id}${search}`}
+        className={styles.card}
+        prefetch={active ? null : false}
+        onMouseEnter={() => setActive(true)}
+      >
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>

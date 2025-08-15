@@ -1,11 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
-  output: 'export',
   distDir: './dist',
-  experimental: {
-    typedRoutes: true,
-  },
 
   webpack(config) {
     config.module.rules

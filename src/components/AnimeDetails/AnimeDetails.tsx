@@ -1,19 +1,24 @@
-import { useLocation, useNavigate } from 'react-router';
+'use client';
+
+import { useRouter } from 'next/navigation';
 
 import { AnimeDetailsCard } from '@/components/AnimeDetails/AnimeDetailsCard/AnimeDetailsCard';
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { NothingFound } from '@/components/NothingFound/NothingFound';
 import { Spinner } from '@/components/Spinner/Spinner';
 import { useGetAnimeDetails } from '@/hooks/useGetAnimeDetails';
+import { getSearchString } from '@/utils/getSearchString';
 
 import styles from './AnimeDetails.module.scss';
 
 export function AnimeDetails() {
-  const navigate = useNavigate();
-  const { search } = useLocation();
+  const router = useRouter();
+
   const { data, error, isFetching } = useGetAnimeDetails();
 
-  const handleClose = () => navigate(`/${search}`);
+  const handleClose = () => {
+    router.push(`/${getSearchString()}`);
+  };
 
   return (
     <div className={styles.details} aria-label="details">
