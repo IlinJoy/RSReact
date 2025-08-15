@@ -1,11 +1,12 @@
+'use client';
+
 import Link from 'next/link';
-import { useState } from 'react';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
+import { useQueryParams } from '@/hooks/useQueryParams';
 import type { Anime } from '@/models/animeModel';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
-import { getSearchString } from '@/utils/getSearchString';
 
 import styles from './AnimeListCard.module.scss';
 
@@ -16,8 +17,6 @@ type AnimeListCardProps = {
 };
 
 export function AnimeListCard({ data }: AnimeListCardProps) {
-  const [active, setActive] = useState(false);
-
   const {
     mal_id,
     title,
@@ -29,8 +28,8 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
     images: { webp },
   } = data;
 
-  const search = getSearchString();
   const { isSelected, handleCheckItem } = useCheckItem(mal_id);
+  const { appQueryParams } = useQueryParams();
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
   const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
@@ -43,10 +42,8 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
       </div>
 
       <Link
-        href={`${data.mal_id}${search}`}
+        href={{ pathname: '/', query: { ...appQueryParams, details: mal_id } }}
         className={styles.card}
-        prefetch={active ? null : false}
-        onMouseEnter={() => setActive(true)}
       >
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 

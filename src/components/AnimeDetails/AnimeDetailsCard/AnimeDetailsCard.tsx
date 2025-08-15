@@ -1,20 +1,29 @@
+'use client';
+
+import { use } from 'react';
+
 import { Button } from '@/components/Button/Button';
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
+import { NothingFound } from '@/components/NothingFound/NothingFound';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { useGetAnimeDetails } from '@/hooks/useGetAnimeDetails';
-import type { Anime } from '@/models/animeModel';
+import { useQueryParams } from '@/hooks/useQueryParams';
+import type { Anime, DataType } from '@/models/animeModel';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeDetailsCard.module.scss';
 
 type AnimeDetailsCardProps = {
-  data: Anime;
-  onClose: () => void;
+  animePromise: Promise<DataType<Anime> | undefined>;
 };
 
-export function AnimeDetailsCard({ data, onClose }: AnimeDetailsCardProps) {
-  const { isSelected, handleCheckItem } = useCheckItem(data.mal_id);
-  const { invalidate } = useGetAnimeDetails();
+export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
+  const anime = use(animePromise);
+  const { isSelected, handleCheckItem } = useCheckItem(anime?.data.mal_id);
+  const { setQueryParams } = useQueryParams();
+
+  if (!anime || !anime.data) {
+    return <NothingFound />;
+  }
 
   const {
     title,
@@ -25,7 +34,9 @@ export function AnimeDetailsCard({ data, onClose }: AnimeDetailsCardProps) {
     duration,
     year,
     images: { webp },
-  } = data;
+  } = anime.data;
+
+  const handleClose = () => setQueryParams({ details: undefined });
 
   return (
     <>
@@ -34,13 +45,13 @@ export function AnimeDetailsCard({ data, onClose }: AnimeDetailsCardProps) {
           <Button
             className={styles.closeBtn}
             aria-label="back to list"
-            onClick={onClose}
+            onClick={handleClose}
             icon={<SpriteIcon id="close" size={20} />}
           />
           <Button
             aria-label="Invalidate details"
             title="Invalidate"
-            onClick={invalidate}
+            onClick={() => {}}
             className={styles.closeBtn}
             icon={<SpriteIcon id="reload" size={20} />}
           />
@@ -48,7 +59,7 @@ export function AnimeDetailsCard({ data, onClose }: AnimeDetailsCardProps) {
 
         <ItemCheckbox
           isChecked={isSelected}
-          onChange={() => handleCheckItem(data, isSelected)}
+          onChange={() => handleCheckItem(anime.data, isSelected)}
           isLarge
         />
       </div>

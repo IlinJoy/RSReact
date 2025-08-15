@@ -1,6 +1,5 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import type { PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -14,14 +13,13 @@ import { SEARCH_TERM_STORAGE_KEY, setToLocalStorage } from '@/utils/localStorage
 import styles from './Home.module.scss';
 
 export function Home({ children }: PropsWithChildren) {
-  const { appQueryParams } = useQueryParams();
-  const router = useRouter();
+  const { appQueryParams, setQueryParams } = useQueryParams();
   const hasSelected = !!useSelector(checkedItemsSelectors.selectTotal);
 
   const handleSearchTermUpdate = (term: string) => {
     if (isClient) {
       setToLocalStorage(SEARCH_TERM_STORAGE_KEY, term);
-      router.push(`/${term ? '?query=' + encodeURIComponent(term) : ''} `);
+      setQueryParams({ details: undefined, page: undefined, query: term });
     }
   };
 

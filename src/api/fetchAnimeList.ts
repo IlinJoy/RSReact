@@ -1,0 +1,17 @@
+import { baseFetch } from '@/api/baseFetch';
+import { API_CONFIG, type AppStringQueries, baseAnimeListQuery } from '@/api/config';
+import type { Anime } from '@/models/animeModel';
+import type { PaginatedType } from '@/models/paginationModel';
+
+const baseQueryString = Object.fromEntries(
+  Object.entries(baseAnimeListQuery).map(([key, value]) => [key, value.toString()])
+);
+
+export const fetchAnimeList = ({ query, ...rest }: AppStringQueries) => {
+  const queryParameters = { ...baseQueryString, q: query, ...rest };
+
+  return baseFetch<PaginatedType<Anime>>({
+    endpoint: API_CONFIG.ENDPOINTS.ANIME,
+    queryParameters,
+  });
+};

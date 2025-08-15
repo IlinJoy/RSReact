@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
