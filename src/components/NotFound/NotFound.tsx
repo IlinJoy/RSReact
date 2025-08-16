@@ -1,18 +1,16 @@
-import { useRouter } from 'next/router';
-
-import { Button } from '@/components/Button/Button';
+import Link from 'next/link';
 
 import styles from './NotFound.module.scss';
 
-export function NotFoundPage() {
-  const router = useRouter();
-
+export function NotFound() {
   return (
     <section className={styles.wrapper}>
       <h1>Page Not Found</h1>
       <div>The page you&apos;re looking for doesn&apos;t exist or has been moved.</div>
 
-      <Button onClick={() => router.replace('/')}>Back to the main page</Button>
+      <Link href="/" className={styles.linkButton}>
+        Back to the main page
+      </Link>
     </section>
   );
 }

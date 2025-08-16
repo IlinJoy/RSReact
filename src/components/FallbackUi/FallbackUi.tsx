@@ -1,6 +1,8 @@
+'use client';
+
 import { Button } from '@/components/Button/Button';
+import { NotFound } from '@/components/NotFound/NotFound';
 import { RESPONSE_CODES } from '@/constants/api';
-import { NotFoundPage } from '@/pages/NotFoundPage/NotFound';
 import { normalizeError } from '@/utils/normalizeError';
 
 import styles from './FallbackUi.module.scss';
@@ -23,7 +25,7 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
   };
 
   if (currentError.status === RESPONSE_CODES.NOT_FOUND) {
-    return <NotFoundPage />;
+    return <NotFound />;
   }
 
   return (

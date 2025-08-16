@@ -1,0 +1,26 @@
+@use '../../styles/placeholders' as *;
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  @include flex(column, var(--spacing-4), $justify: center, $align: center);
+
+  max-width: 400px;
+  min-height: 80%;
+  margin: auto;
+  padding: var(--spacing-3);
+
+  text-align: center;
+
+  & button {
+    margin-top: var(--spacing-2);
+  }
+}
+
+.link-button {
+  @extend %button;
+  @extend %button-main;
+
+  padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+  color: var(--color-button-text);
+  text-decoration: none;
+}
