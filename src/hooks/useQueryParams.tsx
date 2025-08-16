@@ -32,12 +32,12 @@ export function useQueryParams() {
 
       router.replace(`${pathname}${params ? '?' + params.toString() : ''}`);
     },
-    [searchParams]
+    [pathname, router, searchParams]
   );
 
   const resetQueryParams = useCallback(() => {
     router.replace(pathname || '/');
-  }, []);
+  }, [pathname, router]);
 
   return { setQueryParams, resetQueryParams, appQueryParams };
 }

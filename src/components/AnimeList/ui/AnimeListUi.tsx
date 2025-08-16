@@ -11,7 +11,7 @@ import type { PaginatedType } from '@/models/paginationModel';
 import styles from './AnimeListUi.module.scss';
 
 type AnimeListUIProps = {
-  id: string;
+  id?: string;
   children: ReactNode;
   data?: PaginatedType<Anime>;
 };

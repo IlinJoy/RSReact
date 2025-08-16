@@ -3,6 +3,7 @@
 import { use } from 'react';
 
 import { Button } from '@/components/Button/Button';
+import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { NothingFound } from '@/components/NothingFound/NothingFound';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
@@ -13,15 +14,19 @@ import { useCheckItem } from '@/store/hooks/useCheckItem';
 import styles from './AnimeDetailsCard.module.scss';
 
 type AnimeDetailsCardProps = {
-  animePromise: Promise<DataType<Anime> | undefined>;
+  animePromise: Promise<[Error] | [undefined, DataType<Anime>]>;
 };
 
 export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
-  const anime = use(animePromise);
+  const [error, anime] = use(animePromise);
   const { isSelected, handleCheckItem } = useCheckItem(anime?.data.mal_id);
   const { setQueryParams } = useQueryParams();
 
-  if (!anime || !anime.data) {
+  if (error) {
+    return <FallbackUi error={error} />;
+  }
+
+  if (!anime.data) {
     return <NothingFound />;
   }
 

@@ -44,6 +44,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
       <Link
         href={{ pathname: '/', query: { ...appQueryParams, details: mal_id } }}
         className={styles.card}
+        prefetch={false}
       >
         <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 

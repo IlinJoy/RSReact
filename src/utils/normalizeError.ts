@@ -15,13 +15,9 @@ const isErrorWithMessage = (error: unknown): error is { message: string } => {
 };
 
 const getErrorMessage = (error: FetchBaseQueryError): string => {
-  if ('error' in error) {
-    return error.error;
-  }
-
-  if (error.status === RESPONSE_CODES.BAD_REQUEST) {
+  if (error.status == RESPONSE_CODES.BAD_REQUEST) {
     return ERROR_MESSAGES.BAD_REQUEST;
-  } else if (error.status === RESPONSE_CODES.LIMIT) {
+  } else if (error.status == RESPONSE_CODES.LIMIT) {
     return ERROR_MESSAGES.RATE_LIMIT;
   } else if (error.status) {
     return ERROR_MESSAGES.FETCH;

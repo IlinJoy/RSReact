@@ -6,16 +6,25 @@ type BaseFetchParams = {
   queryParameters?: AnimeQueryStringParameters;
 };
 
-export async function baseFetch<T>({ path = '', endpoint = '', queryParameters }: BaseFetchParams) {
+export async function baseFetch<T>({
+  path = '',
+  endpoint = '',
+  queryParameters,
+}: BaseFetchParams): Promise<[undefined, T] | [Error]> {
   try {
     const queryString = generateQueryString(queryParameters);
     const response = await fetch(
       `${API_CONFIG.BASE_URL + API_CONFIG.VERSION + endpoint + path}${queryString}`
     );
-    const data: T = await response.json();
-    return data;
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw data;
+    }
+
+    return [undefined, data as T];
   } catch (error) {
-    console.log(error);
+    return [error as Error];
   }
 }
 
