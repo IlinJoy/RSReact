@@ -2,6 +2,8 @@
 
 import { use } from 'react';
 
+import { tagMap } from '@/api/config';
+import { revalidate } from '@/api/revalidate';
 import { Button } from '@/components/Button/Button';
 import { FallbackUi } from '@/components/FallbackUi/FallbackUi';
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
@@ -31,6 +33,7 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
   }
 
   const {
+    mal_id,
     title,
     title_english,
     title_japanese,
@@ -56,7 +59,7 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
           <Button
             aria-label="Invalidate details"
             title="Invalidate"
-            onClick={() => {}}
+            onClick={() => revalidate(tagMap.details(mal_id))}
             className={styles.closeBtn}
             icon={<SpriteIcon id="reload" size={20} />}
           />

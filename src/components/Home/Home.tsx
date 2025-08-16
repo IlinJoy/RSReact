@@ -1,6 +1,6 @@
 'use client';
 
-import { type PropsWithChildren, useEffect } from 'react';
+import { type PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FlyoutList } from '@/components/FlyoutList/FlyoutList';
@@ -13,14 +13,8 @@ import styles from './Home.module.scss';
 
 export function Home({ children }: PropsWithChildren) {
   const { appQueryParams, setQueryParams } = useQueryParams();
-  const [savedTerm, saveTerm] = useLocalStorage('task-anime', '');
+  const [, saveTerm] = useLocalStorage('task-anime', '');
   const hasSelected = !!useSelector(checkedItemsSelectors.selectTotal);
-
-  useEffect(() => {
-    if (savedTerm && !appQueryParams.query) {
-      setQueryParams({ query: savedTerm });
-    }
-  }, [appQueryParams.query, savedTerm, setQueryParams]);
 
   const handleSearchTermUpdate = (term: string) => {
     saveTerm(term);

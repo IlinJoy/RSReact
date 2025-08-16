@@ -3,6 +3,8 @@
 import clsx from 'clsx';
 import { type FormEvent, useState } from 'react';
 
+import { tagMap } from '@/api/config';
+import { revalidate } from '@/api/revalidate';
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useTheme } from '@/context/theme/ThemeContext';
@@ -61,7 +63,7 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
       <Button
         aria-label="Invalidate anime list"
         title="Invalidate List"
-        onClick={() => {}}
+        onClick={() => revalidate(tagMap.list)}
         className={styles.closeBtn}
         size="small"
         icon={<SpriteIcon id="reload" size={24} />}

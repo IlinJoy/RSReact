@@ -13,7 +13,12 @@ export function useQueryParams() {
 
   const appQueryParams = useMemo(() => {
     return appParamsKeys.reduce<WithDetails<AppStringQueries>>((acc, key) => {
-      acc[key] = searchParams?.get(key) ?? undefined;
+      const value = searchParams?.get(key);
+
+      if (value) {
+        acc[key] = value;
+      }
+
       return acc;
     }, {});
   }, [searchParams]);

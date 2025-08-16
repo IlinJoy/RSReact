@@ -1,5 +1,5 @@
 import { baseFetch } from '@/api/baseFetch';
-import { API_CONFIG, type AppStringQueries, baseAnimeListQuery } from '@/api/config';
+import { API_CONFIG, type AppStringQueries, baseAnimeListQuery, tagMap } from '@/api/config';
 import type { Anime } from '@/models/animeModel';
 import type { PaginatedType } from '@/models/paginationModel';
 
@@ -13,5 +13,6 @@ export const fetchAnimeList = ({ query, ...rest }: AppStringQueries) => {
   return baseFetch<PaginatedType<Anime>>({
     endpoint: API_CONFIG.ENDPOINTS.ANIME,
     queryParameters,
+    options: { next: { tags: [tagMap.list] } },
   });
 };

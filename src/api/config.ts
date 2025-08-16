@@ -15,6 +15,11 @@ export const baseAnimeListQuery: AnimeQueryParameters = {
   sort: 'desc',
 } as const;
 
+export const tagMap = {
+  list: 'List',
+  details: (id: number | string) => `Details-${id}`,
+};
+
 export type AnimeQueryParameters = Partial<AnimeSearchParams>;
 
 export type AppQueries = Omit<AnimeQueryParameters, 'limit' | 'sfw' | 'q'> & { query?: string };

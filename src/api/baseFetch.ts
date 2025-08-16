@@ -4,17 +4,20 @@ type BaseFetchParams = {
   path?: string;
   endpoint?: string;
   queryParameters?: AnimeQueryStringParameters;
+  options?: RequestInit;
 };
 
 export async function baseFetch<T>({
   path = '',
   endpoint = '',
   queryParameters,
-}: BaseFetchParams): Promise<[undefined, T] | [Error]> {
+  options,
+}: BaseFetchParams): Promise<[undefined, T] | [unknown]> {
   try {
     const queryString = generateQueryString(queryParameters);
     const response = await fetch(
-      `${API_CONFIG.BASE_URL + API_CONFIG.VERSION + endpoint + path}${queryString}`
+      `${API_CONFIG.BASE_URL + API_CONFIG.VERSION + endpoint + path}${queryString}`,
+      { cache: 'force-cache', next: { revalidate: 3000 }, ...options }
     );
     const data = await response.json();
 
@@ -22,9 +25,13 @@ export async function baseFetch<T>({
       throw data;
     }
 
+    if (response.statusText) {
+      await new Promise((res) => setTimeout(res, 400));
+    }
+
     return [undefined, data as T];
   } catch (error) {
-    return [error as Error];
+    return [error as unknown];
   }
 }
 
