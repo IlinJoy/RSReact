@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 
+import { LocaleSwitcher } from '@/components/Header/LocaleSwitcher/LocaleSwitcher';
 import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher/ThemeSwitcher';
 import { Link, usePathname } from '@/i18n/navigation';
 
@@ -31,7 +32,7 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <span className={styles.logo}>{`<///>`}</span>
+        <LocaleSwitcher />
         <ThemeSwitcher />
       </div>
     </header>
