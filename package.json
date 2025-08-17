@@ -10,9 +10,7 @@
     "lint": "next lint --no-cache",
     "preview": "vite preview",
     "format:fix": "prettier --write .",
-    "prepare": "husky",
-    "test": "vitest --reporter verbose",
-    "coverage": "vitest run --coverage"
+    "prepare": "husky"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
