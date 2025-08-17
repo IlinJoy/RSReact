@@ -26,6 +26,7 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": ".",
+    "declaration": true,
     "paths": {
       "@/*": ["src/*"],
       "@/api/*": ["src/api/*"],
@@ -47,8 +48,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "next-env.d.ts",
-    "./dist/types/**/*.ts",
-    "next.config.ts"
+    "./dist/types/**/*.ts"
   ],
   "exclude": ["./node_modules", "next.config.ts"]
 }

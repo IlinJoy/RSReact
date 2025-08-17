@@ -47,7 +47,15 @@ export default tseslint.config([
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',
       curly: 'error',
-      'react/jsx-no-literals': 'error',
+      'react/jsx-no-literals': [
+        'error',
+        {
+          elementOverrides: {
+            GlobalError: { allowElement: true },
+            GlobalNotFound: { allowElement: true },
+          },
+        },
+      ],
       'no-restricted-imports': [
         'error',
         {
