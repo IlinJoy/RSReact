@@ -26,10 +26,15 @@
 }
 
 .cover {
+  position: relative;
+  overflow: hidden;
   width: 100%;
   height: 56%;
-  object-fit: cover;
-  object-position: center;
+
+  & img {
+    object-fit: cover;
+    object-position: center;
+  }
 }
 
 .description {

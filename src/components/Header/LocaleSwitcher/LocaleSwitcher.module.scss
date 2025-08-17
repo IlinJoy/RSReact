@@ -1,0 +1,28 @@
+@use '../../../styles/mixins' as *;
+
+.wrapper {
+  @include flex(row, var(--spacing-0), $wrap: nowrap);
+
+  & span {
+    color: var(--color-accent);
+    white-space: nowrap;
+  }
+
+  & .divider {
+    margin-left: var(--spacing-0);
+    color: var(--color-typography-grey);
+  }
+
+  div {
+    cursor: pointer;
+    display: inline;
+  }
+}
+
+.locale {
+  color: var(--color-typography-grey);
+
+  &.active {
+    color: var(--color-accent);
+  }
+}

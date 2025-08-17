@@ -1,31 +1,38 @@
-import clsx from 'clsx';
-import { NavLink } from 'react-router';
+'use client';
 
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+
+import { LocaleSwitcher } from '@/components/Header/LocaleSwitcher/LocaleSwitcher';
 import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher/ThemeSwitcher';
+import { Link, usePathname } from '@/i18n/navigation';
 
 import styles from './Header.module.scss';
 
-const links = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-];
-
 export function Header() {
+  const pathname = usePathname();
+  const t = useTranslations('Nav');
+
+  const links = [
+    { name: t('home'), path: '/' },
+    { name: t('about'), path: '/about' },
+  ];
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
         <nav className={styles.nav}>
           {links.map((link) => (
-            <NavLink
+            <Link
               key={link.path}
-              to={link.path}
-              className={({ isActive }) => clsx(styles.navLink, { [styles.active]: isActive })}
+              href={link.path}
+              className={clsx(styles.navLink, { [styles.active]: pathname === link.path })}
             >
               {link.name}
-            </NavLink>
+            </Link>
           ))}
         </nav>
-        <span className={styles.logo}>{`<///>`}</span>
+        <LocaleSwitcher />
         <ThemeSwitcher />
       </div>
     </header>

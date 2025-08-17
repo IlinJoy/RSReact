@@ -1,0 +1,54 @@
+@use '../../../styles/mixins' as *;
+
+.wrapper {
+  position: relative;
+  width: 100%;
+
+  &.shrink {
+    width: 60%;
+
+    @include tablet {
+      width: auto;
+    }
+  }
+}
+
+.section {
+  @include transition($time: 0.5s);
+  @include flex(column, var(--spacing-2), $align: center);
+
+  width: 100%;
+  min-height: 80vh;
+
+  &.disable {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.4;
+  }
+}
+
+.fixed {
+  pointer-events: none;
+
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+
+  display: flex;
+
+  margin: auto;
+
+  opacity: 0;
+
+  animation: appear 400ms 100ms forwards;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

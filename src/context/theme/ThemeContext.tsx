@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext, type ReactNode, use, useLayoutEffect } from 'react';
 
 import { isClient } from '@/constants/common';
@@ -41,3 +43,12 @@ export const useTheme = () => {
   }
   return context;
 };
+
+import dynamic from 'next/dynamic';
+
+export const LazyThemeContextProvider = dynamic(
+  () => import('@/context/theme/ThemeContext').then((module) => module.ThemeContextProvider),
+  {
+    ssr: false,
+  }
+);

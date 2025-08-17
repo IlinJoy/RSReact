@@ -58,6 +58,10 @@
     border-bottom: none;
   }
 
+  &.error button {
+    background-color: var(--color-error);
+  }
+
   @include mobile {
     flex-direction: row;
     gap: var(--spacing-2);

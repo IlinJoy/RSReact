@@ -1,0 +1,12 @@
+@use '../styles/mixins' as *;
+
+.wrapper {
+  @include flex(column, var(--spacing-4), $justify: center, $align: center);
+
+  max-width: 400px;
+  min-height: 95vh;
+  margin: auto;
+  padding: var(--spacing-3);
+
+  text-align: center;
+}

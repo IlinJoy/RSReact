@@ -1,0 +1,74 @@
+{
+  "RootLayout": {
+    "description": "'Definitely not a best site to visit'"
+  },
+  "Nav": {
+    "home": "Home",
+    "about": "About"
+  },
+  "Theme": {
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "NotFound": {
+    "title": "Page Not Found",
+    "description": "The page you're looking for doesn't exist or has been moved.",
+    "button": "Back to the main page"
+  },
+  "FallbackUi": {
+    "button": "Reload Page",
+    "title": "Something went wrong."
+  },
+  "SearchBar": {
+    "placeholder": "Looking for...",
+    "button": "Search",
+    "ivalidButton": "Invalidate List"
+  },
+  "Spinner": {
+    "message": "Loading "
+  },
+  "About": {
+    "title": "About",
+    "subtitle": "What I can tell about myself:",
+    "description": "I'm trying to learn, but let's be honest — I'm more of a try than a succeed kind of guy. Proud student at RS School, mostly making sad noises and occasionally creating something useful... or at least entertaining."
+  },
+  "AnimeDetailsCard": {
+    "back": "back to list",
+    "invalidate": "Invalidate details",
+    "episodes": "Episodes",
+    "duration": "Duration",
+    "year": "Year"
+  },
+  "AnimeListCard": {
+    "scored_by": "votes"
+  },
+  "FlyoutControls": {
+    "chosen": "Chosen items total amount",
+    "open": "Open List",
+    "download": "Download List",
+    "remove": "Remove All",
+    "total": "Total: "
+  },
+  "FlyoutListItem": {
+    "title": "Title:",
+    "episodes": "Episodes:"
+  },
+  "NothingFound": {
+    "title": "Nothing Found",
+    "description": "Try searching for something else",
+    "button": "Reset Search"
+  },
+  "Pagination": {
+    "back": "back",
+    "forward": "forward"
+  },
+  "ERROR_MESSAGES": {
+    "FETCH": "Failed to fetch data",
+    "DEFAULT": "Something went wrong",
+    "TEST": "Yo, we just caught your error",
+    "RATE_LIMIT": "Too many request",
+    "UNKNOWN": "Unknown error",
+    "SERVER_ERROR": "An unexpected error occurred on the server. Please try again later.",
+    "BAD_REQUEST": "Cannot process the request. Please verify your input."
+  }
+}

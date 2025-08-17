@@ -1,9 +1,13 @@
-import { Link, useLocation } from 'react-router';
+'use client';
+
+import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
+import { useQueryParams } from '@/hooks/useQueryParams';
+import { Link } from '@/i18n/navigation';
 import type { Anime } from '@/models/animeModel';
-import { ROUTES } from '@/router/routes';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
 
 import styles from './AnimeListCard.module.scss';
@@ -15,7 +19,7 @@ type AnimeListCardProps = {
 };
 
 export function AnimeListCard({ data }: AnimeListCardProps) {
-  const { search } = useLocation();
+  const t = useTranslations('AnimeListCard');
   const {
     mal_id,
     title,
@@ -28,9 +32,10 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
   } = data;
 
   const { isSelected, handleCheckItem } = useCheckItem(mal_id);
+  const { appQueryParams } = useQueryParams();
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
-  const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
+  const scoredBy = scored_by ? `(${scored_by} ${t('scored_by')})` : MESSAGES.NO_RATING;
 
   return (
     <article className={styles.cardWrapper}>
@@ -39,8 +44,12 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
         <ItemCheckbox isChecked={isSelected} onChange={() => handleCheckItem(data, isSelected)} />
       </div>
 
-      <Link to={`${ROUTES.DETAILS}/${data.mal_id}${search}`} className={styles.card}>
-        <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
+      <Link
+        href={{ pathname: '/', query: { ...appQueryParams, details: mal_id } }}
+        className={styles.card}
+        prefetch={false}
+      >
+        <Image fill className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>
           <h3 className={styles.animeTitle}>{animeTitle}</h3>

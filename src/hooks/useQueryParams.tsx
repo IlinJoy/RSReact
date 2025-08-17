@@ -1,42 +1,44 @@
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router';
 
-import type { AppQueries, AppStringQueries } from '@/store/api/anime/config';
+import type { AppQueries, AppStringQueries } from '@/api/config';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
-const appParamsKeys: (keyof AppQueries)[] = ['query', 'page'];
+const appParamsKeys: (keyof AppQueries | 'details')[] = ['query', 'page', 'details'];
+type WithDetails<T> = T & { details?: string };
 
 export function useQueryParams() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const appQueryParams = useMemo(() => {
-    return appParamsKeys.reduce<AppStringQueries>((acc, key) => {
-      acc[key] = searchParams.get(key) ?? undefined;
-      return acc;
+    return appParamsKeys.reduce<WithDetails<AppStringQueries>>((acc, key) => {
+      const value = searchParams?.get(key);
+      return value ? { ...acc, [key]: value } : acc;
     }, {});
   }, [searchParams]);
 
   const setQueryParams = useCallback(
-    (newValues: AppQueries) => {
-      setSearchParams(
-        (params) => {
-          Object.entries(newValues).forEach(([key, value]) => {
-            if (value) {
-              params.set(key, value.toString());
-            } else {
-              params.delete(key);
-            }
-          });
-          return params;
-        },
-        { replace: true }
-      );
+    (newValues: WithDetails<AppQueries>) => {
+      const params = new URLSearchParams(searchParams ?? '');
+
+      Object.entries(newValues).forEach(([key, value]) => {
+        if (value) {
+          params.set(key, value.toString());
+        } else {
+          params.delete(key);
+        }
+      });
+
+      router.replace(`${pathname}${params ? '?' + params.toString() : ''}`);
     },
-    [setSearchParams]
+    [pathname, router, searchParams]
   );
 
   const resetQueryParams = useCallback(() => {
-    setSearchParams('', { replace: true });
-  }, [setSearchParams]);
+    router.replace(pathname || '/');
+  }, [pathname, router]);
 
   return { setQueryParams, resetQueryParams, appQueryParams };
 }

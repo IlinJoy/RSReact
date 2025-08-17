@@ -1,10 +1,14 @@
+'use client';
+
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import { type FormEvent, useState } from 'react';
 
+import { tagMap } from '@/api/config';
+import { revalidate } from '@/api/revalidate';
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { useTheme } from '@/context/theme/ThemeContext';
-import { useGetAnimeList } from '@/hooks/useGetAnimeList';
 
 import styles from './SearchBar.module.scss';
 
@@ -16,8 +20,8 @@ export type SearchBarProps = {
 export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
   const { theme } = useTheme();
   const [inputValue, setInputValue] = useState<string>(searchTerm);
+  const t = useTranslations('SearchBar');
 
-  const { invalidate } = useGetAnimeList();
   const isDirty = inputValue.trim() !== searchTerm;
 
   const handleSubmit = (event: FormEvent) => {
@@ -38,7 +42,7 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
           <input
             name="search"
             type="text"
-            placeholder="Looking for..."
+            placeholder={t('placeholder')}
             value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
             className={styles.input}
@@ -46,6 +50,7 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
           {inputValue && (
             <Button
               aria-label="reset"
+              size="small"
               type="reset"
               onClick={resetSearch}
               className={clsx(styles.resetButton, { [styles.light]: theme === 'light' })}
@@ -55,13 +60,13 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
         </div>
 
         <Button type="submit" disabled={!isDirty} size="medium">
-          Search
+          {t('button')}
         </Button>
       </form>
       <Button
-        aria-label="Invalidate anime list"
-        title="Invalidate List"
-        onClick={invalidate}
+        aria-label={t('ivalidButton')}
+        title={t('ivalidButton')}
+        onClick={() => revalidate(tagMap.list)}
         className={styles.closeBtn}
         size="small"
         icon={<SpriteIcon id="reload" size={24} />}
