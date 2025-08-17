@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
@@ -48,7 +49,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
         className={styles.card}
         prefetch={false}
       >
-        <img className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
+        <Image fill className={styles.cover} src={webp.large_image_url} alt={`${title} cover`} />
 
         <div className={styles.description}>
           <h3 className={styles.animeTitle}>{animeTitle}</h3>

@@ -1,5 +1,5 @@
 'use client';
-
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { use } from 'react';
 
@@ -76,7 +76,9 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
         />
       </div>
 
-      <img className={styles.cover} src={webp.large_image_url} alt={`${title} detailed cover`} />
+      <div className={styles.cover}>
+        <Image fill src={webp.large_image_url} alt={`${title} detailed cover`} />
+      </div>
 
       <div className={styles.description}>
         <div>

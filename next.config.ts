@@ -3,8 +3,15 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
   distDir: './dist',
-  experimental: {
-    globalNotFound: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.myanimelist.net',
+        port: '',
+        search: '',
+      },
+    ],
   },
 
   webpack(config) {
