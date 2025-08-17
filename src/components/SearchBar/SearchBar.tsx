@@ -50,6 +50,7 @@ export function SearchBar({ searchTerm, onSearch }: SearchBarProps) {
           {inputValue && (
             <Button
               aria-label="reset"
+              size="small"
               type="reset"
               onClick={resetSearch}
               className={clsx(styles.resetButton, { [styles.light]: theme === 'light' })}

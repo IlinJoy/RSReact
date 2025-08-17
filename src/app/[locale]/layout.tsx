@@ -9,7 +9,7 @@ import { type ReactNode, Suspense } from 'react';
 import { StoreProvider } from '@/app/StoreProvider';
 import { Header } from '@/components/Header/Header';
 import { Spinner } from '@/components/Spinner/Spinner';
-import { ThemeContextProvider } from '@/context/theme/ThemeContext';
+import { LazyThemeContextProvider } from '@/context/theme/ThemeContext';
 import { routing } from '@/i18n/routing';
 
 const montserrat = Montserrat({
@@ -53,14 +53,16 @@ export default async function RootLayout({ children, params }: RootLayoutProps) 
     <html lang={locale}>
       <body className={`${montserrat.variable} ${funnel.variable}`}>
         <div id="root">
-          <StoreProvider>
-            <ThemeContextProvider>
-              <NextIntlClientProvider>
-                <Header />
-                <Suspense fallback={<Spinner />}>{children}</Suspense>
-              </NextIntlClientProvider>
-            </ThemeContextProvider>
-          </StoreProvider>
+          <NextIntlClientProvider>
+            <StoreProvider>
+              <Suspense fallback={<Spinner />}>
+                <LazyThemeContextProvider>
+                  <Header />
+                  {children}
+                </LazyThemeContextProvider>
+              </Suspense>
+            </StoreProvider>
+          </NextIntlClientProvider>
         </div>
       </body>
     </html>

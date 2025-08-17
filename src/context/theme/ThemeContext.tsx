@@ -43,3 +43,12 @@ export const useTheme = () => {
   }
   return context;
 };
+
+import dynamic from 'next/dynamic';
+
+export const LazyThemeContextProvider = dynamic(
+  () => import('@/context/theme/ThemeContext').then((module) => module.ThemeContextProvider),
+  {
+    ssr: false,
+  }
+);
