@@ -1,20 +1,21 @@
 'use client';
 
 import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 import { ThemeSwitcher } from '@/components/Header/ThemeSwitcher/ThemeSwitcher';
+import { Link, usePathname } from '@/i18n/navigation';
 
 import styles from './Header.module.scss';
 
-const links = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-];
-
 export function Header() {
   const pathname = usePathname();
+  const t = useTranslations('Nav');
+
+  const links = [
+    { name: t('home'), path: '/' },
+    { name: t('about'), path: '/about' },
+  ];
 
   return (
     <header className={styles.header}>

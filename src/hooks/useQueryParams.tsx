@@ -1,7 +1,8 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 
 import type { AppQueries, AppStringQueries } from '@/api/config';
+import { usePathname, useRouter } from '@/i18n/navigation';
 
 const appParamsKeys: (keyof AppQueries | 'details')[] = ['query', 'page', 'details'];
 type WithDetails<T> = T & { details?: string };
@@ -14,12 +15,7 @@ export function useQueryParams() {
   const appQueryParams = useMemo(() => {
     return appParamsKeys.reduce<WithDetails<AppStringQueries>>((acc, key) => {
       const value = searchParams?.get(key);
-
-      if (value) {
-        acc[key] = value;
-      }
-
-      return acc;
+      return value ? { ...acc, [key]: value } : acc;
     }, {});
   }, [searchParams]);
 

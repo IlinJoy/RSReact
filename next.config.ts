@@ -3,6 +3,9 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
   distDir: './dist',
+  experimental: {
+    globalNotFound: true,
+  },
 
   webpack(config) {
     config.module.rules

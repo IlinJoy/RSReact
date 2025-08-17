@@ -1,15 +1,19 @@
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
+
+import { Link } from '@/i18n/navigation';
 
 import styles from './NotFound.module.scss';
 
-export function NotFound() {
+export async function NotFound() {
+  const t = await getTranslations('NotFound');
+
   return (
     <section className={styles.wrapper}>
-      <h1>Page Not Found</h1>
-      <div>The page you&apos;re looking for doesn&apos;t exist or has been moved.</div>
+      <h1>{t('title')}</h1>
+      <div>{t('description')}</div>
 
       <Link href="/" className={styles.linkButton}>
-        Back to the main page
+        {t('button')}
       </Link>
     </section>
   );

@@ -1,5 +1,7 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { Button } from '@/components/Button/Button';
 import { NotFound } from '@/components/NotFound/NotFound';
 import { RESPONSE_CODES } from '@/constants/api';
@@ -15,6 +17,7 @@ export type FallbackProps = {
 
 export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackProps) {
   const currentError = normalizeError(error);
+  const t = useTranslations('FallbackUi');
 
   const handleReset = () => {
     if (!resetError) {
@@ -31,9 +34,9 @@ export function FallbackUi({ error, resetError, buttonMessage = '' }: FallbackPr
   return (
     <section className={styles.errorSection}>
       <div className={styles.wrapper}>
-        <h1>Something went wrong.</h1>
+        <h1>{t('title')}</h1>
         <p>{currentError.message}</p>
-        <Button onClick={handleReset}>{buttonMessage || 'Reload Page'}</Button>
+        <Button onClick={handleReset}>{buttonMessage || t('button')}</Button>
       </div>
     </section>
   );

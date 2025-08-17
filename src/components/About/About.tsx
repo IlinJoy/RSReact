@@ -1,16 +1,16 @@
+import { getTranslations } from 'next-intl/server';
+
 import styles from './About.module.scss';
 
-export function About() {
+export async function About() {
+  const t = await getTranslations('About');
+
   return (
     <section>
       <div className={styles.wrapper}>
-        <h1>About</h1>
-        <span>What I can tell about myself:</span>
-        <p>
-          {`I'm trying to learn, but let's be honest — I'm more of a “try” than a “succeed” kind of
-          guy. Proud student at RS School, mostly making sad noises and occasionally creating
-          something useful... or at least entertaining.`}
-        </p>
+        <h1>{t('title')}</h1>
+        <span>{t('subtitle')}</span>
+        <p>{t('description')}</p>
         <a className={styles.link} href="https://rs.school/courses/reactjs" target="blank">
           <img className={styles.rsLogo} src="/images/rss-logo.png" alt="rss-logo" />
         </a>

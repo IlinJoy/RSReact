@@ -7,8 +7,8 @@
     "about": "Обо мне"
   },
   "Theme": {
-    "home": "Светлая",
-    "about": "Темная"
+    "light": "Светлая",
+    "dark": "Темная"
   },
   "NotFound": {
     "title": "Страница не найдена",
@@ -25,7 +25,7 @@
     "ivalidButton": "Неверный список"
   },
   "Spinner": {
-    "message": "<Загрузка "
+    "message": "Загрузка "
   },
   "About": {
     "title": "Обо мне",
@@ -34,13 +34,24 @@
   },
   "AnimeDetailsCard": {
     "back": "назад к списку",
-    "invalidate": "Очистить детали"
+    "invalidate": "Очистить детали",
+    "episodes": "Эпизоды",
+    "duration": "Длительность",
+    "year": "Год"
+  },
+  "AnimeListCard": {
+    "scored_by": "голосов"
   },
   "FlyoutControls": {
     "chosen": "Общее количество выбранных элементов",
     "open": "Открыть список",
     "download": "Скачать список",
-    "remove": "Удалить всё"
+    "remove": "Удалить всё",
+    "total": "Всего: "
+  },
+  "FlyoutListItem": {
+    "title": "Название:",
+    "episodes": "Эпизоды:"
   },
   "NothingFound": {
     "title": "Ничего не найдено",

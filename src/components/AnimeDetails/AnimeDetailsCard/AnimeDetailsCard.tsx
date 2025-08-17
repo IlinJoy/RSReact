@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { use } from 'react';
 
 import { tagMap } from '@/api/config';
@@ -16,19 +17,20 @@ import { useCheckItem } from '@/store/hooks/useCheckItem';
 import styles from './AnimeDetailsCard.module.scss';
 
 type AnimeDetailsCardProps = {
-  animePromise: Promise<[Error] | [undefined, DataType<Anime>]>;
+  animePromise: Promise<[unknown] | [undefined, DataType<Anime>]>;
 };
 
 export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
   const [error, anime] = use(animePromise);
   const { isSelected, handleCheckItem } = useCheckItem(anime?.data.mal_id);
   const { setQueryParams } = useQueryParams();
+  const t = useTranslations('AnimeDetailsCard');
 
   if (error) {
     return <FallbackUi error={error} />;
   }
 
-  if (!anime.data) {
+  if (!anime?.data) {
     return <NothingFound />;
   }
 
@@ -44,6 +46,8 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
     images: { webp },
   } = anime.data;
 
+  const descriptions = { episodes, duration, year } as const;
+
   const handleClose = () => setQueryParams({ details: undefined });
 
   return (
@@ -52,13 +56,13 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
         <div className={styles.buttonGroup}>
           <Button
             className={styles.closeBtn}
-            aria-label="back to list"
+            aria-label={t('back')}
             onClick={handleClose}
             icon={<SpriteIcon id="close" size={20} />}
           />
           <Button
-            aria-label="Invalidate details"
-            title="Invalidate"
+            aria-label={t('invalidate')}
+            title={t('invalidate')}
             onClick={() => revalidate(tagMap.details(mal_id))}
             className={styles.closeBtn}
             icon={<SpriteIcon id="reload" size={20} />}
@@ -86,11 +90,11 @@ export function AnimeDetailsCard({ animePromise }: AnimeDetailsCardProps) {
           ))}
         </ul>
 
-        {Object.entries({ episodes, duration, year })
+        {Object.entries(descriptions)
           .filter(([, value]) => value !== null)
           .map(([key, value]) => (
             <p key={key}>
-              {key}: {value}
+              {t(key as keyof typeof descriptions)}: {value}
             </p>
           ))}
       </div>

@@ -1,10 +1,11 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { ItemCheckbox } from '@/components/ItemCheckbox/ItemCheckbox';
 import { MESSAGES } from '@/constants/messages';
 import { useQueryParams } from '@/hooks/useQueryParams';
+import { Link } from '@/i18n/navigation';
 import type { Anime } from '@/models/animeModel';
 import { useCheckItem } from '@/store/hooks/useCheckItem';
 
@@ -17,6 +18,7 @@ type AnimeListCardProps = {
 };
 
 export function AnimeListCard({ data }: AnimeListCardProps) {
+  const t = useTranslations('AnimeListCard');
   const {
     mal_id,
     title,
@@ -32,7 +34,7 @@ export function AnimeListCard({ data }: AnimeListCardProps) {
   const { appQueryParams } = useQueryParams();
   const extraGenresAmount = genres.length - GENRES_AMOUNT_TO_RENDER;
   const animeTitle = title_english || title;
-  const scoredBy = scored_by ? `(${scored_by} votes)` : MESSAGES.NO_RATING;
+  const scoredBy = scored_by ? `(${scored_by} ${t('scored_by')})` : MESSAGES.NO_RATING;
 
   return (
     <article className={styles.cardWrapper}>
