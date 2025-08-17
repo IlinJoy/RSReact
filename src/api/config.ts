@@ -6,6 +6,7 @@ export const API_CONFIG = {
   ENDPOINTS: {
     ANIME: '/anime',
   },
+  BASE_OPTIONS: { cache: 'force-cache', next: { revalidate: 3000 } },
 } as const;
 
 export const baseAnimeListQuery: AnimeQueryParameters = {

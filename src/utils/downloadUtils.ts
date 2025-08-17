@@ -1,19 +1,13 @@
-import { generateCsvFromObjectArray } from '@/utils/generateCsvFromObjectArray';
+export async function postRequest<T>(url: string, body: T) {
+  return fetch(url, {
+    method: 'POST',
+    body: JSON.stringify(body),
+  });
+}
 
-type MimeType = 'text/csv' | 'image/webp' | 'application/json';
-
-export type CreateDownloadUrlOptions<T> = { type: MimeType; mapFunction?: (data: T) => string };
-
-export const createDownloadUrl = <T>(
-  data: T,
-  { type, mapFunction }: CreateDownloadUrlOptions<T>
-) => {
-  const string = mapFunction ? mapFunction(data) : JSON.stringify(data);
-  const blob = new Blob([string], { type });
-  return URL.createObjectURL(blob);
-};
-
-export const csvBaseOptions = {
-  type: 'text/csv',
-  mapFunction: generateCsvFromObjectArray,
-} as const;
+export function handleDownload(url: string, fileName: string) {
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = fileName;
+  link.click();
+}

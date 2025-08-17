@@ -8,7 +8,6 @@ import { useDownload } from '@/hooks/useDownload';
 import { useAppDispatch } from '@/store/hooks/base';
 import { removeAll } from '@/store/slices/checkedItems/checkedItems';
 import type { CheckedItem } from '@/store/types';
-import { csvBaseOptions } from '@/utils/downloadUtils';
 
 import styles from './Controls.module.scss';
 
@@ -26,9 +25,9 @@ export function Controls({ CheckedItems, onListOpen, isModal }: ControlsProps) {
   const totalAmount = CheckedItems.length;
   const total = totalAmount >= 15 && !isModal ? '15+' : totalAmount;
 
-  const { download } = useDownload<CheckedItem[]>({
+  const { download, error } = useDownload<CheckedItem[]>({
     fileName: `${totalAmount}_items`,
-    options: csvBaseOptions,
+    endpoint: '/api/generate-csv',
   });
 
   return (
@@ -49,11 +48,13 @@ export function Controls({ CheckedItems, onListOpen, isModal }: ControlsProps) {
         )}
       </div>
 
-      <div className={clsx(styles.buttonsColumn, { [styles.modal]: isModal })}>
+      <div
+        className={clsx(styles.buttonsColumn, { [styles.modal]: isModal, [styles.error]: !!error })}
+      >
         <Button
           size="small"
-          onClick={() => download(CheckedItems, linkRef)}
-          title={t('download')}
+          onClick={() => download(CheckedItems)}
+          title={error || t('download')}
           aria-label={t('download')}
           icon={<SpriteIcon id="download" />}
         >

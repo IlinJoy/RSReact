@@ -1,12 +1,17 @@
 'use client';
 
-import { type RefObject, useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { createDownloadUrl, type CreateDownloadUrlOptions } from '@/utils/downloadUtils';
+import { handleDownload, postRequest } from '@/utils/downloadUtils';
+import { normalizeError } from '@/utils/normalizeError';
 
-export type UseDownloadProps<T> = { fileName: string; options: CreateDownloadUrlOptions<T> };
+export type UseDownloadProps = {
+  fileName: string;
+  endpoint: string;
+};
 
-export function useDownload<T>({ fileName, options }: UseDownloadProps<T>) {
+export function useDownload<T>({ fileName, endpoint }: UseDownloadProps) {
+  const [error, setError] = useState<string>();
   const urlRef = useRef<string>(null);
 
   const handleUrlRevoke = () => {
@@ -16,24 +21,31 @@ export function useDownload<T>({ fileName, options }: UseDownloadProps<T>) {
   };
 
   const download = useCallback(
-    (data: T, downloadLinkRef: RefObject<HTMLAnchorElement | null>) => {
-      if (!downloadLinkRef.current) {
-        return;
-      }
-      const url = createDownloadUrl(data, options);
+    async (data: T) => {
+      try {
+        const response = await postRequest(endpoint, data);
 
-      urlRef.current = url;
-      downloadLinkRef.current.href = url;
-      downloadLinkRef.current.download = fileName;
-      downloadLinkRef.current.click();
-      setTimeout(() => handleUrlRevoke());
+        if (!response.ok) {
+          const message = await response.text();
+          throw new Error(message);
+        }
+
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        urlRef.current = url;
+
+        handleDownload(url, fileName);
+        handleUrlRevoke();
+      } catch (error) {
+        setError(normalizeError(error).message);
+      }
     },
-    [fileName, options]
+    [endpoint, fileName]
   );
 
   useEffect(() => {
     return () => handleUrlRevoke();
   }, []);
 
-  return { download };
+  return { download, error };
 }

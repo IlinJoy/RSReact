@@ -6,6 +6,7 @@ export const ERROR_MESSAGES = {
   UNKNOWN: 'Unknown error',
   SERVER_ERROR: 'An unexpected error occurred on the server. Please try again later.',
   BAD_REQUEST: 'Cannot process the request. Please verify your input.',
+  INVALID_DATA: 'Invalid data format',
 };
 
 export const MESSAGES = {

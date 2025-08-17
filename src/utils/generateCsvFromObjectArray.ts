@@ -9,3 +9,7 @@ export const generateCsvFromObjectArray = <T extends Record<string, unknown>>(da
 
   return [titles, ...rows].join('\n');
 };
+
+export const isObjectArray = (value: unknown): value is Array<Record<string, unknown>> => {
+  return Array.isArray(value) && value.every((item) => typeof item === 'object' && item !== null);
+};
