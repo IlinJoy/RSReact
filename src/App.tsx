@@ -1,7 +1,10 @@
-import './App.scss';
+import { Modal } from '@/components/Modal/Modal';
+import { HomePage } from '@/pages/HomePage';
 
-function App() {
-  return <div>App</div>;
+export function App() {
+  return (
+    <main>
+      <HomePage />
+    </main>
+  );
 }
-
-export default App;

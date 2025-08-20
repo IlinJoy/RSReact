@@ -1,0 +1,33 @@
+body {
+  font-family: var(--font-primary);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: var(--color-typography);
+  letter-spacing: 0.05em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  line-height: 1.04;
+}
+
+button {
+  color: var(--color-background);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
