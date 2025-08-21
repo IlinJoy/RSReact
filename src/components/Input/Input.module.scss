@@ -1,0 +1,39 @@
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  @include flex(row, var(--spacing-1));
+
+  width: 100%;
+  margin-bottom: var(--spacing-3);
+
+  &.horizontal {
+    flex-direction: row;
+    width: fit-content;
+    margin-bottom: var(--spacing-1);
+  }
+}
+
+.label {
+  & span {
+    color: var(--color-accent);
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  width: inherit;
+
+  & button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    border-radius: 0;
+  }
+}
+
+.input {
+  width: inherit;
+  padding: var(--spacing-1);
+}

@@ -1,0 +1,25 @@
+@use '../../styles/mixins' as *;
+
+.fieldset {
+  margin-bottom: var(--spacing-2);
+  padding: var(--spacing-3);
+  border: 1px solid var(--color-grey);
+}
+
+.form-buttons {
+  @include flex;
+
+  margin-top: var(--spacing-3);
+
+  & .reset {
+    border: 1px solid var(--color-accent);
+    border-radius: var(--border-radius-2);
+    color: var(--color-accent);
+    background-color: transparent;
+
+    &:hover {
+      border-color: var(--color-accent-dark);
+      color: var(--color-accent-dark);
+    }
+  }
+}

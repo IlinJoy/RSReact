@@ -34,9 +34,9 @@
 .heading {
   @include flex($justify: space-between);
 
-  position: sticky;
-  top: 0;
   margin-bottom: var(--spacing-2);
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .close-button {
