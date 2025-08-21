@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type InputHTMLAttributes, useState } from 'react';
+import { type InputHTMLAttributes, type Ref, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
@@ -15,6 +15,7 @@ type InputProps<T extends Record<string, unknown>> = {
   placeholder?: string;
   ariaLabel?: string;
   isDisabled?: boolean;
+  ref?: Ref<HTMLInputElement>;
   error?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
@@ -25,6 +26,7 @@ function Input<T extends Record<string, unknown>>({
   placeholder,
   isDisabled,
   id,
+  ref,
   required = true,
   ariaLabel,
   error,
@@ -58,6 +60,7 @@ function Input<T extends Record<string, unknown>>({
           name={name}
           aria-required={required}
           className={styles.input}
+          ref={ref}
         />
         {type === 'password' && (
           <Button

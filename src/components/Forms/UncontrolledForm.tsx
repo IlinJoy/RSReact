@@ -1,8 +1,10 @@
 import { type FormEvent, useRef, useState } from 'react';
 
+import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { Button } from '@/components/Button/Button';
 import { FormInput } from '@/components/Input/Input';
 import type { UserFormData } from '@/constants/types';
+
 import styles from './UncontrolledForm.module.scss';
 
 export function UncontrolledForm() {
@@ -19,7 +21,7 @@ export function UncontrolledForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef}>
+    <form onSubmit={handleSubmit} ref={formRef} autoComplete="on">
       <FormInput
         name="firstName"
         placeholder="Your name"
@@ -28,6 +30,7 @@ export function UncontrolledForm() {
       />
       <FormInput name="age" placeholder="Your age" label="Age" error={errors.firstName} />
       <FormInput name="email" type="email" placeholder="Email" label="Email" error={errors.age} />
+      <Autocomplete />
       <fieldset className={styles.fieldset}>
         <legend>Enter password</legend>
         <FormInput
@@ -44,7 +47,6 @@ export function UncontrolledForm() {
           placeholder="Confirm Password"
           error={errors.confirmPassword}
         />
-        {/* {autocomplete control to select country (all countries should be stored in the Redux store) Form should contain labels, which should be connected with inputs (look at htmlFor)} */}
       </fieldset>
       <fieldset className={styles.fieldset}>
         <legend>Choose you gender</legend>

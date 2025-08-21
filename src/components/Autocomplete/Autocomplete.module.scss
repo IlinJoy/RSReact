@@ -1,0 +1,21 @@
+.wrapper {
+  position: relative;
+}
+
+.suggestions {
+  position: absolute;
+  z-index: 50;
+  top: 100%;
+
+  width: 100%;
+
+  background-color: var(--color-background-light);
+
+  & .items {
+    padding: var(--spacing-1);
+
+    &:hover {
+      background-color: var(--color-background);
+    }
+  }
+}
