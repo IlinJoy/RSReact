@@ -3,38 +3,34 @@ import { type InputHTMLAttributes, type Ref, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import type { UserFormData } from '@/constants/types';
+import { getPasswordStrength } from '@/utils/getPasswordStrength';
+import { type UserFormData } from '@/validation/formSchema';
 
 import styles from './Input.module.scss';
 
 type InputProps<T extends Record<string, unknown>> = {
-  type?: 'text' | 'password' | 'email' | 'radio' | 'checkbox';
   name: keyof T;
-  id?: string;
   label?: string;
-  placeholder?: string;
-  ariaLabel?: string;
-  isDisabled?: boolean;
   ref?: Ref<HTMLInputElement>;
-  error?: string;
+  errors?: string[];
+  withStrength?: boolean;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
-function Input<T extends Record<string, unknown>>({
+export function FormInput<T extends Record<string, unknown> = UserFormData>({
   type = 'text',
   name,
   label,
-  placeholder,
-  isDisabled,
   id,
   ref,
   required = true,
-  ariaLabel,
-  error,
+  errors,
+  withStrength,
   ...rest
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
   const inputId = id ?? name;
+  const hasErrors = !!errors?.length;
 
   return (
     <div
@@ -49,14 +45,14 @@ function Input<T extends Record<string, unknown>>({
         </label>
       )}
 
-      <div className={styles.inputWrapper}>
+      <div
+        className={styles.inputWrapper}
+        data-strength={withStrength && hasErrors && getPasswordStrength(errors?.length)}
+      >
         <input
           {...rest}
           id={inputId}
           type={showPassword ? 'text' : type}
-          placeholder={placeholder}
-          disabled={isDisabled}
-          aria-label={ariaLabel}
           name={name}
           aria-required={required}
           className={styles.input}
@@ -71,13 +67,11 @@ function Input<T extends Record<string, unknown>>({
         )}
       </div>
 
-      {!!error && (
-        <p role="alert" aria-label={`error-${name}`}>
-          {error}
+      {hasErrors && (
+        <p role="alert" aria-label={`error-${name}`} className={styles.error}>
+          {errors[errors.length - 1]}
         </p>
       )}
     </div>
   );
 }
-
-export const FormInput = (props: InputProps<UserFormData>) => <Input {...props} />;

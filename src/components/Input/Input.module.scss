@@ -23,6 +23,23 @@
   position: relative;
   width: inherit;
 
+  &::after {
+    content: '';
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+
+    display: block;
+
+    width: 0;
+    height: 2px;
+
+    background-color: var(--color-error);
+
+    @include transition;
+  }
+
   & button {
     position: absolute;
     top: 50%;
@@ -31,9 +48,34 @@
 
     border-radius: 0;
   }
+
+  &[data-strength='invalid']::after {
+    width: 100%;
+    background-color: red;
+  }
+
+  &[data-strength='bad']::after {
+    width: 25%;
+    background-color: red;
+  }
+
+  &[data-strength='medium']::after {
+    width: 50%;
+    background-color: orange;
+  }
+
+  &[data-strength='good']::after {
+    width: 100%;
+    background-color: green;
+  }
 }
 
 .input {
   width: inherit;
   padding: var(--spacing-1);
+}
+
+.error {
+  width: 100%;
+  color: var(--color-error);
 }

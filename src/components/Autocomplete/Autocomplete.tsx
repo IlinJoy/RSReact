@@ -1,12 +1,20 @@
-import { useRef, useState } from 'react';
+import { type ChangeEvent, type ReactNode, type Ref, useRef, useState } from 'react';
 
-import { FormInput } from '@/components/Input/Input';
 import { selectCountries, useCountryStore } from '@/store/countryStore';
 import { filterStringArray } from '@/utils/filterStringArray';
 
 import styles from './Autocomplete.module.scss';
 
-export function Autocomplete() {
+type AutocompleteProps = {
+  renderInput: (props: {
+    ref: Ref<HTMLInputElement>;
+    onFocus: () => void;
+    onBlur: () => void;
+    onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  }) => ReactNode;
+};
+
+export function Autocomplete({ renderInput }: AutocompleteProps) {
   const countries = useCountryStore(selectCountries);
   const [isOpen, setIsOpen] = useState(false);
   const [suitableCountries, setSuitableCountries] = useState<string[]>(countries);
@@ -26,15 +34,13 @@ export function Autocomplete() {
 
   return (
     <div className={styles.wrapper}>
-      <FormInput
-        name="country"
-        label="Country"
-        placeholder="Select country"
-        ref={autocompleteRef}
-        onFocus={() => setIsOpen(true)}
-        onBlur={() => setIsOpen(false)}
-        onChange={(e) => handleInputChange(e.target.value)}
-      />
+      {renderInput({
+        ref: autocompleteRef,
+        onFocus: () => setIsOpen(true),
+        onBlur: () => setIsOpen(false),
+        onChange: (e) => handleInputChange(e.target.value),
+      })}
+
       {isOpen && !!suitableCountries.length && (
         <ul className={styles.suggestions}>
           {suitableCountries.map((country) => (
