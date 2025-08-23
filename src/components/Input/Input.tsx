@@ -60,6 +60,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
         />
         {type === 'password' && (
           <Button
+            type="button"
             size="small"
             onClick={togglePassword}
             icon={showPassword ? <SpriteIcon id="password" /> : <SpriteIcon id="password-off" />}

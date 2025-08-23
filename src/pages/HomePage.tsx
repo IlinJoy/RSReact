@@ -12,7 +12,12 @@ export function HomePage() {
   return (
     <div>
       <Button
-        onClick={() => setModalContent({ title: 'Uncontrolled', children: <UncontrolledForm /> })}
+        onClick={() =>
+          setModalContent({
+            title: 'Uncontrolled',
+            children: <UncontrolledForm onSubmit={handleClose} />,
+          })
+        }
       >
         Open Uncontrolled
       </Button>

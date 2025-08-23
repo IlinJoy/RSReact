@@ -9,24 +9,35 @@ import { formSchema } from '@/validation/formSchema';
 
 import styles from './UncontrolledForm.module.scss';
 
-export function UncontrolledForm() {
+type UncontrolledFormProps = {
+  onSubmit: () => void;
+};
+
+export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
   const [errors, setErrors] = useState<ErrorState>({});
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
-      console.log(Object.fromEntries(formData));
       formSchema.validateSync(Object.fromEntries(formData), { abortEarly: false });
+      onSubmit();
+      console.log(Object.fromEntries(formData));
     } catch (error) {
       if (error instanceof ValidationError) {
+        console.log(mapFieldErrors(error));
         setErrors(mapFieldErrors(error));
       }
     }
   };
 
+  const handleReset = (event: FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    form.reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit} autoComplete="on">
+    <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on">
       <FormInput name="name" placeholder="Your name" label="First Name" errors={errors.name} />
       <FormInput name="age" type="number" placeholder="Your age" label="Age" errors={errors.age} />
       <FormInput
@@ -80,8 +91,10 @@ export function UncontrolledForm() {
         errors={errors.tc}
       />
       <div className={styles.formButtons}>
-        <Button className={styles.reset}> Reset</Button>
-        <Button> Submit</Button>
+        <Button className={styles.reset} type="reset">
+          Reset
+        </Button>
+        <Button type="submit"> Submit</Button>
       </div>
     </form>
   );
