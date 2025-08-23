@@ -6,6 +6,7 @@ import { filterStringArray } from '@/utils/filterStringArray';
 import styles from './Autocomplete.module.scss';
 
 type AutocompleteProps = {
+  onChange?: (query: string) => void;
   renderInput: (props: {
     ref: Ref<HTMLInputElement>;
     onFocus: () => void;
@@ -14,9 +15,9 @@ type AutocompleteProps = {
   }) => ReactNode;
 };
 
-export function Autocomplete({ renderInput }: AutocompleteProps) {
-  const countries = useCountryStore(selectCountries);
+export function Autocomplete({ renderInput, onChange }: AutocompleteProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const countries = useCountryStore(selectCountries);
   const [suitableCountries, setSuitableCountries] = useState<string[]>(countries);
 
   const autocompleteRef = useRef<HTMLInputElement>(null);
@@ -29,6 +30,7 @@ export function Autocomplete({ renderInput }: AutocompleteProps) {
   };
 
   const handleInputChange = (query: string) => {
+    onChange?.(query);
     setSuitableCountries(filterStringArray(countries, query));
   };
 
@@ -41,7 +43,7 @@ export function Autocomplete({ renderInput }: AutocompleteProps) {
         onChange: (e) => handleInputChange(e.target.value),
       })}
 
-      {isOpen && !!suitableCountries.length && (
+      {isOpen && !!suitableCountries?.length && (
         <ul className={styles.suggestions}>
           {suitableCountries.map((country) => (
             <li

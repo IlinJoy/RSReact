@@ -1,10 +1,4 @@
-@use '../../styles/mixins' as *;
-
-.fieldset {
-  margin-bottom: var(--spacing-2);
-  padding: var(--spacing-3);
-  border: 1px solid var(--color-grey);
-}
+@use '../../../../styles/mixins' as *;
 
 .form-buttons {
   @include flex;
@@ -22,8 +16,4 @@
       color: var(--color-accent-dark);
     }
   }
-}
-
-.error {
-  color: var(--color-error);
 }

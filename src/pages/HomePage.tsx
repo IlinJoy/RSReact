@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
+import { ControlledForm } from '@/components/Forms/ControlledForm';
 import { UncontrolledForm } from '@/components/Forms/UncontrolledForm';
 import { Modal, type ModalContent } from '@/components/Modal/Modal';
 
@@ -22,7 +23,12 @@ export function HomePage() {
         Open Uncontrolled
       </Button>
       <Button
-        onClick={() => setModalContent({ title: 'Controlled', children: <p>Controlled form</p> })}
+        onClick={() =>
+          setModalContent({
+            title: 'Controlled',
+            children: <ControlledForm onSubmit={handleClose} />,
+          })
+        }
       >
         Open Controlled
       </Button>

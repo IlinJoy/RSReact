@@ -2,12 +2,11 @@ import { type FormEvent, useState } from 'react';
 import { ValidationError } from 'yup';
 
 import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
-import { Button } from '@/components/Button/Button';
+import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
+import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
 import { type ErrorState, mapFieldErrors } from '@/utils/mapFieldErrors';
 import { formSchema } from '@/validation/formSchema';
-
-import styles from './UncontrolledForm.module.scss';
 
 type UncontrolledFormProps = {
   onSubmit: () => void;
@@ -22,10 +21,8 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
       const formData = new FormData(event.currentTarget);
       formSchema.validateSync(Object.fromEntries(formData), { abortEarly: false });
       onSubmit();
-      console.log(Object.fromEntries(formData));
     } catch (error) {
       if (error instanceof ValidationError) {
-        console.log(mapFieldErrors(error));
         setErrors(mapFieldErrors(error));
       }
     }
@@ -38,64 +35,21 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
 
   return (
     <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on">
-      <FormInput name="name" placeholder="Your name" label="First Name" errors={errors.name} />
-      <FormInput name="age" type="number" placeholder="Your age" label="Age" errors={errors.age} />
-      <FormInput
-        name="email"
-        type="email"
-        placeholder="Email"
-        label="Email"
-        errors={errors.email}
-      />
-      <Autocomplete
-        renderInput={(props) => (
-          <FormInput
-            name="country"
-            label="Country"
-            placeholder="Select country"
-            errors={errors.country}
-            {...props}
-          />
-        )}
-      />
-      <fieldset className={styles.fieldset}>
-        <legend>Enter password</legend>
-        <FormInput
-          name="password"
-          label="Password"
-          type="password"
-          placeholder="Choose Password"
-          errors={errors.password}
-          withStrength
+      <FormFields error={errors}>
+        <Autocomplete
+          renderInput={(props) => (
+            <FormInput
+              name="country"
+              label="Country"
+              placeholder="Select country"
+              error={errors.country?.message}
+              {...props}
+            />
+          )}
         />
-        <FormInput
-          name="confirmPassword"
-          label="Confirmation"
-          type="password"
-          placeholder="Confirm Password"
-          errors={errors.confirmPassword}
-        />
-      </fieldset>
-      <fieldset className={styles.fieldset}>
-        <legend>Choose you gender</legend>
-        <FormInput name="gender" type="radio" id="male" label="Male" value="male" />
-        <FormInput name="gender" type="radio" id="female" label="Female" value="female" />
-        {errors.gender && <p className={styles.error}>{errors.gender}</p>}
-      </fieldset>
-      {/* {input control to upload picture} */}
-      <FormInput
-        name="tc"
-        type="checkbox"
-        label="I agree to the Terms and Conditions"
-        value="true"
-        errors={errors.tc}
-      />
-      <div className={styles.formButtons}>
-        <Button className={styles.reset} type="reset">
-          Reset
-        </Button>
-        <Button type="submit"> Submit</Button>
-      </div>
+      </FormFields>
+
+      <FormButtons />
     </form>
   );
 }

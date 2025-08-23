@@ -3,7 +3,6 @@ import { type InputHTMLAttributes, type Ref, useState } from 'react';
 
 import { Button } from '@/components/Button/Button';
 import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
-import { getPasswordStrength } from '@/utils/getPasswordStrength';
 import { type UserFormData } from '@/validation/formSchema';
 
 import styles from './Input.module.scss';
@@ -12,8 +11,7 @@ type InputProps<T extends Record<string, unknown>> = {
   name: keyof T;
   label?: string;
   ref?: Ref<HTMLInputElement>;
-  errors?: string[];
-  withStrength?: boolean;
+  error?: string;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
 export function FormInput<T extends Record<string, unknown> = UserFormData>({
@@ -23,14 +21,12 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
   id,
   ref,
   required = true,
-  errors,
-  withStrength,
+  error,
   ...rest
 }: InputProps<T>) {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
   const inputId = id ?? name;
-  const hasErrors = !!errors?.length;
 
   return (
     <div
@@ -45,10 +41,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
         </label>
       )}
 
-      <div
-        className={styles.inputWrapper}
-        data-strength={withStrength && hasErrors && getPasswordStrength(errors?.length)}
-      >
+      <div className={styles.inputWrapper}>
         <input
           {...rest}
           id={inputId}
@@ -68,9 +61,9 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
         )}
       </div>
 
-      {hasErrors && (
+      {error && (
         <p role="alert" aria-label={`error-${name}`} className={styles.error}>
-          {errors[errors.length - 1]}
+          {error}
         </p>
       )}
     </div>

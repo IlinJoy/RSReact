@@ -3,7 +3,7 @@ import type { ValidationError } from 'yup';
 import { formSchema, type UserFormData } from '@/validation/formSchema';
 
 export type ErrorState = {
-  [K in keyof UserFormData]?: string[];
+  [K in keyof UserFormData]?: { message: string };
 };
 
 const isValidField = (field?: string): field is keyof UserFormData =>
@@ -12,7 +12,7 @@ const isValidField = (field?: string): field is keyof UserFormData =>
 export const mapFieldErrors = (error: ValidationError) => {
   return error.inner.reduce<ErrorState>((acc, { path, message }) => {
     if (isValidField(path)) {
-      acc[path] = acc[path] ? [...acc[path], message] : [message];
+      acc[path] = { message };
     }
     return acc;
   }, {});
