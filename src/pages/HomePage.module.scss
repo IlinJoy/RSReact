@@ -1,0 +1,46 @@
+@use '../styles/mixins' as *;
+
+.wrapper {
+  @include flex(row, var(--spacing-2));
+
+  position: relative;
+  margin-bottom: var(--spacing-3);
+  padding: var(--spacing-3);
+
+  & span {
+    font-weight: 600;
+  }
+}
+
+.heading {
+  width: 35%;
+  text-transform: uppercase;
+}
+
+.new {
+  border: solid 1px var(--color-accent);
+
+  &::after {
+    content: 'new';
+
+    position: absolute;
+    z-index: 10;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+
+    padding: var(--spacing-0) var(--spacing-1);
+
+    color: var(--color-background);
+
+    background-color: var(--color-accent);
+  }
+}
+
+.image {
+  width: 100%;
+  max-width: 20rem;
+  height: 10rem;
+  margin: auto;
+
+  object-fit: cover;
+}

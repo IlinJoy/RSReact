@@ -1,0 +1,11 @@
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  position: relative;
+}
+
+.file-name {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

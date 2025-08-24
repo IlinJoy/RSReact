@@ -1,0 +1,19 @@
+@use '../../../../styles/mixins' as *;
+
+.form-buttons {
+  @include flex;
+
+  margin-top: var(--spacing-3);
+
+  & .reset {
+    border: 1px solid var(--color-accent);
+    border-radius: var(--border-radius-2);
+    color: var(--color-accent);
+    background-color: transparent;
+
+    &:hover {
+      border-color: var(--color-accent-dark);
+      color: var(--color-accent-dark);
+    }
+  }
+}

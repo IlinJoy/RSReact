@@ -1,0 +1,34 @@
+@use '../../styles/mixins' as *;
+@use '../../styles/placeholders' as *;
+
+.button {
+  @include transition;
+  @include flex(row, 0.7em, $align: center);
+
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+    background-color: var(--color-grey);
+  }
+
+  & .icon {
+    line-height: 0;
+  }
+}
+
+.baseButton {
+  @extend %button-main;
+}
+
+.large {
+  padding: calc(var(--spacing-3) / 2) var(--spacing-3);
+}
+
+.medium {
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.small {
+  padding: var(--spacing-0) var(--spacing-1);
+}
