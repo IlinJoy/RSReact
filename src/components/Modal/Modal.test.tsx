@@ -33,7 +33,7 @@ describe('Modal Component', () => {
     });
   });
 
-  describe('Opening/closing functionality', () => {
+  describe('User interaction', () => {
     it('should call onClose modal when close button is clicked', async () => {
       const { onClose, user } = setupModal({});
 

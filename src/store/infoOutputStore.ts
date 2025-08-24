@@ -16,7 +16,7 @@ type InfoOutputState = {
   actions: InfoOutputActions;
 };
 
-const useInfoOutputStore = create<InfoOutputState>((set) => ({
+export const useInfoOutputStore = create<InfoOutputState>((set) => ({
   infoOutput: [],
   actions: {
     setNewInfo: (data) =>
