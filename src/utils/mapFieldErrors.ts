@@ -12,7 +12,7 @@ const isValidField = (field?: string): field is keyof UserFormData =>
 export const mapFieldErrors = (error: ValidationError) => {
   return error.inner.reduce<ErrorState>((acc, { path, message }) => {
     if (isValidField(path)) {
-      acc[path] = { message };
+      return acc[path] ? acc : { ...acc, [path]: { message } };
     }
     return acc;
   }, {});
