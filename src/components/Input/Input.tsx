@@ -35,7 +35,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
       })}
     >
       {label && (
-        <label htmlFor={inputId} className={styles.label}>
+        <label htmlFor={inputId} className={clsx(styles.label, type === 'file' && styles.file)}>
           {label}
           {required && <span>*</span>}
         </label>

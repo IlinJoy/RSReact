@@ -1,4 +1,5 @@
 @use '../../styles/mixins' as *;
+@use '../../styles/placeholders' as *;
 
 .wrapper {
   @include flex(row, var(--spacing-1));
@@ -16,6 +17,13 @@
 .label {
   & span {
     color: var(--color-accent);
+  }
+
+  &.file {
+    @extend %button;
+    @extend %button-main;
+
+    color: var(--color-background);
   }
 }
 
@@ -36,6 +44,10 @@
 .input {
   width: inherit;
   padding: var(--spacing-1);
+
+  &[type='file'] {
+    display: none;
+  }
 }
 
 .error {

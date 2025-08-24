@@ -25,10 +25,8 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
     formState: { errors, isValid },
   } = methods;
 
-  console.log(errors);
   const submitHandler = (data: UserFormData) => {
     onSubmit({ ...data, form: 'controlled' });
-    console.log(data);
   };
 
   return (

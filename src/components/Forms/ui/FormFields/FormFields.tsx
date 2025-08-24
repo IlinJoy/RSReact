@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { type FieldErrors, useFormContext } from 'react-hook-form';
 
+import { FileInput } from '@/components/FileInput/FileInput';
 import { FormInput } from '@/components/Input/Input';
 import { PasswordInput } from '@/components/Password/PasswordInput';
 import type { ErrorState } from '@/utils/mapFieldErrors';
@@ -85,7 +86,24 @@ export function FormFields({ error, children }: FormFieldsProps) {
         {error.gender && <p className={styles.error}>{error.gender.message}</p>}
       </fieldset>
 
-      {/* {input control to upload picture} */}
+      <FileInput
+        renderInput={(props) => (
+          <FormInput
+            {...getFieldProps('image')}
+            label="Upload image"
+            error={error.image?.message}
+            {...props}
+          />
+        )}
+      />
+
+      {/* <FormInput
+        {...getFieldProps('image')}
+        type="file"
+        label="Upload image"
+        error={error.image?.message}
+      /> */}
+
       <FormInput
         {...getFieldProps('tc')}
         type="checkbox"
