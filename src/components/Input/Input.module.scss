@@ -5,7 +5,7 @@
   @include flex(row, var(--spacing-1));
 
   width: 100%;
-  margin-bottom: var(--spacing-3);
+  margin-bottom: var(--spacing-1);
 
   &.horizontal {
     flex-direction: row;
@@ -45,12 +45,13 @@
   width: inherit;
   padding: var(--spacing-1);
 
+  @include transition;
+
   &[type='file'] {
     display: none;
   }
-}
 
-.error {
-  width: 100%;
-  color: var(--color-error);
+  &.error {
+    border: 1px solid var(--color-error);
+  }
 }

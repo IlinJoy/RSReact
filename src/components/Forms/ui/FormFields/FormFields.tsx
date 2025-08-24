@@ -3,6 +3,7 @@ import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
 
 import { FileInput } from '@/components/FileInput/FileInput';
 import { FormInput } from '@/components/Input/Input';
+import { HelperText } from '@/components/Input/ui/ErrorMessage';
 import { PasswordInput } from '@/components/Password/PasswordInput';
 import type { ErrorState } from '@/utils/mapFieldErrors';
 import type { UserFormData } from '@/validation/formSchema';
@@ -75,15 +76,23 @@ export function FormFields({ error, children, register }: FormFieldsProps) {
 
       <fieldset className={styles.fieldset}>
         <legend>Choose you gender</legend>
-        <FormInput {...getFieldProps('gender')} type="radio" id="male" label="Male" value="male" />
+        <FormInput
+          {...getFieldProps('gender')}
+          type="radio"
+          id="male"
+          label="Male"
+          value="male"
+          withHelperText={false}
+        />
         <FormInput
           {...getFieldProps('gender')}
           type="radio"
           id="female"
           label="Female"
           value="female"
+          withHelperText={false}
         />
-        {error.gender && <p className={styles.error}>{error.gender.message}</p>}
+        <HelperText text={error.gender?.message} name="gender" />
       </fieldset>
 
       <FileInput

@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import { type InputHTMLAttributes, type ReactNode, type Ref } from 'react';
 
+import { HelperText } from '@/components/Input/ui/ErrorMessage';
 import { type UserFormData } from '@/validation/formSchema';
 
 import styles from './Input.module.scss';
@@ -12,6 +13,7 @@ type InputProps<T extends Record<string, unknown>> = {
   error?: string;
   button?: ReactNode;
   strengthIndicator?: ReactNode;
+  withHelperText?: boolean;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
 export function FormInput<T extends Record<string, unknown> = UserFormData>({
@@ -24,6 +26,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
   error,
   button,
   strengthIndicator,
+  withHelperText = true,
   ...rest
 }: InputProps<T>) {
   const inputId = id ?? name;
@@ -48,7 +51,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
           type={type}
           name={name}
           aria-required={required}
-          className={styles.input}
+          className={clsx(styles.input, error && styles.error)}
           ref={ref}
         />
 
@@ -56,11 +59,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
         {strengthIndicator}
       </div>
 
-      {error && (
-        <p role="alert" aria-label={`error-${name}`} className={styles.error}>
-          {error}
-        </p>
-      )}
+      {withHelperText && <HelperText text={error} name={name} />}
     </div>
   );
 }

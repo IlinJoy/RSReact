@@ -31,7 +31,7 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
     reset,
     control,
     register,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isValid },
   } = useForm<UserFormData>({
     resolver: yupResolver(formSchema),
     mode: 'onChange',
@@ -65,7 +65,7 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
           )}
         />
       </FormFields>
-      <FormButtons disabled={!isValid || isDirty} />
+      <FormButtons disabled={!isValid} />
     </form>
   );
 }
