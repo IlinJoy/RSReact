@@ -54,7 +54,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
         />
       </FormFields>
 
-      <FormButtons active={true} />
+      <FormButtons disabled={false} />
     </form>
   );
 }

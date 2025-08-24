@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { type FieldErrors, useFormContext } from 'react-hook-form';
+import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
 
 import { FileInput } from '@/components/FileInput/FileInput';
 import { FormInput } from '@/components/Input/Input';
@@ -12,14 +12,14 @@ import styles from './FormFields.module.scss';
 type FormFieldsProps = {
   error: FieldErrors<UserFormData> | ErrorState;
   children: ReactNode;
+  register?: UseFormRegister<UserFormData>;
 };
 
-export function FormFields({ error, children }: FormFieldsProps) {
-  const formContext = useFormContext();
-  const isControlled = formContext;
+export function FormFields({ error, children, register }: FormFieldsProps) {
+  const isControlled = !!register;
 
   const getFieldProps = (fieldName: keyof UserFormData) =>
-    isControlled ? formContext.register(fieldName) : { name: fieldName };
+    isControlled ? register(fieldName) : { name: fieldName };
 
   return (
     <>
