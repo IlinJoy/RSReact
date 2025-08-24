@@ -13,13 +13,13 @@ export type ModalContent = {
   children: ReactNode;
 };
 
-type DialogProps = {
+export type DialogProps = {
   rootContainer?: Element;
   onClose: () => void;
 } & ModalContent;
 
 export function Modal({ onClose, title, children, rootContainer }: DialogProps) {
-  const modalRef = useFocus<HTMLDivElement>();
+  const { modalRef } = useFocus<HTMLDivElement>();
 
   useOnEscapeKey(onClose);
 
@@ -37,6 +37,7 @@ export function Modal({ onClose, title, children, rootContainer }: DialogProps) 
       role="dialog"
       aria-modal="true"
       ref={modalRef}
+      tabIndex={-1}
     >
       <div className={styles.content}>
         <div className={styles.heading}>

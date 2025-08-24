@@ -1,16 +1,22 @@
 import { useEffect, useRef } from 'react';
 
 export function useFocus<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
+  const modalRef = useRef<T>(null);
 
   useEffect(() => {
-    if (!ref.current) {
+    if (!modalRef.current) {
       return;
     }
-    const element = ref.current;
-    element.focus();
+    modalRef.current.focus();
+    const element = modalRef.current;
 
-    const focusable = element.querySelectorAll('select, button, input');
+    const focusableSelectors = [
+      'button:not([disabled])',
+      'input:not([disabled])',
+      'select:not([disabled])',
+    ].join(', ');
+
+    const focusable = element.querySelectorAll(focusableSelectors);
     const firstFocusable = focusable[0] instanceof HTMLElement ? focusable[0] : null;
     const lastFocusable = focusable[focusable.length - 1];
 
@@ -28,5 +34,5 @@ export function useFocus<T extends HTMLElement>() {
     };
   }, []);
 
-  return ref;
+  return { modalRef };
 }
