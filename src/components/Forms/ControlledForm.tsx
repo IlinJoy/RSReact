@@ -6,6 +6,7 @@ import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
 import type { InfoOutput } from '@/store/infoOutputStore';
+import { convertToBase64 } from '@/utils/convertToBase64';
 import { formSchema, type UserFormData } from '@/validation/formSchema';
 
 type ControlledFormProps = {
@@ -25,8 +26,9 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
     formState: { errors, isValid },
   } = methods;
 
-  const submitHandler = (data: UserFormData) => {
-    onSubmit({ ...data, form: 'controlled' });
+  const submitHandler = async ({ image, ...data }: UserFormData) => {
+    const convertedImage = await convertToBase64(image);
+    onSubmit({ ...data, form: 'controlled', image: convertedImage });
   };
 
   return (

@@ -6,6 +6,7 @@ import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
 import type { InfoOutput } from '@/store/infoOutputStore';
+import { convertToBase64 } from '@/utils/convertToBase64';
 import { type ErrorState, mapFieldErrors } from '@/utils/mapFieldErrors';
 import { formSchema } from '@/validation/formSchema';
 
@@ -16,13 +17,15 @@ type UncontrolledFormProps = {
 export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
   const [errors, setErrors] = useState<ErrorState>({});
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     try {
       const formData = new FormData(event.currentTarget);
       const data = Object.fromEntries(formData);
-      const validatedData = formSchema.validateSync(data, { abortEarly: false });
-      onSubmit({ ...validatedData, form: 'uncontrolled' });
+      const { image, ...validatedData } = formSchema.validateSync(data, { abortEarly: false });
+      const convertedImage = await convertToBase64(image);
+      onSubmit({ ...validatedData, image: convertedImage, form: 'uncontrolled' });
     } catch (error) {
       if (error instanceof ValidationError) {
         setErrors(mapFieldErrors(error));

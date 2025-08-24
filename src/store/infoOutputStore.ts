@@ -2,7 +2,10 @@ import { create } from 'zustand';
 
 import type { UserFormData } from '@/validation/formSchema';
 
-export type InfoOutput = UserFormData & { form: 'controlled' | 'uncontrolled' };
+export type InfoOutput = Omit<UserFormData, 'image'> & {
+  form: 'controlled' | 'uncontrolled';
+  image: string;
+};
 
 type InfoOutputActions = {
   setNewInfo: (data: InfoOutput) => void;

@@ -48,15 +48,12 @@ export const formSchema = object({
       return value instanceof FileList ? value.item(0) : value;
     })
     .test('required', getRequiredMessage('Image'), (value) => {
-      console.log(value, value.size > 0);
       return value && value.size > 0;
     })
     .test('fileType', 'Not a valid image type, only jpeg or png', (value) => {
-      console.log(value instanceof File, value.size > 0);
       return value && ['image/jpeg', 'image/png'].includes(value.type);
     })
     .test('fileSize', 'File size must be less than 1MB', (value) => {
-      console.log(value instanceof File, value.size > 0);
       return value && value.size <= 1048576;
     }),
 });

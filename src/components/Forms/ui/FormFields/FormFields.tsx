@@ -97,13 +97,6 @@ export function FormFields({ error, children }: FormFieldsProps) {
         )}
       />
 
-      {/* <FormInput
-        {...getFieldProps('image')}
-        type="file"
-        label="Upload image"
-        error={error.image?.message}
-      /> */}
-
       <FormInput
         {...getFieldProps('tc')}
         type="checkbox"
