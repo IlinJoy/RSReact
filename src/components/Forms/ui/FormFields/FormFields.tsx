@@ -4,7 +4,6 @@ import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
 import { FileInput } from '@/components/FileInput/FileInput';
 import { FormInput } from '@/components/Input/Input';
 import { HelperText } from '@/components/Input/ui/ErrorMessage';
-import { PasswordInput } from '@/components/Password/PasswordInput';
 import type { ErrorState } from '@/utils/mapFieldErrors';
 import type { UserFormData } from '@/validation/formSchema';
 
@@ -48,33 +47,6 @@ export function FormFields({ error, children, register }: FormFieldsProps) {
       {children}
 
       <fieldset className={styles.fieldset}>
-        <legend>Enter password</legend>
-        <PasswordInput
-          withIndicator
-          renderInput={(props) => (
-            <FormInput
-              {...getFieldProps('password')}
-              label="Password"
-              placeholder="Choose Password"
-              error={error.password?.message}
-              {...props}
-            />
-          )}
-        />
-        <PasswordInput
-          renderInput={(props) => (
-            <FormInput
-              {...getFieldProps('confirmPassword')}
-              label="Confirmation"
-              placeholder="Confirm Password"
-              error={error.confirmPassword?.message}
-              {...props}
-            />
-          )}
-        />
-      </fieldset>
-
-      <fieldset className={styles.fieldset}>
         <legend>Choose you gender</legend>
         <FormInput
           {...getFieldProps('gender')}
@@ -100,6 +72,7 @@ export function FormFields({ error, children, register }: FormFieldsProps) {
           <FormInput
             {...getFieldProps('image')}
             label="Upload image"
+            accept="image/png, image/jpeg"
             error={error.image?.message}
             {...props}
           />

@@ -5,10 +5,14 @@ import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
+import { PasswordInput } from '@/components/Password/PasswordInput';
+import { useStrength } from '@/hooks/useStrength';
 import type { InfoOutput } from '@/store/infoOutputStore';
 import { convertToBase64 } from '@/utils/convertToBase64';
 import { type ErrorState, mapFieldErrors } from '@/utils/mapFieldErrors';
 import { formSchema } from '@/validation/formSchema';
+
+import styles from './ui/FormFields/FormFields.module.scss';
 
 type UncontrolledFormProps = {
   onSubmit: (data: InfoOutput) => void;
@@ -16,15 +20,19 @@ type UncontrolledFormProps = {
 
 export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
   const [errors, setErrors] = useState<ErrorState>({});
+  const { strength, updateStrength } = useStrength();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
       const formData = new FormData(event.currentTarget);
-      const data = Object.fromEntries(formData);
+      const data = Object.fromEntries(formData.entries());
+      updateStrength(formData.get('password')?.toString() || '');
+
       const { image, ...validatedData } = formSchema.validateSync(data, { abortEarly: false });
       const convertedImage = await convertToBase64(image);
+
       onSubmit({ ...validatedData, image: convertedImage, form: 'uncontrolled' });
     } catch (error) {
       if (error instanceof ValidationError) {
@@ -52,6 +60,32 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
             />
           )}
         />
+        <fieldset className={styles.fieldset}>
+          <legend>Enter password</legend>
+          <PasswordInput
+            renderInput={(props) => (
+              <FormInput
+                name="password"
+                label="Password"
+                placeholder="Choose Password"
+                error={errors.password?.message}
+                strength={strength}
+                {...props}
+              />
+            )}
+          />
+          <PasswordInput
+            renderInput={(props) => (
+              <FormInput
+                name="confirmPassword"
+                label="Confirmation"
+                placeholder="Confirm Password"
+                error={errors.confirmPassword?.message}
+                {...props}
+              />
+            )}
+          />
+        </fieldset>
       </FormFields>
 
       <FormButtons disabled={false} />

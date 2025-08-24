@@ -12,7 +12,7 @@ type InputProps<T extends Record<string, unknown>> = {
   ref?: Ref<HTMLInputElement>;
   error?: string;
   button?: ReactNode;
-  strengthIndicator?: ReactNode;
+  strength?: string;
   withHelperText?: boolean;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
@@ -25,7 +25,7 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
   required = true,
   error,
   button,
-  strengthIndicator,
+  strength,
   withHelperText = true,
   ...rest
 }: InputProps<T>) {
@@ -53,10 +53,16 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
           aria-required={required}
           className={clsx(styles.input, error && styles.error)}
           ref={ref}
+          autoComplete={inputId}
         />
 
         {button}
-        {strengthIndicator}
+        {strength && (
+          <div
+            aria-label="strength-indicator"
+            className={clsx(styles.indicator, styles[strength])}
+          />
+        )}
       </div>
 
       {withHelperText && <HelperText text={error} name={name} />}
