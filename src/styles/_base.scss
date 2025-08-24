@@ -39,6 +39,7 @@ body:has([data-modal='true']) {
 }
 
 section {
+  width: 100%;
   max-width: 1440px;
   margin: auto;
   padding: var(--spacing-3);

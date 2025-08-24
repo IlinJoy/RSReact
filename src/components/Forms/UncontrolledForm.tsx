@@ -5,11 +5,12 @@ import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
+import type { InfoOutput } from '@/store/infoOutputStore';
 import { type ErrorState, mapFieldErrors } from '@/utils/mapFieldErrors';
 import { formSchema } from '@/validation/formSchema';
 
 type UncontrolledFormProps = {
-  onSubmit: () => void;
+  onSubmit: (data: InfoOutput) => void;
 };
 
 export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
@@ -19,8 +20,9 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
     event.preventDefault();
     try {
       const formData = new FormData(event.currentTarget);
-      formSchema.validateSync(Object.fromEntries(formData), { abortEarly: false });
-      onSubmit();
+      const data = Object.fromEntries(formData);
+      const validatedData = formSchema.validateSync(data, { abortEarly: false });
+      onSubmit({ ...validatedData, form: 'uncontrolled' });
     } catch (error) {
       if (error instanceof ValidationError) {
         setErrors(mapFieldErrors(error));
@@ -49,7 +51,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
         />
       </FormFields>
 
-      <FormButtons />
+      <FormButtons active={true} />
     </form>
   );
 }

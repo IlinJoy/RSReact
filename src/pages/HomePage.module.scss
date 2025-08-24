@@ -1,0 +1,25 @@
+@use '../styles/mixins' as *;
+
+.wrapper {
+  @include flex;
+
+  position: relative;
+  margin-bottom: var(--spacing-3);
+  padding: var(--spacing-3);
+}
+
+.heading {
+  width: 40%;
+  text-transform: uppercase;
+}
+
+.new {
+  border: solid 1px var(--color-accent);
+
+  &::after {
+    content: 'new';
+    position: absolute;
+    top: var(--spacing-3);
+    right: var(--spacing-3);
+  }
+}

@@ -1,20 +1,33 @@
-const REQUIREMENTS_AMOUNT = 5;
-const STRENGTH_KEYS = ['invalid', 'bad', 'medium', 'good'];
+const REQUIREMENTS = [/[a-z]/, /[A-Z]/, /[0-9]/, /[@$!%*?&#]/];
+const STRENGTH_KEYS = ['bad', 'medium', 'good'];
 
-export const getPasswordStrength = (errorAmount?: number) => {
-  if (!errorAmount) {
+export const getPasswordStrength = (password?: string) => {
+  if (!password) {
     return;
   }
 
-  const percentage = (errorAmount / REQUIREMENTS_AMOUNT) * 100;
+  let errorAmount = 0;
+
+  REQUIREMENTS.forEach((regex) => {
+    if (!regex.test(password)) {
+      errorAmount++;
+    }
+  });
+
+  return calcStrengthByPercentage(errorAmount, REQUIREMENTS.length);
+};
+
+const calcStrengthByPercentage = (errorAmount: number, requirementsAmount: number) => {
+  const percentage = (errorAmount / requirementsAmount) * 100;
+  console.log(percentage);
   switch (true) {
     case percentage < 25:
-      return STRENGTH_KEYS[3];
-    case percentage < 50:
       return STRENGTH_KEYS[2];
-    case percentage < 75:
+    case percentage < 50:
       return STRENGTH_KEYS[1];
-    default:
+    case percentage < 75:
       return STRENGTH_KEYS[0];
+    default:
+      return STRENGTH_KEYS[2];
   }
 };

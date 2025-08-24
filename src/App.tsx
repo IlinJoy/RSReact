@@ -1,9 +1,13 @@
+import { Header } from '@/components/Header/Header';
 import { HomePage } from '@/pages/HomePage';
 
 export function App() {
   return (
-    <main>
-      <HomePage />
-    </main>
+    <>
+      <Header />
+      <main>
+        <HomePage />
+      </main>
+    </>
   );
 }

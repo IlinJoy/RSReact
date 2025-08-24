@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { type FieldErrors, useFormContext } from 'react-hook-form';
 
 import { FormInput } from '@/components/Input/Input';
+import { PasswordInput } from '@/components/Password/PasswordInput';
 import type { ErrorState } from '@/utils/mapFieldErrors';
 import type { UserFormData } from '@/validation/formSchema';
 
@@ -46,21 +47,31 @@ export function FormFields({ error, children }: FormFieldsProps) {
 
       <fieldset className={styles.fieldset}>
         <legend>Enter password</legend>
-        <FormInput
-          {...getFieldProps('password')}
-          label="Password"
-          type="password"
-          placeholder="Choose Password"
-          error={error.password?.message}
+        <PasswordInput
+          withIndicator
+          renderInput={(props) => (
+            <FormInput
+              {...getFieldProps('password')}
+              label="Password"
+              placeholder="Choose Password"
+              error={error.password?.message}
+              {...props}
+            />
+          )}
         />
-        <FormInput
-          {...getFieldProps('confirmPassword')}
-          label="Confirmation"
-          type="password"
-          placeholder="Confirm Password"
-          error={error.confirmPassword?.message}
+        <PasswordInput
+          renderInput={(props) => (
+            <FormInput
+              {...getFieldProps('confirmPassword')}
+              label="Confirmation"
+              placeholder="Confirm Password"
+              error={error.confirmPassword?.message}
+              {...props}
+            />
+          )}
         />
       </fieldset>
+
       <fieldset className={styles.fieldset}>
         <legend>Choose you gender</legend>
         <FormInput {...getFieldProps('gender')} type="radio" id="male" label="Male" value="male" />
@@ -73,6 +84,7 @@ export function FormFields({ error, children }: FormFieldsProps) {
         />
         {error.gender && <p className={styles.error}>{error.gender.message}</p>}
       </fieldset>
+
       {/* {input control to upload picture} */}
       <FormInput
         {...getFieldProps('tc')}

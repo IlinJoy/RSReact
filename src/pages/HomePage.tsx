@@ -1,38 +1,33 @@
-import { useState } from 'react';
+import clsx from 'clsx';
+import { useId } from 'react';
 
-import { Button } from '@/components/Button/Button';
-import { ControlledForm } from '@/components/Forms/ControlledForm';
-import { UncontrolledForm } from '@/components/Forms/UncontrolledForm';
-import { Modal, type ModalContent } from '@/components/Modal/Modal';
+import { useInfoOutput } from '@/store/infoOutputStore';
+
+import styles from './HomePage.module.scss';
 
 export function HomePage() {
-  const [modalContent, setModalContent] = useState<ModalContent | null>(null);
-
-  const handleClose = () => setModalContent(null);
+  const id = useId();
+  const infoOutput = useInfoOutput();
 
   return (
-    <div>
-      <Button
-        onClick={() =>
-          setModalContent({
-            title: 'Uncontrolled',
-            children: <UncontrolledForm onSubmit={handleClose} />,
-          })
-        }
-      >
-        Open Uncontrolled
-      </Button>
-      <Button
-        onClick={() =>
-          setModalContent({
-            title: 'Controlled',
-            children: <ControlledForm onSubmit={handleClose} />,
-          })
-        }
-      >
-        Open Controlled
-      </Button>
-      {!!modalContent && <Modal onClose={handleClose} {...modalContent} />}
-    </div>
+    <section>
+      {infoOutput.map((info, index) => {
+        return (
+          <div key={id} className={clsx(styles.wrapper, !index && styles.new)}>
+            <h3 className={styles.heading}>{info.form}</h3>
+            <div>
+              <p>Name: {info.name}</p>
+              <p>Age: {info.age}</p>
+              <p>E-mail: {info.email}</p>
+              <p>Password: {info.password}</p>
+              <p>Password Conformation: {info.confirmPassword} ✓</p>
+              <p>Gender: {info.gender}</p>
+              <p>Country: {info.country}</p>
+              <p>Terms and Conditions: {info.tc && 'Accepted'}</p>
+            </div>
+          </div>
+        );
+      })}
+    </section>
   );
 }

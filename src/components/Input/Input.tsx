@@ -1,8 +1,6 @@
 import clsx from 'clsx';
-import { type InputHTMLAttributes, type Ref, useState } from 'react';
+import { type InputHTMLAttributes, type ReactNode, type Ref } from 'react';
 
-import { Button } from '@/components/Button/Button';
-import { SpriteIcon } from '@/components/SpriteIcon/SpriteIcon';
 import { type UserFormData } from '@/validation/formSchema';
 
 import styles from './Input.module.scss';
@@ -12,6 +10,8 @@ type InputProps<T extends Record<string, unknown>> = {
   label?: string;
   ref?: Ref<HTMLInputElement>;
   error?: string;
+  button?: ReactNode;
+  strengthIndicator?: ReactNode;
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>;
 
 export function FormInput<T extends Record<string, unknown> = UserFormData>({
@@ -22,10 +22,10 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
   ref,
   required = true,
   error,
+  button,
+  strengthIndicator,
   ...rest
 }: InputProps<T>) {
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePassword = () => setShowPassword((prev) => !prev);
   const inputId = id ?? name;
 
   return (
@@ -45,20 +45,15 @@ export function FormInput<T extends Record<string, unknown> = UserFormData>({
         <input
           {...rest}
           id={inputId}
-          type={showPassword ? 'text' : type}
+          type={type}
           name={name}
           aria-required={required}
           className={styles.input}
           ref={ref}
         />
-        {type === 'password' && (
-          <Button
-            type="button"
-            size="small"
-            onClick={togglePassword}
-            icon={showPassword ? <SpriteIcon id="password" /> : <SpriteIcon id="password-off" />}
-          />
-        )}
+
+        {button}
+        {strengthIndicator}
       </div>
 
       {error && (

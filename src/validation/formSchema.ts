@@ -6,8 +6,8 @@ const getRequiredMessage = (field: string) => `${field} is required`;
 
 export const formSchema = object({
   name: string()
-    .matches(/^[A-Z].*$/, 'Name must start with a capital letter')
-    .required(getRequiredMessage('Name')),
+    .required(getRequiredMessage('Name'))
+    .matches(/^[A-Z].*$/, 'Name must start with a capital letter'),
 
   age: number()
     .transform((value, originalValue) => (originalValue === '' ? undefined : value))
@@ -17,15 +17,15 @@ export const formSchema = object({
   email: string().email('Invalid email').required(getRequiredMessage('Email')),
 
   password: string()
-    .matches(/[@$!%*?&#]/, 'Must contain at least 1 special character')
+    .required(getRequiredMessage('Password'))
     .matches(/[a-z]/, 'Must contain at least 1 lowercase letter')
     .matches(/[A-Z]/, 'Must contain at least 1 uppercase letter')
     .matches(/[0-9]/, 'Must contain at least 1 number')
-    .required(getRequiredMessage('Password')),
+    .matches(/[@$!%*?&#]/, 'Must contain at least 1 special character'),
 
   confirmPassword: string()
-    .oneOf([ref('password')], 'Should match password')
-    .required(getRequiredMessage('Confirm password')),
+    .required(getRequiredMessage('Confirm password'))
+    .oneOf([ref('password')], 'Should match password'),
 
   gender: string().required(getRequiredMessage('Gender')),
 

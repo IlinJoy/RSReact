@@ -5,10 +5,11 @@ import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
+import type { InfoOutput } from '@/store/infoOutputStore';
 import { formSchema, type UserFormData } from '@/validation/formSchema';
 
 type ControlledFormProps = {
-  onSubmit: () => void;
+  onSubmit: (data: InfoOutput) => void;
 };
 
 export function ControlledForm({ onSubmit }: ControlledFormProps) {
@@ -24,8 +25,9 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
     formState: { errors, isValid },
   } = methods;
 
+  console.log(errors);
   const submitHandler = (data: UserFormData) => {
-    onSubmit();
+    onSubmit({ ...data, form: 'controlled' });
     console.log(data);
   };
 
@@ -34,6 +36,8 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
       <form onSubmit={handleSubmit(submitHandler)} onReset={() => reset()} autoComplete="on">
         <FormFields error={errors}>
           <Controller
+            control={control}
+            name="country"
             render={({ field: { onChange } }) => (
               <Autocomplete
                 onChange={onChange}
@@ -48,11 +52,9 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
                 )}
               />
             )}
-            control={control}
-            name="country"
           />
         </FormFields>
-        <FormButtons shouldDisable={isValid} />
+        <FormButtons active={isValid} />
       </form>
     </FormProvider>
   );

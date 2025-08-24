@@ -6,12 +6,8 @@ type CountryStoreType = {
   countries: string[];
 };
 
-const initialState = {
+const useCountryStore = create<CountryStoreType>(() => ({
   countries: COUNTRIES,
-};
-
-export const useCountryStore = create<CountryStoreType>(() => ({
-  ...initialState,
 }));
 
-export const selectCountries = (state: CountryStoreType) => state.countries;
+export const useCountries = () => useCountryStore((state: CountryStoreType) => state.countries);
