@@ -39,7 +39,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on">
+    <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on" noValidate>
       <FormFields error={errors}>
         <Autocomplete
           renderInput={(props) => (
