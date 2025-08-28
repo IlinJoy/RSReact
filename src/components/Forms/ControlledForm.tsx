@@ -1,10 +1,10 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
-import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
+import { FormBaseFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
 import { PasswordInput } from '@/components/Password/PasswordInput';
 import { useStrength } from '@/hooks/useStrength';
@@ -34,7 +34,7 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
   const {
     handleSubmit,
     reset,
-    control,
+    setValue,
     register,
     watch,
     formState: { errors, isValid },
@@ -59,31 +59,21 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit(submitHandler)}
-      onReset={() => reset()}
-      autoComplete="on"
-      noValidate
-    >
-      <FormFields error={errors} register={register}>
-        <Controller
-          control={control}
-          name="country"
-          render={({ field: { onChange } }) => (
-            <Autocomplete
-              onChange={onChange}
-              renderInput={(props) => (
-                <FormInput
-                  name="country"
-                  label="Country"
-                  placeholder="Select country"
-                  error={errors.country?.message}
-                  {...props}
-                />
-              )}
+    <form onSubmit={handleSubmit(submitHandler)} onReset={() => reset()} noValidate>
+      <FormBaseFields error={errors} register={register}>
+        <Autocomplete
+          onChange={(query) => setValue('country', query, { shouldValidate: true })}
+          renderInput={(props) => (
+            <FormInput
+              name="country"
+              label="Country"
+              placeholder="Select country"
+              error={errors.country?.message}
+              {...props}
             />
           )}
         />
+
         <fieldset className={styles.fieldset}>
           <legend>Enter password</legend>
           <PasswordInput
@@ -92,8 +82,9 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
                 {...register('password')}
                 label="Password"
                 placeholder="Choose Password"
-                error={errors.password?.message}
                 strength={strength}
+                autoComplete="new-password"
+                error={errors.password?.message}
                 {...props}
               />
             )}
@@ -104,13 +95,14 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
                 {...register('confirmPassword')}
                 label="Confirmation"
                 placeholder="Confirm Password"
+                autoComplete="new-password"
                 error={errors.confirmPassword?.message}
                 {...props}
               />
             )}
           />
         </fieldset>
-      </FormFields>
+      </FormBaseFields>
       <FormButtons disabled={!isValid} />
     </form>
   );

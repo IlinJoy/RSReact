@@ -3,7 +3,7 @@ import { ValidationError } from 'yup';
 
 import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
-import { FormFields } from '@/components/Forms/ui/FormFields/FormFields';
+import { FormBaseFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
 import { PasswordInput } from '@/components/Password/PasswordInput';
 import { useStrength } from '@/hooks/useStrength';
@@ -48,7 +48,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
 
   return (
     <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on" noValidate>
-      <FormFields error={errors}>
+      <FormBaseFields error={errors}>
         <Autocomplete
           renderInput={(props) => (
             <FormInput
@@ -86,7 +86,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
             )}
           />
         </fieldset>
-      </FormFields>
+      </FormBaseFields>
 
       <FormButtons disabled={false} />
     </form>

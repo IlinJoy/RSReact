@@ -15,7 +15,7 @@ type FormFieldsProps = {
   register?: UseFormRegister<UserFormData>;
 };
 
-export function FormFields({ error, children, register }: FormFieldsProps) {
+export function FormBaseFields({ error, children, register }: FormFieldsProps) {
   const isControlled = !!register;
 
   const getFieldProps = (fieldName: keyof UserFormData) =>

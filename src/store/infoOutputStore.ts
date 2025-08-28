@@ -12,7 +12,7 @@ type InfoOutputActions = {
 };
 
 type InfoOutputState = {
-  infoOutput: InfoOutput[];
+  infoOutput: (InfoOutput & { id: string })[];
   actions: InfoOutputActions;
 };
 
@@ -22,7 +22,7 @@ export const useInfoOutputStore = create<InfoOutputState>((set) => ({
     setNewInfo: (data) =>
       set((state) => ({
         ...state,
-        infoOutput: [data, ...state.infoOutput],
+        infoOutput: [{ ...data, id: crypto.randomUUID() }, ...state.infoOutput],
       })),
   },
 }));
