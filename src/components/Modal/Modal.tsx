@@ -13,12 +13,12 @@ export type ModalContent = {
   children: ReactNode;
 };
 
-export type DialogProps = {
+export type ModalProps = {
   rootContainer?: Element;
   onClose: () => void;
 } & ModalContent;
 
-export function Modal({ onClose, title, children, rootContainer }: DialogProps) {
+export function Modal({ onClose, title, children, rootContainer }: ModalProps) {
   const { modalRef } = useFocus<HTMLDivElement>();
 
   useOnEscapeKey(onClose);

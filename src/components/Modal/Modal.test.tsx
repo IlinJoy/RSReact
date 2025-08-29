@@ -1,9 +1,9 @@
 import { screen } from '@testing-library/react';
 
-import { type DialogProps, Modal } from '@/components/Modal/Modal';
+import { Modal, type ModalProps } from '@/components/Modal/Modal';
 import { setupUserEvent } from '@/testUtils/setupRender';
 
-const setupModal = (props: Partial<DialogProps>) => {
+const setupModal = (props: Partial<ModalProps>) => {
   const onClose = vi.fn();
   const content = <div data-testid="content">Modal Content</div>;
   return {
