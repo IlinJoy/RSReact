@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { type FieldErrors, type UseFormRegister } from 'react-hook-form';
 
+import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FileInput } from '@/components/FileInput/FileInput';
 import { FormInput } from '@/components/Input/Input';
 import { HelperText } from '@/components/Input/ui/ErrorMessage';
@@ -42,6 +43,18 @@ export function FormBaseFields({ error, children, register }: FormFieldsProps) {
         placeholder="Email"
         label="Email"
         error={error.email?.message}
+      />
+      <Autocomplete
+        list="country-list"
+        renderInput={(props) => (
+          <FormInput
+            {...getFieldProps('country')}
+            label="Country"
+            placeholder="Select country"
+            error={error.country?.message}
+            {...props}
+          />
+        )}
       />
 
       {children}

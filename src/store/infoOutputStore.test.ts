@@ -15,6 +15,7 @@ const mockDataToSet: InfoOutput = {
   gender: 'male',
   form: 'controlled',
   image: 'image',
+  id: crypto.randomUUID(),
 };
 
 describe('InfoOutput Store', () => {
@@ -36,5 +37,6 @@ describe('InfoOutput Store', () => {
 
     const state = useInfoOutputStore.getState();
     expect(state.infoOutput).toHaveLength(1);
+    expect(state.infoOutput[0]).toEqual(mockDataToSet);
   });
 });

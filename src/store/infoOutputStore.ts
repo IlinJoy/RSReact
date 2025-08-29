@@ -5,6 +5,7 @@ import type { UserFormData } from '@/validation/formSchema';
 export type InfoOutput = Omit<UserFormData, 'image'> & {
   form: 'controlled' | 'uncontrolled';
   image: string;
+  id: string;
 };
 
 type InfoOutputActions = {
@@ -12,7 +13,7 @@ type InfoOutputActions = {
 };
 
 type InfoOutputState = {
-  infoOutput: (InfoOutput & { id: string })[];
+  infoOutput: InfoOutput[];
   actions: InfoOutputActions;
 };
 
@@ -22,7 +23,7 @@ export const useInfoOutputStore = create<InfoOutputState>((set) => ({
     setNewInfo: (data) =>
       set((state) => ({
         ...state,
-        infoOutput: [{ ...data, id: crypto.randomUUID() }, ...state.infoOutput],
+        infoOutput: [data, ...state.infoOutput],
       })),
   },
 }));

@@ -10,6 +10,9 @@ export function FormButtons({ disabled }: FormButtonsProps) {
       <Button type="submit" disabled={disabled}>
         Submit
       </Button>
+      <Button type="reset" className={styles.reset}>
+        Reset
+      </Button>
     </div>
   );
 }

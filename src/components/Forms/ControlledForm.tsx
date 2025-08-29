@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
-import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormBaseFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
@@ -10,6 +9,7 @@ import { PasswordInput } from '@/components/Password/PasswordInput';
 import { useStrength } from '@/hooks/useStrength';
 import type { InfoOutput } from '@/store/infoOutputStore';
 import { convertToBase64 } from '@/utils/convertToBase64';
+import { withId } from '@/utils/withId';
 import { formSchema, type UserFormData } from '@/validation/formSchema';
 
 import styles from './ui/FormFields/FormFields.module.scss';
@@ -34,7 +34,6 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
   const {
     handleSubmit,
     reset,
-    setValue,
     register,
     watch,
     formState: { errors, isValid },
@@ -55,25 +54,12 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
 
   const submitHandler = async ({ image, ...data }: UserFormData) => {
     const convertedImage = await convertToBase64(image);
-    onSubmit({ ...data, form: 'controlled', image: convertedImage });
+    onSubmit(withId({ ...data, form: 'controlled', image: convertedImage }));
   };
 
   return (
     <form onSubmit={handleSubmit(submitHandler)} onReset={() => reset()} noValidate>
       <FormBaseFields error={errors} register={register}>
-        <Autocomplete
-          onChange={(query) => setValue('country', query, { shouldValidate: true })}
-          renderInput={(props) => (
-            <FormInput
-              name="country"
-              label="Country"
-              placeholder="Select country"
-              error={errors.country?.message}
-              {...props}
-            />
-          )}
-        />
-
         <fieldset className={styles.fieldset}>
           <legend>Enter password</legend>
           <PasswordInput

@@ -1,7 +1,6 @@
 import { type FormEvent, useState } from 'react';
 import { ValidationError } from 'yup';
 
-import { Autocomplete } from '@/components/Autocomplete/Autocomplete';
 import { FormButtons } from '@/components/Forms/ui/FormButtons/FormButtons';
 import { FormBaseFields } from '@/components/Forms/ui/FormFields/FormFields';
 import { FormInput } from '@/components/Input/Input';
@@ -10,6 +9,7 @@ import { useStrength } from '@/hooks/useStrength';
 import type { InfoOutput } from '@/store/infoOutputStore';
 import { convertToBase64 } from '@/utils/convertToBase64';
 import { type ErrorState, mapFieldErrors } from '@/utils/mapFieldErrors';
+import { withId } from '@/utils/withId';
 import { formSchema } from '@/validation/formSchema';
 
 import styles from './ui/FormFields/FormFields.module.scss';
@@ -33,7 +33,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
       const { image, ...validatedData } = formSchema.validateSync(data, { abortEarly: false });
       const convertedImage = await convertToBase64(image);
 
-      onSubmit({ ...validatedData, image: convertedImage, form: 'uncontrolled' });
+      onSubmit(withId({ ...validatedData, image: convertedImage, form: 'uncontrolled' }));
     } catch (error) {
       if (error instanceof ValidationError) {
         setErrors(mapFieldErrors(error));
@@ -47,25 +47,15 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} onReset={handleReset} autoComplete="on" noValidate>
+    <form onSubmit={handleSubmit} onReset={handleReset} noValidate>
       <FormBaseFields error={errors}>
-        <Autocomplete
-          renderInput={(props) => (
-            <FormInput
-              name="country"
-              label="Country"
-              placeholder="Select country"
-              error={errors.country?.message}
-              {...props}
-            />
-          )}
-        />
         <fieldset className={styles.fieldset}>
           <legend>Enter password</legend>
           <PasswordInput
             renderInput={(props) => (
               <FormInput
                 name="password"
+                autoComplete="new-password"
                 label="Password"
                 placeholder="Choose Password"
                 error={errors.password?.message}
