@@ -19,13 +19,14 @@ export const getPasswordStrength = (password?: string) => {
 
 const calcStrengthByPercentage = (errorAmount: number, requirementsAmount: number) => {
   const percentage = (errorAmount / requirementsAmount) * 100;
+  console.log(percentage, errorAmount, requirementsAmount);
 
   switch (true) {
-    case percentage < 25:
+    case percentage <= 20:
       return STRENGTH_KEYS[2];
-    case percentage < 50:
+    case percentage <= 40:
       return STRENGTH_KEYS[1];
-    case percentage < 75:
+    case percentage <= 80:
       return STRENGTH_KEYS[0];
     default:
       return STRENGTH_KEYS[2];

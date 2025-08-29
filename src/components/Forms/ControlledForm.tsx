@@ -57,8 +57,13 @@ export function ControlledForm({ onSubmit }: ControlledFormProps) {
     onSubmit(withId({ ...data, form: 'controlled', image: convertedImage }));
   };
 
+  const handleReset = () => {
+    updateStrength('');
+    reset();
+  };
+
   return (
-    <form onSubmit={handleSubmit(submitHandler)} onReset={() => reset()} noValidate>
+    <form onSubmit={handleSubmit(submitHandler)} onReset={handleReset} noValidate>
       <FormBaseFields error={errors} register={register}>
         <fieldset className={styles.fieldset}>
           <legend>Enter password</legend>

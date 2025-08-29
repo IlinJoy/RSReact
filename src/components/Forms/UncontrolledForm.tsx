@@ -43,6 +43,7 @@ export function UncontrolledForm({ onSubmit }: UncontrolledFormProps) {
 
   const handleReset = (event: FormEvent<HTMLFormElement>) => {
     const form = event.currentTarget;
+    updateStrength('');
     form.reset();
   };
 
