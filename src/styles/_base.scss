@@ -1,0 +1,57 @@
+@use './mixins' as *;
+
+:root {
+  --spacing-0: 4px;
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-5: 40px;
+  --spacing-6: 48px;
+  --spacing-7: 56px;
+  --spacing-8: 64px;
+  --spacing-9: 72px;
+  --spacing-10: 88px;
+  --spacing-section: 100px;
+  --border-radius-1: 4px;
+  --border-radius-2: 8px;
+  --border-radius-3: 16px;
+  --container-m: 50rem;
+  --font-primary: 'Montserrat', sans-serif;
+  --color-background: #e1e0defa;
+  --color-background-light: #fff;
+  --color-accent: #6e0594;
+  --color-accent-dark: #570376;
+  --color-typography: #210f28;
+  --color-error: #dd3315;
+  --color-grey: #7b747e;
+}
+
+body {
+  @include transition($property: background-color);
+
+  scrollbar-gutter: stable;
+  background-color: var(--color-background);
+}
+
+body:has([data-modal='true']) {
+  overflow: hidden;
+}
+
+section {
+  width: 100%;
+  max-width: 1440px;
+  margin: auto;
+  padding: var(--spacing-3);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}

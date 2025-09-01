@@ -1,0 +1,13 @@
+@use '../../styles/mixins' as *;
+
+.header {
+  padding: var(--spacing-1);
+  border-bottom: solid 1px var(--color-grey);
+}
+
+.wrapper {
+  @include flex;
+
+  width: fit-content;
+  margin: auto;
+}

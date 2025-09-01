@@ -1,0 +1,81 @@
+@use '../../styles/mixins' as *;
+@use '../../styles/placeholders' as *;
+
+.wrapper {
+  @include flex(row, var(--spacing-1));
+
+  width: 100%;
+  margin-bottom: var(--spacing-1);
+
+  &.horizontal {
+    flex-direction: row;
+    width: fit-content;
+    margin-bottom: var(--spacing-1);
+  }
+}
+
+.label {
+  & span {
+    color: var(--color-accent);
+  }
+
+  &.file {
+    @extend %button;
+    @extend %button-main;
+
+    color: var(--color-background);
+  }
+}
+
+.input-wrapper {
+  position: relative;
+  width: inherit;
+
+  & button {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+
+    border-radius: 0;
+  }
+}
+
+.input {
+  width: inherit;
+  padding: var(--spacing-1);
+
+  @include transition;
+
+  &[type='file'] {
+    display: none;
+  }
+
+  &.error {
+    border: 1px solid var(--color-error);
+  }
+}
+
+.indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  width: 0%;
+  height: 2px;
+
+  &.bad {
+    width: 25%;
+    background-color: red;
+  }
+
+  &.medium {
+    width: 50%;
+    background-color: orange;
+  }
+
+  &.good {
+    width: 100%;
+    background-color: green;
+  }
+}
